@@ -1,0 +1,13 @@
+# Используйте официальный образ базового образа
+FROM ubuntu:latest
+
+# Установите необходимые программы
+RUN apt-get update && apt-get install -y \
+    nginx \
+    && rm -rf /var/lib/apt/lists/*
+
+# Откройте порт 80 для веб-сервера
+EXPOSE 80
+
+# Запустите команду при запуске контейнера
+CMD ["nginx", "-g", "daemon off;"]
