@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>User List</title>
+    <title>Data List</title>
 </head>
-<body>
-<h2>User List</h2>
-<table border="1">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Username</th>
-        <th>Password</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user : ${users}">
-        <td th:text="${user.id}"></td>
-        <td th:text="${user.username}"></td>
-        <td th:text="${user.password}"></td>
-    </tr>
-    </tbody>
-</table>
-</body>
+    <body>
+    <h2>Data List</h2>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Password</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="customsData : ${customsDataList}">
+            <td th:text="${customsData.id}"></td>
+            <td th:text="${customsData.username}"></td>
+            <td th:text="${customsData.password}"></td>
+        </tr>
+        </tbody>
+    </table>
+    </body>
 </html>

@@ -1,27 +1,38 @@
 package com.example.Beltamozh.controller;
 
+import com.example.Beltamozh.model.CustomsData;
 import com.example.Beltamozh.repository.UsersRepository;
-import com.example.Beltamozh.service.UsersService;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 
-@Controller
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/api/data")
 public class UsersController {
+
+    private final UsersRepository usersRepository;
     @Autowired
-    private UsersRepository usersRepository;
+    public UsersController(UsersRepository usersRepository) {
+        this.usersRepository = usersRepository;
+    }
     @GetMapping
-    public String main(Model model){
-        return "heww";
+    public List<CustomsData> getAllCustomsData() {
+        return usersRepository.findAll();
     }
 
-    @GetMapping("/users")
-    public String getAllUsers(Model model) {
-//        model.addAttribute("users", usersService.getAllUsers());
-        model.addAttribute("users", usersRepository.findAll());
-        return "users.html";
+
+    @PostMapping
+    public CustomsData addCustomsData(@RequestBody CustomsData customsData) {
+        return usersRepository.save(customsData);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CustomsData> getCustomsDataById(@PathVariable Long id) {
+        Optional<CustomsData> customsData = usersRepository.findById(id);
+        return customsData.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
-

@@ -23,12 +23,13 @@ dependencies {
 	// Зависимость для Spring Boot Starter Data JPA
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'javax.persistence:javax.persistence-api:2.2'
+	implementation 'org.projectlombok:lombok:1.18.26'
+	implementation 'org.modelmapper:modelmapper:2.4.4'
 
 	// Зависимость для PostgreSQL
 
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-//	compile("org.springframework.boot:spring-boot-starter-actuator")
 }
 
 tasks.named('test') {
