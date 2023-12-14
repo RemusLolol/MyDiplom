@@ -1,7 +1,10 @@
 package com.example.Beltamozh.repository;
 
-import com.example.Beltamozh.model.CustomsData;
+import com.example.Beltamozh.model.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UsersRepository extends JpaRepository<CustomsData, Long> {
+import java.util.List;
+
+public interface UsersRepository extends JpaRepository<Users, Long> {
+    List<Users> findByUsername(String username);
 }
