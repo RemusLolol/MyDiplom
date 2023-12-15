@@ -34,14 +34,15 @@ public class UsersController {
     public ModelAndView getAllCustomsData(Model model) {
         List<Users> customsDataList = usersRepository.findAll();
 
-        // Добавьте логирование
         logger.info("Retrieved {} customs data entries", customsDataList.size());
         logger.debug("Customs data: {}", customsDataList);
 
-        model.addAttribute("customsDataList", customsDataList);
+        // Используйте правильное имя атрибута в модели
+        model.addAttribute("usersList", customsDataList);
 
         return new ModelAndView("users");
     }
+
 
 
     @PostMapping
