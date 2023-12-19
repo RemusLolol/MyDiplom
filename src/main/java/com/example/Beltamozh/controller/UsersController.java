@@ -37,13 +37,10 @@ public class UsersController {
         logger.info("Retrieved {} customs data entries", customsDataList.size());
         logger.debug("Customs data: {}", customsDataList);
 
-        // Используйте правильное имя атрибута в модели
         model.addAttribute("usersList", customsDataList);
 
-        return new ModelAndView("users");
+        return new ModelAndView("users/public/index");
     }
-
-
 
     @PostMapping
     public Users addCustomsData(@RequestBody Users customsData) {
