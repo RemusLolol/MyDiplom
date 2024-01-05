@@ -1,87 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dropdown List with Scroll</title>
-  <style>
-    /* Styles for the dropdown */
-    .dropdown {
-      position: relative;
-      display: inline-block;
-    }
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="Styles/styleInputData.css">
+    <link rel="stylesheet" href="Styles/styleOutputData.css">
 
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #f9f9f9;
-      min-width: 300px;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-      z-index: 1;
-      max-height: 200px;
-      overflow-y: auto;
-    }
+    <script src="Scrypts/scrypts.js"></script>
+    <script defer src="Scrypts/scryptVisibleOutputData.js"></script>
 
-    .dropdown-content a {
-      color: black;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-    }
+    <title>Калькулятор</title>
+  </head>
+  <body>
+    <div class="boxToInterData">
+      <span class="label labelType">Тип:</span>
+      <span class="label labelSS">С\с товара:</span>
+      <span class="label labelWeight">Вес товара (в кг):</span>
+      <span class="label labelTamPoshl">Таможенная пошлина:</span>
+      <span class="label labelTranspRash">Транспортные расходы:</span>
 
-    .dropdown-content a:hover {
-      background-color: #f1f1f1;
-    }
+      <div class="styledSelect">
+        <select class="textBoxType">
+          <option value="option1">Опция 1</option>
+          <option value="option2">Опция 2</option>
+          <option value="option3">Опция 3</option>
+          <option value="option4">Опция 1</option>
+          <option value="option5">Опция 2</option>
+          <option value="option6">Опция 3</option>
+          <option value="option7">Опция 1</option>
+          <option value="option8">Опция 2</option>
+          <option value="option9">Опция 3</option>
+          <option value="option10">Опция 1</option>
+          <option value="option11">Опция 2</option>
+          <option value="option12">Опция 3</option>
+          <option value="option13">Опция 1</option>
+          <option value="option14">Опция 2</option>
+          <option value="option15">Опция 3</option>
+          <option value="option15">Опция 1</option>
+          <option value="option16">Опция 2</option>
+          <option value="option17">Опция 3</option>
+          <option value="option8">Опция 1</option>
+          <option value="option19">Опция 2</option>
+          <option value="option20">Опция 3</option>
+          <option value="option21">Опция 1</option>
+          <option value="option22">Опция 2</option>
+          <option value="option23">Опция 3</option>
+          <option value="option24">Опция 1</option>
+          <option value="option25">Опция 2</option>
+        </select>
+    </div>
 
-    .dropdown-content .category {
-      font-weight: bold;
-      padding: 8px 16px;
-    }
+      <input name="nameTextBoxSS" type="number" class="textBox textBoxSS">
+      <input type="number" class="textBox textBoxWeight">
+      <input type="number" class="textBox textBoxTamPoshl" id="textBoxTamPoshlID" readonly>
+      <input type="number" class="textBox textBoxTranspRash">
 
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
-  </style>
-</head>
-<body>
+      <button class="buttonLockOffOn" onclick="toggleReadOnlyAndChangeImage()"></button>
+      <button class="buttonGoRaschet" onclick="toggleVisibility()">РАССЧИТАТЬ</button>
+    </div>
 
-<table>
-  <tbody>
-  <tr>
-    <td>
-      <label for="tag">Тег: </label>
-    </td>
-    <td>
-      <div id="tag" class="dropdown">
-        <div>Выберите тег</div>
-        <div class="dropdown-content">
-          <a href="#">I. Живые животные; продукты животного происхождения</a>
-          <a href="#">II. Продукты растительного происхождения</a>
-          <a href="#">III. Жиры и масла животного или растительного происхождения и продукты их расщепления; готовые пищевые жиры; воски животного или растительного происхождения</a>
-          <a href="#">IV. Готовые пищевые продукты; алкогольные и безалкогольные напитки и уксус; табак и его заменители</a>
-          <a href="#">V. Минеральные продукты</a>
-          <a href="#">VI. Продукция химической и связанных с ней отраслей промышленности</a>
-          <a href="#">VII. Пластмассы и изделия из них; каучук, резина и изделия из них</a>
-          <a href="#">VIII. Необработанные шкуры, выделанная кожа, натуральный мех и изделия из них; шорно-седельные изделия и упряжь; дорожные принадлежности, дамские сумки и аналогичные им товары; изделия из кишок животных (кроме волокна из фиброина шелкопряда) </a>
-          <a href="#">IX. Древесина и изделия из нее; древесный уголь; пробка и изделия из нее; изделия из соломы, альфы или из прочих материалов для плетения; корзиночные и другие плетеные изделия</a>
-          <a href="#">X. Масса из древесины или из других волокнистых целлюлозных материалов; регенерируемые бумага или картон (макулатура и отходы); бумага, картон и изделия из них</a>
-          <a href="#">XI. Текстильные материалы и текстильные изделия </a>
-          <a href="#">XII. Обувь, головные уборы, зонты, солнцезащитные зонты, трости, трости-сиденья, хлысты, кнуты и их части; обработанные перья и изделия из них; искусственные цветы; изделия из человеческого волоса</a>
-          <a href="#">XIII. Изделия из камня, гипса, цемента, асбеста, слюды или аналогичных материалов; керамические изделия; стекло и изделия из него</a>
-          <a href="#">XIV. Жемчуг природный или культивированный, драгоценные или полудрагоценные камни, драгоценные металлы, металлы, плакированные драгоценными металлами, и изделия из них; бижутерия; монеты</a>
-          <a href="#">XV. Недрагоценные металлы и изделия из них</a>
-          <a href="#">XVI. Машины, оборудование и механизмы; электротехническое оборудование; их части; звукозаписывающая и звуковоспроизводящая аппаратура, аппаратура для записи и воспроизведения телевизионного изображения и звука, их части и принадлежности</a>
-          <a href="#">XVII. Средства наземного транспорта, летательные аппараты, плавучие средства и относящиеся к транспорту устройства и оборудование</a>
-          <a href="#">XVIII. Инструменты и аппараты оптические, фотографические, кинематографические, измерительные, контрольные, прецизионные, медицинские или хирургические; часы всех видов; музыкальные инструменты; их части и принадлежности</a>
-          <a href="#">XIX. Оружие и боеприпасы; их части и принадлежности</a>
-          <a href="#">XX. Разные промышленные товары</a>
-          <a href="#">XXI. Произведения искусства, предметы коллекционирования и антиквариат</a>
-        </div>
-      </div>
-    </td>
-  </tr>
-  </tbody>
-</table>
+    <div class="boxOutputData">
+      <span class="label labelExpl">Итоги расчетов:</span>
+      <span class="label labelItoRas">Итоговая с\с поставки:</span>
+      <span class="label labelItogRasPerOne">Итоговая с\с поставки (за единицу веса):</span>
 
-</body>
+      <button class="buttonSave">СОХРАНИТЬ</button>  
+    </div>
+
+  </body>
 </html>

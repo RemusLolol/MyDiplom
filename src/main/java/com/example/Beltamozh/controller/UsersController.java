@@ -39,7 +39,7 @@ public class UsersController {
 
         model.addAttribute("usersList", customsDataList);
 
-        return new ModelAndView("users/public/index");
+        return new ModelAndView("users/dist/index");
     }
 
     @PostMapping
