@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+body {
+    background-color: #000000;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+.boxToInterData {
+    position: absolute;
+    width: 500px;
+    height: 300px;
+    background: linear-gradient(to bottom, #1400FE, #0E00B3, #00B2FF);
+    border-radius: 35px;
+    left: 10px;
+    top: 10px;}  
+
+/*Лэйблы  */
+.label {
+    position: absolute;
+    color: #FFFFFF;
+    font-size: 16px;    
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;}
+.labelType { top: 35px; left: 10px; }
+.labelSS { top: 35px; left: 170px; }
+.labelWeight { top: 35px; left: 330px; }
+.labelTamPoshl { top: 100px; left: 10px; }
+.labelTranspRash { top: 160px; left: 10px; }
+
+/* ТекстБокы */
+.textBox {
+    position: absolute;
+    background-color: #4759FB;
+    stroke: none;
+    outline: none;
+    color: #FFFFFF;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+
+    border: none;
+    appearance: none;}
+.textBoxSS {  
+    top: 55px;  /* y */
+    left: 170px;  /* x */
+    height: 30px; 
+    width: 150px; }
+.textBoxWeight {  
+    top: 55px;
+    left: 330px;
+    height: 30px; 
+    width: 150px; }
+.textBoxTamPoshl {  
+    top: 120px;
+    left: 10px;
+    height: 30px; 
+    width: 150px; }
+.textBoxTranspRash {  
+    top: 180px;
+    left: 10px;
+    height: 30px; 
+    width: 150px; }
+
+.buttonGoRaschet {
+    position: absolute;
+    left: 140px;
+    top: 240px;
+    height: 40px;
+    width: 220px;
+    border-radius: 50px;
+    color: #ffffff;
+    background-color: #291BC7;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    appearance: none;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}   
+.buttonGoRaschet:hover {
+    opacity: 0.8;
+}
+
+.buttonLockOffOn {
+    position: absolute;
+    margin-left: 10px;
+    height: 30px;
+    width: 30px;
+    left: 160px;
+    top: 120px;
+    border: none;   
+    background: url('LockOffOn/redLockOff.png') no-repeat center center;
+    background-size: cover;
+    cursor: pointer;
+}
+
+/* Список с типами */
+.styledSelect {
+    position: relative;
+    width: 150px;
+    height: 30px;
+    top: 55px;
+    left: 10px;}
+.styledSelect select {
+    font-size: 10px;
+    color: #ffffff;
+    background-color: #4759FB;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+
+
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    appearance: none;
+    top: 55px;
+    left: 10px;
+    width: 150px;
+    height: 30px;}
+.styledSelect::before,
+.styledSelect::after {
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 5 5-5H0z' fill='%23f1f1f1'/%3E%3C/svg%3E");
+    position: absolute;
+    right: 10px;
+    width: 10px;
+    height: 6px;}
+.styledSelect::before {
+    top: 60%;
+    transform: translateY(-50%) rotate(180deg);}
+.styledSelect::after {
+    top: 40%;
+    transform: translateY(-50%);}
