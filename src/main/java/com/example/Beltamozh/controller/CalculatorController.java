@@ -33,6 +33,6 @@ public class CalculatorController {
     @ResponseBody
     public BigDecimal getTamposhl(@RequestParam String tamname) {
         BigDecimal tamposhl = productService.getTamposhlByTamname(tamname);
-        return tamposhl != null ? tamposhl : BigDecimal.ZERO;  // Можно задать значение по умолчанию
+        return tamposhl != null ? tamposhl : BigDecimal.ZERO;
     }
 }
