@@ -20,36 +20,15 @@
       <span class="label labelTamPoshl">Таможенная пошлина:</span>
       <span class="label labelTranspRash">Транспортные расходы:</span>
 
+
       <div class="styledSelect">
         <select class="textBoxType">
-          <option value="option1">Опция 1</option>
-          <option value="option2">Опция 2</option>
-          <option value="option3">Опция 3</option>
-          <option value="option4">Опция 1</option>
-          <option value="option5">Опция 2</option>
-          <option value="option6">Опция 3</option>
-          <option value="option7">Опция 1</option>
-          <option value="option8">Опция 2</option>
-          <option value="option9">Опция 3</option>
-          <option value="option10">Опция 1</option>
-          <option value="option11">Опция 2</option>
-          <option value="option12">Опция 3</option>
-          <option value="option13">Опция 1</option>
-          <option value="option14">Опция 2</option>
-          <option value="option15">Опция 3</option>
-          <option value="option15">Опция 1</option>
-          <option value="option16">Опция 2</option>
-          <option value="option17">Опция 3</option>
-          <option value="option8">Опция 1</option>
-          <option value="option19">Опция 2</option>
-          <option value="option20">Опция 3</option>
-          <option value="option21">Опция 1</option>
-          <option value="option22">Опция 2</option>
-          <option value="option23">Опция 3</option>
-          <option value="option24">Опция 1</option>
-          <option value="option25">Опция 2</option>
+          <option th:each="product : ${productsList}"
+                  th:value="${product.tamname}"
+                  th:text="${product.tamname}">
+          </option>
         </select>
-    </div>
+      </div>
 
       <input name="nameTextBoxSS" type="number" class="textBox textBoxSS">
       <input type="number" class="textBox textBoxWeight">

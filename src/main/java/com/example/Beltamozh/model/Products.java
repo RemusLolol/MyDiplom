@@ -5,25 +5,26 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.math.BigDecimal;
+
 @Entity
-public class Users {
+public class Products {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String username;
-    private String user_password;
+    private String tamname;
+    private BigDecimal tamposhl;
 
     public Long getId() {
         return id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getTamname() {
+        return tamname;
     }
 
-    public String getUser_password() {
-        return user_password;
+    public BigDecimal getTamposhl() {
+        return tamposhl;
     }
-
 }
