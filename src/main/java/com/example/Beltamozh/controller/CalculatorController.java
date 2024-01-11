@@ -4,9 +4,9 @@ package com.example.Beltamozh.controller;
 import com.example.Beltamozh.model.Products;
 import com.example.Beltamozh.service.ProductServices;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import java.util.Map;
 
 import java.util.List;
 import java.math.BigDecimal;
@@ -23,9 +23,9 @@ public class CalculatorController {
     }
 
     @GetMapping
-    public String getAllProducts(Model model) {
+    public String getAllProducts(Map<String, Object> map) {
         List<Products> products = productService.getAllProducts();
-        model.addAttribute("productsList", products);
+        map.put("productsList", products);
         return "calculator";
     }
 
