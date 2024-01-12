@@ -15,6 +15,7 @@
 
     <title>Калькулятор</title>
   </head>
+
   <body>
     <div class="boxToInterData">
       <span class="label labelType">Тип:</span>
@@ -33,10 +34,10 @@
         </select>
       </div>
 
-      <input name="nameTextBoxSS" type="number" class="textBox textBoxSS">
-      <input type="number" class="textBox textBoxWeight">
-      <input type="number" class="textBox textBoxTamPoshl" id="textBoxTamPoshlID" readonly>
-      <input type="number" class="textBox textBoxTranspRash">
+      <input type="number" name="textBoxSS" class="textBox textBoxSS">
+      <input type="number" name="textBoxWeight" class="textBox textBoxWeight">
+      <input type="number" name="textBoxTamPoshl" class="textBox textBoxTamPoshl" id="textBoxTamPoshlID" readonly>
+      <input type="number" name="textBoxTranspRash" class="textBox textBoxTranspRash">
 
       <button class="buttonLockOffOn" onclick="toggleReadOnlyAndChangeImage()"></button>
       <button class="buttonGoRaschet" onclick="toggleVisibility()">РАССЧИТАТЬ</button>
@@ -46,6 +47,9 @@
       <span class="label labelExpl">Итоги расчетов:</span>
       <span class="label labelItoRas">Итоговая с\с поставки:</span>
       <span class="label labelItogRasPerOne">Итоговая с\с поставки (за единицу веса):</span>
+
+      <span class="label labelOutRas" th:text="${totalWithNDS}"></span>
+      <span class="label labelOutRasPerOne"></span>
 
       <button class="buttonSave">СОХРАНИТЬ</button>  
     </div>

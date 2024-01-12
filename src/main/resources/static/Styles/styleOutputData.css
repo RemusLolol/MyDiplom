@@ -23,6 +23,8 @@
 .labelExpl {left: 10px; top : 20px;}
 .labelItoRas {left: 10px; top: 75px;}
 .labelItogRasPerOne {left: 10px; top: 115px;}
+.labelOutRas {left: 200px; top: 75px;}
+.labelOutRasPerOne {left: 350px; top: 115px;}
 
 .buttonSave{   
     position: absolute;
