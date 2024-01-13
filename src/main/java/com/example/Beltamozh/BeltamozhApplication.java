@@ -5,8 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class BeltamozhApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(BeltamozhApplication.class, args);
 	}
 }
+

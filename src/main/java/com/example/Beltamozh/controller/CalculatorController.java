@@ -8,10 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import org.springframework.ui.Model;
 
+import java.math.RoundingMode;
 import java.util.List;
 import java.math.BigDecimal;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/calculator")
@@ -38,21 +40,25 @@ public class CalculatorController {
         return tamposhl != null ? tamposhl : BigDecimal.ZERO;
     }
 
-    @PostMapping("/getDataFromHTML")
-    public String submitForm(@ModelAttribute CalculatorFormData CalculatorFormData, Map<String, Object> map) {
-        BigDecimal itogtamPoshl = CalculatorFormData.getNameTextBoxSS().multiply(CalculatorFormData.getTextBoxTamPoshl());
+    @PostMapping("/submitForm")
+    public String submitForm(@RequestBody Map<String, String> formData, Model model) {
+        BigDecimal textBoxSS = new BigDecimal(formData.get("textBoxSS"));
+        BigDecimal textBoxWeight = new BigDecimal(formData.get("textBoxWeight"));
+        BigDecimal textBoxTamPoshl = new BigDecimal(formData.get("textBoxTamPoshl"));
+        BigDecimal textBoxTranspRash = new BigDecimal(formData.get("textBoxTranspRash"));
 
-        BigDecimal totalItogSS=CalculatorFormData.getNameTextBoxSS().add(itogtamPoshl).add(CalculatorFormData.getTextBoxTranspRash());
+        CalculatorFormData calculatorFormData = new CalculatorFormData(textBoxSS, textBoxWeight, textBoxTamPoshl, textBoxTranspRash);
 
-        BigDecimal NDS = new BigDecimal("20");
-        BigDecimal NDSAmount = totalItogSS.multiply(NDS.divide(BigDecimal.valueOf(100)));
+        System.out.println("textBoxSS: " + calculatorFormData.getTextBoxSS());
+        System.out.println("textBoxWeight: " + calculatorFormData.getTextBoxWeight());
+        System.out.println("textBoxTamPoshl: " + calculatorFormData.getTextBoxTamPoshl());
+        System.out.println("textBoxTranspRash: " + calculatorFormData.getTextBoxTranspRash());
 
-        BigDecimal totalWithNDS = totalItogSS.add(NDSAmount);
-
-        System.out.println(totalWithNDS);
-
-        map.put("totalWithNDS", totalWithNDS);
-
-        return "calculator :: #boxOutputData"; // обновляем только часть страницы
+        BigDecimal totalWithNDS = calculatorFormData.calculateItogSS();
+        model.addAttribute("totalWithNDS", totalWithNDS);
+        return "redirect:/calculator";
     }
+
+
+
 }

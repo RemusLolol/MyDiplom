@@ -1,63 +1,33 @@
 package com.example.Beltamozh.model;
 
-import java.math.BigDecimal;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class CalculatorFormData {
-    private String nameType;
-    private BigDecimal nameTextBoxSS;
+    private BigDecimal textBoxSS;
     private BigDecimal textBoxWeight;
     private BigDecimal textBoxTamPoshl;
     private BigDecimal textBoxTranspRash;
 
-    public CalculatorFormData() {}
+    public BigDecimal calculateItogSS() {
+        BigDecimal itogtamPoshl = getTextBoxSS().multiply(getTextBoxTamPoshl());
 
-    public CalculatorFormData(String nameType, BigDecimal nameTextBoxSS, BigDecimal textBoxWeight, BigDecimal textBoxTamPoshl, BigDecimal textBoxTranspRash) {
-        this.nameType = nameType;
-        this.nameTextBoxSS = nameTextBoxSS;
-        this.textBoxWeight = textBoxWeight;
-        this.textBoxTamPoshl = textBoxTamPoshl;
-        this.textBoxTranspRash = textBoxTranspRash;
+        BigDecimal totalItogSS = getTextBoxSS().add(itogtamPoshl).add(getTextBoxTranspRash());
+
+        BigDecimal NDS = new BigDecimal("20");
+        BigDecimal NDSAmount = totalItogSS.multiply(NDS.divide(BigDecimal.valueOf(100), RoundingMode.HALF_UP));
+
+        BigDecimal totalWithNDS = totalItogSS.add(NDSAmount);
+
+        return totalWithNDS;
     }
-
-    public String getNameType() {
-        return nameType;
-    }
-
-    public BigDecimal getNameTextBoxSS() {
-        return nameTextBoxSS;
-    }
-
-    public BigDecimal getTextBoxWeight() {
-        return textBoxWeight;
-    }
-
-    public BigDecimal getTextBoxTamPoshl() {
-        return textBoxTamPoshl;
-    }
-
-    public BigDecimal getTextBoxTranspRash() {
-        return textBoxTranspRash;
-    }
-
-    public void setNameType(String nameType) {
-        this.nameType = nameType;
-    }
-
-    public void setNameTextBoxSS(BigDecimal nameTextBoxSS) {
-        this.nameTextBoxSS = nameTextBoxSS;
-    }
-
-    public void setTextBoxWeight(BigDecimal textBoxWeight) {
-        this.textBoxWeight = textBoxWeight;
-    }
-
-    public void setTextBoxTamPoshl(BigDecimal textBoxTamPoshl) {
-        this.textBoxTamPoshl = textBoxTamPoshl;
-    }
-
-    public void setTextBoxTranspRash(BigDecimal textBoxTranspRash) {
-        this.textBoxTranspRash = textBoxTranspRash;
-    }
-
-    
 }
