@@ -6,15 +6,12 @@ document.addEventListener('DOMContentLoaded', function() {
     textBoxTranspRash = document.querySelector('.textBoxTranspRash');
 });
 function toggleVisibility() {
-    // Получение данных формы
     var formData = {
         textBoxSS: textBoxSS.value,
         textBoxWeight: textBoxWeight.value,
         textBoxTamPoshl: textBoxTamPoshl.value,
         textBoxTranspRash: textBoxTranspRash.value
     };
-    console.log('formData:', formData);
-
     boxOutputData.classList.toggle("visible");
 
     fetch('/calculator/submitForm', {
@@ -25,8 +22,15 @@ function toggleVisibility() {
         },
         body: JSON.stringify(formData),
     })
-        .then(response => {
-            // ваш текущий код обработки ответа
+        .then(response => response.json())
+        .then(data => {
+            console.log('Response from server:', data);
+
+            if (data && data !== undefined) {
+                document.getElementById('result').innerText = data + " р.";
+            } else {
+                console.error('Unexpected response format from server.');
+            }
         })
         .catch((error) => {
             console.error('Error:', error);
