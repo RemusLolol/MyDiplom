@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.ui.Model;
 import java.util.List;
 import java.math.BigDecimal;
 import java.util.Map;
@@ -37,7 +36,7 @@ public class CalculatorController {
     }
 
     @PostMapping("/submitForm")
-    public ResponseEntity<BigDecimal> submitForm(@RequestBody Map<String, String> formData, Model model) {
+    public ResponseEntity<BigDecimal> submitForm(@RequestBody Map<String, String> formData) {
         BigDecimal textBoxSS = new BigDecimal(formData.get("textBoxSS"));
         BigDecimal textBoxWeight = new BigDecimal(formData.get("textBoxWeight"));
         BigDecimal textBoxTamPoshl = new BigDecimal(formData.get("textBoxTamPoshl"));

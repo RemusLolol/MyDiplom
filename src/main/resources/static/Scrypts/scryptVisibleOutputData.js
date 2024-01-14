@@ -25,12 +25,7 @@ function toggleVisibility() {
         .then(response => response.json())
         .then(data => {
             console.log('Response from server:', data);
-
-            if (data && data !== undefined) {
-                document.getElementById('result').innerText = data + " р.";
-            } else {
-                console.error('Unexpected response format from server.');
-            }
+            document.getElementById('result').innerText = data + " р.";
         })
         .catch((error) => {
             console.error('Error:', error);
