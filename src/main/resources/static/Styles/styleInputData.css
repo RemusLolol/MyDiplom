@@ -9,7 +9,7 @@ body {
     position: absolute;
     width: 500px;
     height: 300px;
-    background: linear-gradient(to bottom, #1400FE, #0E00B3, #00B2FF);
+    background: linear-gradient(to bottom, #1000C9, #0D019B, #00052A);
     border-radius: 35px;
     left: 10px;
     top: 10px;}  
@@ -30,7 +30,7 @@ body {
 /* ТекстБокы */
 .textBox {
     position: absolute;
-    background-color: #4759FB;
+    background-color: #293BDD;
     stroke: none;
     outline: none;
     color: #FFFFFF;
@@ -68,7 +68,7 @@ body {
     width: 220px;
     border-radius: 50px;
     color: #ffffff;
-    background-color: #291BC7;
+    background-color: #293BDD;
     font-family: 'Inter', sans-serif;
     font-size: 16px;
     font-weight: bold;
@@ -105,7 +105,7 @@ body {
 .styledSelect select {
     font-size: 10px;
     color: #ffffff;
-    background-color: #4759FB;
+    background-color: #293BDD;
     font-family: 'Inter', sans-serif;
     font-weight: bold;
 
@@ -131,3 +131,24 @@ body {
 .styledSelect::after {
     top: 40%;
     transform: translateY(-50%);}
+/* Стиль для уведомления */
+.validationMessage {
+    position: absolute;
+    height: 50px;
+    width: 300px;
+    top: 220px;
+    left: 530px;
+    background-color: #FF0000;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 10px;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: opacity 0.3s ease-in-out;
+}

@@ -1,18 +1,28 @@
-document.addEventListener('DOMContentLoaded', function() {
-    boxOutputData = document.querySelector(".boxOutputData");
-    textBoxSS = document.querySelector('.textBoxSS');
-    textBoxWeight = document.querySelector('.textBoxWeight');
-    textBoxTamPoshl = document.querySelector('.textBoxTamPoshl');
-    textBoxTranspRash = document.querySelector('.textBoxTranspRash');
-});
+var boxOutputData = document.querySelector(".boxOutputData");
+var validationMessage = document.getElementById("validationMessage");
+
 function toggleVisibility() {
+    var textBoxSSValue = document.querySelector('.textBoxSS').value;
+    var textBoxWeightValue = document.querySelector('.textBoxWeight').value;
+    var textBoxTamPoshlValue = document.querySelector('.textBoxTamPoshl').value;
+    var textBoxTranspRashValue = document.querySelector('.textBoxTranspRash').value;
+
+    if (textBoxSSValue === '' || textBoxWeightValue === '' || textBoxTamPoshlValue === '' || textBoxTranspRashValue === '') {
+        validationMessage.innerText = "Пожалуйста, заполните все поля";
+        validationMessage.style.backgroundColor = "#FF0000";
+        validationMessage.style.opacity = 1;
+        setTimeout(function () {
+            validationMessage.style.opacity = 0;
+        }, 2000);
+        return;
+    }
+
     var formData = {
-        textBoxSS: textBoxSS.value,
-        textBoxWeight: textBoxWeight.value,
-        textBoxTamPoshl: textBoxTamPoshl.value,
-        textBoxTranspRash: textBoxTranspRash.value
+        textBoxSS: textBoxSSValue,
+        textBoxWeight: textBoxWeightValue,
+        textBoxTamPoshl: textBoxTamPoshlValue,
+        textBoxTranspRash: textBoxTranspRashValue
     };
-    boxOutputData.classList.toggle("visible");
 
     fetch('/calculator/submitForm', {
         method: 'POST',
@@ -25,9 +35,27 @@ function toggleVisibility() {
         .then(response => response.json())
         .then(data => {
             console.log('Response from server:', data);
-            document.getElementById('result').innerText = data + " р.";
+
+            var isVisible = boxOutputData.classList.contains("visible");
+
+            if (isVisible) {
+                document.getElementById('result').innerText = data + " р.";
+            } else {
+                document.getElementById('result').innerText = data + " р.";
+
+                validationMessage.innerText = "Расчет произвелся успешно";
+                validationMessage.style.backgroundColor = "#00FF00";
+                validationMessage.style.opacity = 1;
+                setTimeout(function () {
+                    validationMessage.style.opacity = 0;
+                }, 2000);
+                boxOutputData.classList.add("visible");
+
+            }
         })
+
         .catch((error) => {
             console.error('Error:', error);
         });
+
 }
