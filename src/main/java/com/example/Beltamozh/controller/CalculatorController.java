@@ -35,7 +35,7 @@ public class CalculatorController {
         return tamposhl != null ? tamposhl : BigDecimal.ZERO;
     }
 
-    @PostMapping("/submitForm")
+    @PostMapping(value = "/submitForm", params = "!_")
     public ResponseEntity<BigDecimal> submitForm(@RequestBody Map<String, String> formData) {
         BigDecimal textBoxSS = new BigDecimal(formData.get("textBoxSS"));
         BigDecimal textBoxWeight = new BigDecimal(formData.get("textBoxWeight"));

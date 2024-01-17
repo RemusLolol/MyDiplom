@@ -27,7 +27,13 @@ public class CalculatorFormData {
         BigDecimal NDSAmount = totalItogSS.multiply(NDS.divide(BigDecimal.valueOf(100), RoundingMode.HALF_UP));
 
         BigDecimal totalWithNDS = totalItogSS.add(NDSAmount);
-
         return totalWithNDS;
+    }
+
+    public String getInfo() {
+        return "SS: " + getTextBoxSS() + " " +
+                " Weight: " + getTextBoxWeight()+
+                " TamPoshl: " + getTextBoxTamPoshl()+
+                " TransRash: " + getTextBoxTranspRash();
     }
 }

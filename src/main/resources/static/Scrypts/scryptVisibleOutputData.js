@@ -6,7 +6,6 @@ function toggleVisibility() {
     var textBoxWeightValue = document.querySelector('.textBoxWeight').value;
     var textBoxTamPoshlValue = document.querySelector('.textBoxTamPoshl').value;
     var textBoxTranspRashValue = document.querySelector('.textBoxTranspRash').value;
-
     if (textBoxSSValue === '' || textBoxWeightValue === '' || textBoxTamPoshlValue === '' || textBoxTranspRashValue === '') {
         validationMessage.innerText = "Пожалуйста, заполните все поля";
         validationMessage.style.backgroundColor = "#FF0000";
@@ -35,27 +34,19 @@ function toggleVisibility() {
         .then(response => response.json())
         .then(data => {
             console.log('Response from server:', data);
-
-            var isVisible = boxOutputData.classList.contains("visible");
-
-            if (isVisible) {
-                document.getElementById('result').innerText = data + " р.";
-            } else {
-                document.getElementById('result').innerText = data + " р.";
-
-                validationMessage.innerText = "Расчет произвелся успешно";
-                validationMessage.style.backgroundColor = "#00FF00";
-                validationMessage.style.opacity = 1;
-                setTimeout(function () {
-                    validationMessage.style.opacity = 0;
-                }, 2000);
-                boxOutputData.classList.add("visible");
-
-            }
+            var result = data.toFixed(2);
+            document.getElementById('result').innerText = result + " р.";
+            var resultPerWeight = (data / textBoxWeightValue).toFixed(2);
+            document.getElementById('resultPerWeight').innerText = resultPerWeight + " р.";
+            validationMessage.innerText = "Расчет произвелся успешно";
+            validationMessage.style.backgroundColor = "#00FF00";
+            validationMessage.style.opacity = 1;
+            setTimeout(function () {
+                validationMessage.style.opacity = 0;
+            }, 2000);
+            boxOutputData.classList.add("visible");
         })
-
         .catch((error) => {
             console.error('Error:', error);
         });
-
 }
