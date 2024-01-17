@@ -19,15 +19,10 @@ public class CalculatorFormData {
     private BigDecimal textBoxTranspRash;
 
     public BigDecimal calculateItogSS() {
-        BigDecimal itogtamPoshl = getTextBoxSS().multiply(getTextBoxTamPoshl());
-
-        BigDecimal totalItogSS = getTextBoxSS().add(itogtamPoshl).add(getTextBoxTranspRash());
-
-        BigDecimal NDS = new BigDecimal("20");
-        BigDecimal NDSAmount = totalItogSS.multiply(NDS.divide(BigDecimal.valueOf(100), RoundingMode.HALF_UP));
-
-        BigDecimal totalWithNDS = totalItogSS.add(NDSAmount);
-        return totalWithNDS;
+        BigDecimal nds = getTextBoxSS().multiply(BigDecimal.valueOf(20.00)).divide(BigDecimal.valueOf(100.00));
+        BigDecimal tamPoshl = getTextBoxSS().multiply(getTextBoxTamPoshl()).divide(BigDecimal.valueOf(100.00));
+        BigDecimal totalSS = getTextBoxSS().add(nds).add(tamPoshl).add(getTextBoxTranspRash());
+        return totalSS;
     }
 
     public String getInfo() {

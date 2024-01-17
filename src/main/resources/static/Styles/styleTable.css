@@ -1,0 +1,16 @@
+table {
+    width: 1200px;
+    height: 260px;
+    position: absolute;
+    top: 450px;
+    left: 20px;
+    border-collapse: collapse;
+    border: 1px solid #000; /* Граница таблицы */
+}
+
+/* Стиль для ячеек таблицы */
+td, th {
+    border: 1px solid #000; /* Граница ячеек */
+    padding: 10px;
+    text-align: center;
+}

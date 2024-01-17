@@ -4,10 +4,17 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+
 public class Products {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,30 +22,4 @@ public class Products {
 
     private String tamname;
     private BigDecimal tamposhl;
-
-    public Products () {}
-
-    public Products (Long id, String tamname, BigDecimal tamposhl){
-        this.id = id;
-        this.tamname = tamname;
-        this.tamposhl = tamposhl;
-    }
-    public Products(String tamname, BigDecimal tamposhl){
-        this.tamname = tamname;
-        this.tamposhl = tamposhl;
-    }
-
-    public Long getId() {
-        return id;
-    }
-    public String getTamname() {
-        return tamname;
-    }
-    public BigDecimal getTamposhl() {
-        return tamposhl;
-    }
-
-    public void setId (Long id) {this.id = id;}
-    public void setTamname (String tamname) {this.tamname = tamname;}
-    public void setTamposhl (BigDecimal tamposhl) {this.tamposhl = tamposhl;}
 }
