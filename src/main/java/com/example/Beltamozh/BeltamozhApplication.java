@@ -9,4 +9,3 @@ public class BeltamozhApplication {
 		SpringApplication.run(BeltamozhApplication.class, args);
 	}
 }
-
