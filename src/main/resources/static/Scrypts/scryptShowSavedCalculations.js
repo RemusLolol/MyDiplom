@@ -1,10 +1,12 @@
 function showSavedCalculations() {
     clearTable();
-
+        
     fetch('/calculator/getAllSavesOperations')
         .then(response => response.json())
         .then(data => {
             fillTable(data);
+            validationMessage.innerText = "Таблица отображена";
+            validationMessage.style.backgroundColor = "#00FF00";
 
             $('table').css('visibility', 'visible');
             $('#buttosShow').text('Обновить таблицу');

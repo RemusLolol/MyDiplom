@@ -1,5 +1,5 @@
 function saveData() {
-    var textBoxSSValue = document.querySelector('.textBoxSS').value;
+    var selectedType = document.querySelector('.textBoxType').value;
     var textBoxWeightValue = document.querySelector('.textBoxWeight').value;
     var textBoxTamPoshlValue = document.querySelector('.textBoxTamPoshl').value;
     var textBoxTranspRashValue = document.querySelector('.textBoxTranspRash').value;
@@ -7,7 +7,7 @@ function saveData() {
     var resultPerWeightValue = $('#resultPerWeight').text().replace(' р.', '');
 
     var formData = {
-        typetam: textBoxSSValue,
+        typetam: selectedType,
         tamposhl: textBoxWeightValue,
         transprash: textBoxTamPoshlValue,
         weightprod: textBoxTranspRashValue,
@@ -25,6 +25,8 @@ function saveData() {
         .then(response => response.json())
         .then(data => {
             console.log('Данные успешно сохранены на сервере:', data);
+            validationMessage.innerText = "Данные сохранены успешно";
+            validationMessage.style.backgroundColor = "#00FF00";
         })
         .catch(error => {
             console.error('Ошибка при сохранении данных:', error);
