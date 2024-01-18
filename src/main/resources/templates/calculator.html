@@ -9,6 +9,8 @@
     <script src="/Scrypts/scrypts.js"></script>
     <script defer src="/Scrypts/scryptCalculate.js"></script>
     <script src="/Scrypts/scryptSaves.js"></script>
+    <script src="/Scrypts/scryptShowSavedCalculations.js"></script>
+    <script src="/Scrypts/scryptHideTable.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="Scrypts/scriptChangeType.js"></script>
     <title>Калькулятор</title>
@@ -46,6 +48,8 @@
     </div>
     <div id="validationMessage" class="validationMessage"></div>
     <div>
+      <button id="buttosShow" class="buttosShowTable" onclick="showSavedCalculations()">Показать сохраненные расчеты</button>
+      <button id="buttonHide" class="buttonHideTable" onclick="hideTable()">Скрыть таблицу</button>
       <table>
         <thead>
         <tr>

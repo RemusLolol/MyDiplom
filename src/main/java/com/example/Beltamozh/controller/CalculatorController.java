@@ -6,6 +6,7 @@ import com.example.Beltamozh.model.Savesoperations;
 import com.example.Beltamozh.service.ProductServices;
 import com.example.Beltamozh.model.CalculatorFormData;
 import com.example.Beltamozh.service.SavesOperationsService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,4 +77,16 @@ public class CalculatorController {
         Savesoperations savedData = savesOperationsService.saveOrUpdateSavesOperations(savesOperations);
         return ResponseEntity.ok(savedData);
     }
+
+    @GetMapping("/getAllSavesOperations")
+    public ResponseEntity<List<Savesoperations>> getAllSavesOperations() {
+        try {
+            List<Savesoperations> savesOperationsList = savesOperationsService.getAllSavesOperations();
+            return ResponseEntity.ok(savesOperationsList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 }

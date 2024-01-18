@@ -1,16 +1,86 @@
+.buttosShowTable{
+    position: absolute;
+    left: 10px;
+    top: 330px;
+    width: 250px;
+    height: 65px;
+    border-radius: 50px;
+    background-color: #291BC7;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    appearance: none;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+.buttosShowTable:hover {
+    opacity: 0.8;
+}
+.buttonHideTable{
+    position: absolute;
+    left: 280px;
+    top: 330px;
+    width: 250px;
+    height: 65px;
+    border-radius: 50px;
+    background-color: #291BC7;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    appearance: none;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+    visibility: hidden;
+}
+.buttonHideTable:hover{
+    opacity: 0.8;
+}
+
+/*.buttonUpdateTable{*/
+/*    position: absolute;*/
+/*    left: 280px;*/
+/*    top: 330px;*/
+/*    width: 250px;*/
+/*    height: 65px;*/
+/*    border-radius: 50px;*/
+/*    background-color: #291BC7;*/
+/*    color: #ffffff;*/
+/*    font-family: 'Inter', sans-serif;*/
+/*    font-size: 16px;*/
+/*    font-weight: bold;*/
+/*    cursor: pointer;*/
+/*    border: none;*/
+/*    appearance: none;*/
+/*    opacity: 1;*/
+/*    transition: opacity 0.3s ease-in-out;*/
+/*    visibility: hidden;*/
+/*}*/
+/*.buttonUpdateTable:hover{*/
+/*    opacity: 0.8;*/
+/*}*/
+
+/* Стиль для таблицы */
 table {
     width: 1200px;
-    height: 260px;
     position: absolute;
     top: 450px;
     left: 20px;
     border-collapse: collapse;
-    border: 1px solid #000; /* Граница таблицы */
+    visibility: hidden;
+    border: 1px solid #000;
 }
 
 /* Стиль для ячеек таблицы */
 td, th {
-    border: 1px solid #000; /* Граница ячеек */
+    border: 1px solid #000;
     padding: 10px;
     text-align: center;
+    background-color: #fff;
+    color: #000;
 }
