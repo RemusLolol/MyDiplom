@@ -46,9 +46,10 @@ public class CalculatorController {
         BigDecimal textBoxSS = new BigDecimal(formData.get("textBoxSS"));
         BigDecimal textBoxWeight = new BigDecimal(formData.get("textBoxWeight"));
         BigDecimal textBoxTamPoshl = new BigDecimal(formData.get("textBoxTamPoshl"));
-        BigDecimal textBoxTranspRash = new BigDecimal(formData.get("textBoxTranspRash"));
+        BigDecimal textBoxTranspRashoDoGra = new BigDecimal(formData.get("textBoxTranspRashoDoGra"));
+        BigDecimal textBoxTranspRashoPosleGra = new BigDecimal((formData.get("textBoxTranspRashoPosleGra")));
 
-        CalculatorFormData calculatorFormData = new CalculatorFormData(textBoxSS, textBoxWeight, textBoxTamPoshl, textBoxTranspRash);
+        CalculatorFormData calculatorFormData = new CalculatorFormData(textBoxSS, textBoxWeight, textBoxTamPoshl, textBoxTranspRashoDoGra,textBoxTranspRashoPosleGra );
 
         BigDecimal totalWithNDS = calculatorFormData.calculateItogSS();
         System.out.println("totalWithNDS: " + totalWithNDS);

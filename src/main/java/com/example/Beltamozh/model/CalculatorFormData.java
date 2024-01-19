@@ -15,12 +15,14 @@ public class CalculatorFormData {
     private BigDecimal textBoxSS;
     private BigDecimal textBoxWeight;
     private BigDecimal textBoxTamPoshl;
-    private BigDecimal textBoxTranspRash;
+    private BigDecimal textBoxTranspRashoDoGra;
+    private BigDecimal textBoxTranspRashoPosleGra;
 
     public BigDecimal calculateItogSS() {
         BigDecimal nds = getTextBoxSS().multiply(BigDecimal.valueOf(20.00)).divide(BigDecimal.valueOf(100.00));
         BigDecimal tamPoshl = getTextBoxSS().multiply(getTextBoxTamPoshl()).divide(BigDecimal.valueOf(100.00));
-        BigDecimal totalSS = getTextBoxSS().add(nds).add(tamPoshl).add(getTextBoxTranspRash());
+        BigDecimal transpRash = getTextBoxTranspRashoDoGra().add(textBoxTranspRashoPosleGra);
+        BigDecimal totalSS = getTextBoxSS().add(nds).add(tamPoshl).add(transpRash);
         return totalSS;
     }
 
@@ -28,6 +30,7 @@ public class CalculatorFormData {
         return "SS: " + getTextBoxSS() + " " +
                 " Weight: " + getTextBoxWeight()+
                 " TamPoshl: " + getTextBoxTamPoshl()+
-                " TransRash: " + getTextBoxTranspRash();
+                " TransRashoDoGra: " + getTextBoxTranspRashoDoGra() +
+                " TransRashoPosleGra: " + getTextBoxTranspRashoPosleGra();
     }
 }

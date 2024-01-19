@@ -1,19 +1,20 @@
 function saveData() {
     var selectedType = document.querySelector('.textBoxType').value;
-    var textBoxWeightValue = document.querySelector('.textBoxWeight').value;
     var textBoxTamPoshlValue = document.querySelector('.textBoxTamPoshl').value;
     var textBoxTranspRashValue = document.querySelector('.textBoxTranspRash').value;
+    var textBoxWeightValue = document.querySelector('.textBoxWeight').value;
     var resultValue = $('#result').text().replace(' р.', '');
     var resultPerWeightValue = $('#resultPerWeight').text().replace(' р.', '');
 
     var formData = {
         typetam: selectedType,
-        tamposhl: textBoxWeightValue,
-        transprash: textBoxTamPoshlValue,
-        weightprod: textBoxTranspRashValue,
+        tamposhl: textBoxTamPoshlValue,
+        transprash: textBoxTranspRashValue,
+        weightprod: textBoxWeightValue,
         itogss: resultValue,
         itogssperweight: resultPerWeightValue
     };
+    console.log(formData);
     fetch('/calculator/saveData', {
         method: 'POST',
         headers: {

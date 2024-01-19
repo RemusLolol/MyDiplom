@@ -21,7 +21,8 @@
       <span class="label labelSS">С\с товара:</span>
       <span class="label labelWeight">Вес товара (в кг):</span>
       <span class="label labelTamPoshl">Таможенная пошлина:</span>
-      <span class="label labelTranspRash">Транспортные расходы:</span>
+      <span class="label labelTranspRashDoGra">Транспортные расходы до границы:</span>
+      <span class="label labelTranspRashPosleGra">Транспортные расходы после границы:</span>
       <div class="styledSelect">
         <select class="textBoxType">
           <option th:each="product : ${productsList}"
@@ -33,7 +34,8 @@
       <input type="number" name="textBoxSS" class="textBox textBoxSS">
       <input type="number" name="textBoxWeight" class="textBox textBoxWeight">
       <input type="number" name="textBoxTamPoshl" class="textBox textBoxTamPoshl" id="textBoxTamPoshlID" readonly>
-      <input type="number" name="textBoxTranspRash" class="textBox textBoxTranspRash">
+      <input type="number" name="textBoxTranspRashoDoGra" class="textBox textBoxTranspRashoDoGra">
+      <input type="number" name="textBoxTranspRashoPosleGra" class="textBox textBoxTranspRashoPosleGra">
       <button class="buttonLockOffOn" onclick="toggleReadOnlyAndChangeImage()"></button>
       <button class="buttonGoRaschet" onclick="toggleVisibility()">РАССЧИТАТЬ</button>
     </div>
@@ -42,6 +44,10 @@
       <span class="label labelExpl">Итоги расчетов:</span>
       <span class="label labelItoRas" >Итоговая с\с поставки:</span>
       <span class="label labelItogRasPerOne">Итоговая с\с поставки (за единицу веса):</span>
+      <span class="label labelNDS">НДС:</span>
+      <span class="label labelTamPoshl2">Таможенная пошлина:</span>
+      <span class="label labelItogNDS" id="resultNDS"></span>
+      <span class="label labelItogTamPoshl" id="resultTamPoshl"></span>
       <span class="label labelOutRas" id="result"></span>
       <span class="label labelOutRasPerOne" id="resultPerWeight"></span>
       <button class="buttonSave" onclick="saveData()">СОХРАНИТЬ</button>

@@ -7,7 +7,7 @@ body {
 }
 .boxToInterData {
     position: absolute;
-    width: 500px;
+    width: 680px;
     height: 300px;
     background: linear-gradient(to bottom, #1000C9, #0D019B, #00052A);
     border-radius: 35px;
@@ -18,15 +18,15 @@ body {
 .label {
     position: absolute;
     color: #FFFFFF;
-    font-size: 16px;    
+    font-size: 16px;
     font-family: 'Inter', sans-serif;
     font-weight: bold;}
 .labelType { top: 35px; left: 10px; }
 .labelSS { top: 35px; left: 170px; }
 .labelWeight { top: 35px; left: 330px; }
 .labelTamPoshl { top: 100px; left: 10px; }
-.labelTranspRash { top: 160px; left: 10px; }
-
+.labelTranspRashDoGra { top: 160px; left: 10px}
+.labelTranspRashPosleGra {top:160px; left: 330px}
 /* ТекстБокы */
 .textBox {
     position: absolute;
@@ -54,11 +54,17 @@ body {
     left: 10px;
     height: 30px; 
     width: 150px; }
-.textBoxTranspRash {  
+.textBoxTranspRashoDoGra {
     top: 180px;
     left: 10px;
     height: 30px; 
     width: 150px; }
+.textBoxTranspRashoPosleGra{
+    top: 180px;
+    left: 330px;
+    height: 30px;
+    width: 150px;
+}
 
 .buttonGoRaschet {
     position: absolute;
@@ -135,7 +141,7 @@ body {
     position: absolute;
     height: 50px;
     width: 300px;
-    top: 220px;
+    top: 320px;
     left: 530px;
     background-color: #FF0000;
     color: #FFFFFF;
