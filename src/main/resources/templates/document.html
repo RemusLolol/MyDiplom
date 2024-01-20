@@ -7,7 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
 <body>
-<div class="container border mt-4 mb-4 col-md-8">
+<div class="container border mt-4 mb-4">
     <form role="form" class="form-horizontal">
         <div class="question my-3">
             <p class="h6">
@@ -134,30 +134,28 @@
             <p></p>
             <div class="form-group">
                 <label class="w-100">
-                    <input type="number" placeholder="Введите цену" class="w-75">
+                    <input id="OsnForRasch11" type="number" placeholder="Введите цену" class="w-75">
                 </label>
             </div>
             <label>Валюта счета:</label>
-            <select class="form-select form-select-sm" aria-label=".form-select-sm">
-                <option>USD</option>
-                <option>EUR</option>
-                <option>BYN</option>
+            <select class="form-select form-select-sm" aria-label=".form-select-sm" id="currencySelector">
             </select>
-            <label class="control-label">в НАЦИОНАЛЬНОЙ ВАЛЮТЕ (курс пересчета)</label>
+            <label id="labelPeresch"> class="control-label">В НАЦИОНАЛЬНОЙ ВАЛЮТЕ </label>
         </div>
 
+        <script src="../static/Scrypts/scryptForDocument.js"></script>
 
         <div class="question my-3">
             <p class="h6">(б) Косвенные платежи (условия или обязательства) в НАЦИОНАЛЬНОЙ ВАЛЮТЕ (курс пересчета)</p>
             <p></p>
             <div class="form-group">
                 <label class="w-100">
-                    <input type="number" placeholder="Введите" class="w-75">
+                    <input id="OsnForRasch11b" type="number" placeholder="Введите" class="w-75">
                 </label>
             </div>
         </div>
         <div class="question my-3">
-            <label class="h5">12) Итого по разделам "а" и "б" графы 11 в национальной валюте</label>
+            <label id="itogOsn" class="h5">12) Итого по разделам "а" и "б" графы 11 в национальной валюте:</label>
         </div>
 
         <div class="form-group">
@@ -168,7 +166,7 @@
             <p></p>
             <div class="form-group">
                 <label class="w-100">
-                    <input type="number" placeholder="Введите" class="w-75">
+                    <input id="Dop13" type="number" placeholder="Введите" class="w-75">
                 </label>
             </div>
         </div>
@@ -177,7 +175,7 @@
             <p></p>
             <div class="form-group">
                 <label class="w-100">
-                    <input type="number" placeholder="Введите" class="w-75">
+                    <input id="Dop13b" type="number" placeholder="Введите" class="w-75">
                 </label>
             </div>
         </div>
@@ -188,7 +186,7 @@
             <p></p>
             <div class="form-group">
                 <label class="w-100">
-                    <input type="number" placeholder="Введите" class="w-75">
+                    <input id="Dop14" type="number" placeholder="Введите" class="w-75">
                 </label>
             </div>
         </div>
@@ -197,7 +195,7 @@
             <p></p>
             <div class="form-group">
                 <label class="w-100">
-                    <input type="number" placeholder="Введите" class="w-75">
+                    <input id="Dop14a" type="number" placeholder="Введите" class="w-75">
                 </label>
             </div>
         </div>
@@ -206,7 +204,7 @@
             <p></p>
             <div class="form-group">
                 <label class="w-100">
-                    <input type="number" placeholder="Введите" class="w-75">
+                    <input id="Dop14b" type="number" placeholder="Введите" class="w-75">
                 </label>
             </div>
         </div>
@@ -215,7 +213,7 @@
             <p></p>
             <div class="form-group">
                 <label class="w-100">
-                    <input type="number" placeholder="Введите" class="w-75">
+                    <input id="Dop14v" type="number" placeholder="Введите" class="w-75">
                 </label>
             </div>
         </div>
@@ -225,16 +223,7 @@
             <p></p>
             <div class="form-group">
                 <label class="w-100">
-                    <input type="number" placeholder="Введите" class="w-75">
-                </label>
-            </div>
-        </div>
-        <div class="question my-3">
-            <p class="h6">(в) Материалы, израсходованные при производстве ввозимых товаров:</p>
-            <p></p>
-            <div class="form-group">
-                <label class="w-100">
-                    <input type="number" placeholder="Введите" class="w-75">
+                    <input id="Dop14g" type="number" placeholder="Введите" class="w-75">
                 </label>
             </div>
         </div>
@@ -243,7 +232,7 @@
             <p></p>
             <div class="form-group">
                 <label class="w-100">
-                    <input type="number" placeholder="Введите" class="w-75">
+                    <input id="Dop15" type="number" placeholder="Введите" class="w-75">
                 </label>
             </div>
         </div>
@@ -253,7 +242,7 @@
             <p></p>
             <div class="form-group">
                 <label class="w-100">
-                    <input type="number" placeholder="Введите" class="w-75">
+                    <input id="Dop16" type="number" placeholder="Введите" class="w-75">
                 </label>
             </div>
         </div>
@@ -262,7 +251,7 @@
             <p></p>
             <div class="form-group">
                 <label class="w-100">
-                    <input type="number" placeholder="Введите" class="w-75">
+                    <input id="Dop17" type="number" placeholder="Введите" class="w-75">
                 </label>
             </div>
         </div>
@@ -271,7 +260,7 @@
             <p></p>
             <div class="form-group">
                 <label class="w-100">
-                    <input type="number" placeholder="Введите" class="w-75">
+                    <input id="Dop18" type="number" placeholder="Введите" class="w-75">
                 </label>
             </div>
         </div>
@@ -280,21 +269,16 @@
             <p></p>
             <div class="form-group">
                 <label class="w-100">
-                    <input type="number" placeholder="Введите" class="w-75">
+                    <input id="Dop19" type="number" placeholder="Введите" class="w-75">
                 </label>
             </div>
         </div>
         <div class="question my-3">
-            <p class="h6">20) Итого по графам 13 - 19 в национальной валюте:</p>
+            <p id="itogoDop" class="h6">20) Итого по графам 13 - 19 в национальной валюте: </p>
             <p></p>
-            <div class="form-group">
-                <label class="w-100">
-                    <input type="number" placeholder="Введите" class="w-75">
-                </label>
-            </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group">~
             <span class="fs-4">ВЫЧЕТЫ в национальной валюте:</span>
         </div>
         <div class="question my-3">
@@ -303,7 +287,7 @@
             <p></p>
             <div class="form-group">
                 <label class="w-100">
-                    <input type="number" placeholder="Введите" class="w-75">
+                    <input id="Vch21" type="number" placeholder="Введите" class="w-75">
                 </label>
             </div>
         </div>
@@ -312,7 +296,7 @@
             <p></p>
             <div class="form-group">
                 <label class="w-100">
-                    <input type="number" placeholder="Введите" class="w-75">
+                    <input id="Vch22" type="number" placeholder="Введите" class="w-75">
                 </label>
             </div>
         </div>
@@ -322,47 +306,27 @@
             <p></p>
             <div class="form-group">
                 <label class="w-100">
-                    <input type="number" placeholder="Введите" class="w-75">
+                    <input id="Vch23" type="number" placeholder="Введите" class="w-75">
                 </label>
             </div>
         </div>
         <div class="question my-3">
-            <p class="h6">24) Итого по графам 21 - 23 в национальной валюте:</p>
+            <p id="itogoVch" class="h6">24) Итого по графам 21 - 23 в национальной валюте: </p>
             <p></p>
-            <div class="form-group">
-                <label class="w-100">
-                    <input type="number" placeholder="Введите" class="w-75">
-                </label>
-            </div>
         </div>
         <div class="question my-3">
-            <p class="h6">25) Таможенная стоимость ввозимых товаров (12 + 20 - 24):</p>
+            <p id="itog25" class="h6">25) Таможенная стоимость ввозимых товаров (12 + 20 - 24):</p>
             <p></p>
-            <div class="form-group">
-                <label class="w-100">
-                    <input type="number" placeholder="Введите" class="w-75">
-                </label>
-            </div>
         </div>
         <div class="question my-3">
-            <p class="h6">В НАЦИОНАЛЬНОЙ ВАЛЮТЕ:</p>
+            <p id="itogNac" class="h6">В НАЦИОНАЛЬНОЙ ВАЛЮТЕ:</p>
             <p></p>
-            <div class="form-group">
-                <label class="w-100">
-                    <input type="number" placeholder="Введите" class="w-75">
-                </label>
-            </div>
         </div>
         <div class="question my-3">
-            <p class="h6">В ДОЛЛАРАХ США (курс пересчета ):</p>
+            <p id="itogUSA" class="h6">В ДОЛЛАРАХ США (курс пересчета ):</p>
             <p></p>
-            <div class="form-group">
-                <label class="w-100">
-                    <input type="number" placeholder="Введите" class="w-75">
-                </label>
-            </div>
         </div>
-        <button class="btn btn-primary rounded-pill px-3" type="button">Сформировать</button>
+        <button class="btn btn-primary rounded-pill px-3" type="button" onclick="rashetVivod()">Сформировать</button>
     </form>
 </div>
 </body>
