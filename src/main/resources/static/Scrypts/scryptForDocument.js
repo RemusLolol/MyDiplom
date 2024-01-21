@@ -1,9 +1,9 @@
 var rateForSelectedCurrency;
-var usaCurs;
-var usaData;
+var date;
 (function getDataForApi() {
     const selectElement = document.getElementById('currencySelector');
-    const ratesData = {}; // Объект для хранения курсов
+    const ratesData = {};
+    var date;
 
     fetch('https://api.nbrb.by/exrates/rates?periodicity=0')
         .then(response => response.json())
@@ -15,7 +15,9 @@ var usaData;
                 optionElement.textContent = currency.Cur_Abbreviation;
                 selectElement.appendChild(optionElement);
                 rateForSelectedCurrency = currency.Cur_OfficialRate;
-                document.getElementById('labelPeresch').innerText = "В НАЦИОНАЛЬНОЙ ВАЛЮТЕ (курс пересчета: " + currency.Date + ")";
+                date = currency.Date;
+                // var nac =currency.Cur_OfficialRate *  parseFloat(document.getElementById("OsnForRasch11").value);
+                // console.log(parseFloat(document.getElementById("OsnForRasch11").value));
 
                 ratesData[currency.Cur_Abbreviation] = currency.Cur_OfficialRate;
             });
@@ -25,6 +27,14 @@ var usaData;
     selectElement.addEventListener('change', function () {
         const selectedCurrency = this.value;
         rateForSelectedCurrency = ratesData[selectedCurrency];
+        console.log(date);
+
+        var nac = rateForSelectedCurrency * parseFloat(document.getElementById("OsnForRasch11").value).toFixed(2);
+        console.log(nac);
+        document.getElementById('labelPeresch').innerText = "В НАЦИОНАЛЬНОЙ ВАЛЮТЕ (курс пересчета: " + date + "): " + nac.toFixed(2);
+        document.getElementById('labelPerechb').innerText = "(б) Косвенные платежи (условия или обязательства) в НАЦИОНАЛЬНОЙ ВАЛЮТЕ (курс пересчета: " + date + ")";
+
+
         if (rateForSelectedCurrency !== undefined) {
             console.log(`Курс ${selectedCurrency} к белорусскому рублю: ${rateForSelectedCurrency}`);
         } else {
