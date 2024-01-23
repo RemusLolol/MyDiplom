@@ -7,7 +7,7 @@ function toggleVisibility() {
     var textBoxTamPoshlValue = document.querySelector('.textBoxTamPoshl').value;
     var textBoxTranspRashDoGraValue = document.querySelector('.textBoxTranspRashoDoGra').value;
     var textBoxTranspRashPosleGraValue =  document.querySelector('.textBoxTranspRashoPosleGra').value;
-    if (textBoxSSValue === '' || textBoxWeightValue === '' || textBoxTamPoshlValue === '' || textBoxTranspRashDoGraValueValue === '' || textBoxTranspRashPosleGraValue ==='') {
+    if (textBoxSSValue === '' || textBoxWeightValue === '' || textBoxTamPoshlValue === '' || textBoxTranspRashDoGraValue== '' || textBoxTranspRashPosleGraValue ==='') {
         validationMessage.innerText = "Пожалуйста, заполните все поля";
         validationMessage.style.backgroundColor = "#FF0000";
         validationMessage.style.opacity = 1;
@@ -16,15 +16,14 @@ function toggleVisibility() {
         }, 2000);
         return;
     }
-
+    console.log((textBoxTranspRashDoGraValue + textBoxTranspRashPosleGraValue));
     var formData = {
         textBoxSS: textBoxSSValue,
         textBoxWeight: textBoxWeightValue,
         textBoxTamPoshl: textBoxTamPoshlValue,
-        textBoxTranspRashDoGra: textBoxTranspRashDoGraValue,
-        textBoxTranspRashPosleGra: textBoxTranspRashPosleGraValue
+        transpRash: (parseFloat(textBoxTranspRashDoGraValue) + parseFloat(textBoxTranspRashPosleGraValue))
     };
-
+    console.log(formData);
     fetch('/calculator/submitForm', {
         method: 'POST',
         headers: {

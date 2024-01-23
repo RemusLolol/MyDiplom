@@ -1,4 +1,4 @@
-CREATE TABLE savesOperations(
+CREATE TABLE savesoperations(
     id int NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     typeTam VARCHAR(255) NOT NULL,
     tamposhl DECIMAL(5,2) NOT NULL,

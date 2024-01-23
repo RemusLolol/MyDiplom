@@ -12,7 +12,7 @@ body {
     background: linear-gradient(to bottom, #1000C9, #0D019B, #00052A);
     border-radius: 35px;
     left: 10px;
-    top: 10px;}  
+    top: 10px;}
 
 /*Лэйблы  */
 .label {
@@ -39,25 +39,25 @@ body {
 
     border: none;
     appearance: none;}
-.textBoxSS {  
+.textBoxSS {
     top: 55px;  /* y */
     left: 170px;  /* x */
-    height: 30px; 
+    height: 30px;
     width: 150px; }
-.textBoxWeight {  
+.textBoxWeight {
     top: 55px;
     left: 330px;
-    height: 30px; 
+    height: 30px;
     width: 150px; }
-.textBoxTamPoshl {  
+.textBoxTamPoshl {
     top: 120px;
     left: 10px;
-    height: 30px; 
+    height: 30px;
     width: 150px; }
 .textBoxTranspRashoDoGra {
     top: 180px;
     left: 10px;
-    height: 30px; 
+    height: 30px;
     width: 150px; }
 .textBoxTranspRashoPosleGra{
     top: 180px;
@@ -83,7 +83,7 @@ body {
     appearance: none;
     opacity: 1;
     transition: opacity 0.3s ease-in-out;
-}   
+}
 .buttonGoRaschet:hover {
     opacity: 0.8;
 }
@@ -95,7 +95,7 @@ body {
     width: 30px;
     left: 160px;
     top: 120px;
-    border: none;   
+    border: none;
     background: url('LockOffOn/redLockOff.png') no-repeat center center;
     background-size: cover;
     cursor: pointer;
