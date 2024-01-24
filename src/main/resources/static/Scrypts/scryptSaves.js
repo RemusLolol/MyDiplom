@@ -15,7 +15,7 @@ function saveData() {
         itogss: resultValue,
         itogssperweight: resultPerWeightValue
     };
-    console.log(formData);
+
     fetch('/calculator/saveData', {
         method: 'POST',
         headers: {

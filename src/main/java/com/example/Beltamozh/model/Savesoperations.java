@@ -19,7 +19,6 @@ public class Savesoperations {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String typetam;
     private BigDecimal tamposhl;
     private BigDecimal transprash;

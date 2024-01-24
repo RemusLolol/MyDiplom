@@ -1,5 +1,4 @@
 var rateForSelectedCurrency;
-var date;
 (function getDataForApi() {
     const selectElement = document.getElementById('currencySelector');
     const ratesData = {};
@@ -14,11 +13,9 @@ var date;
                 optionElement.value = currency.Cur_Abbreviation;
                 optionElement.textContent = currency.Cur_Abbreviation;
                 selectElement.appendChild(optionElement);
+
                 rateForSelectedCurrency = currency.Cur_OfficialRate;
                 date = currency.Date;
-                // var nac =currency.Cur_OfficialRate *  parseFloat(document.getElementById("OsnForRasch11").value);
-                // console.log(parseFloat(document.getElementById("OsnForRasch11").value));
-
                 ratesData[currency.Cur_Abbreviation] = currency.Cur_OfficialRate;
             });
         })
@@ -27,13 +24,10 @@ var date;
     selectElement.addEventListener('change', function () {
         const selectedCurrency = this.value;
         rateForSelectedCurrency = ratesData[selectedCurrency];
-        console.log(date);
 
         var nac = rateForSelectedCurrency * parseFloat(document.getElementById("OsnForRasch11").value).toFixed(2);
-        console.log(nac);
         document.getElementById('labelPeresch').innerText = "В НАЦИОНАЛЬНОЙ ВАЛЮТЕ (курс пересчета: " + date + "): " + nac.toFixed(2);
         document.getElementById('labelPerechb').innerText = "(б) Косвенные платежи (условия или обязательства) в НАЦИОНАЛЬНОЙ ВАЛЮТЕ (курс пересчета: " + date + ")";
-
 
         if (rateForSelectedCurrency !== undefined) {
             console.log(`Курс ${selectedCurrency} к белорусскому рублю: ${rateForSelectedCurrency}`);
@@ -48,11 +42,7 @@ function rashetVivod() {
     //Расчет Основы для Расчета
     const OsnForRasch11Value = parseFloat(document.getElementById("OsnForRasch11").value) || 0;
     const OsnForRasch11bValue = parseFloat(document.getElementById("OsnForRasch11b").value) || 0;
-    console.log(rateForSelectedCurrency);
-    console.log(OsnForRasch11bValue);
-    console.log(OsnForRasch11Value);
     const result = ((OsnForRasch11Value * rateForSelectedCurrency) + OsnForRasch11bValue).toFixed(2);
-
     document.getElementById("itogOsn").innerText = "12) Итого по разделам \"а\" и \"б\" графы 11 в национальной валюте: " + result;
 
     //Расчет для Дополнительного начисления
@@ -102,9 +92,6 @@ function rashetVivod() {
                     document.getElementById("itogUSA").innerText = "В ДОЛЛАРАХ США (курс пересчета: "  + usdDate + "): "  + totalUSD.toFixed(2);
                 }
             });
-
-            console.log('Курс USD:', usdRate);
-            console.log('Дата USD:', usdDate);
         })
         .catch(error => console.error('Ошибка при получении данных:', error));
 }

@@ -16,11 +16,9 @@ function showSavedCalculations() {
             console.error('Ошибка при получении данных:', error);
         });
 }
-
 function clearTable() {
     $('table tbody').empty();
 }
-
 function fillTable(data) {
     var tbody = $('table tbody');
 

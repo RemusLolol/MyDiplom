@@ -3,9 +3,11 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="/Styles/styleInputData.css">
     <link rel="stylesheet" href="/Styles/styleOutputData.css">
     <link rel="stylesheet" href="/Styles/styleTable.css">
+
     <script src="/Scrypts/scrypts.js"></script>
     <script defer src="/Scrypts/scryptCalculate.js"></script>
     <script src="/Scrypts/scryptSaves.js"></script>
@@ -13,6 +15,7 @@
     <script src="/Scrypts/scryptHideTable.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="Scrypts/scriptChangeType.js"></script>
+
     <title>Калькулятор</title>
   </head>
   <body>
@@ -23,6 +26,7 @@
       <span class="label labelTamPoshl">Таможенная пошлина:</span>
       <span class="label labelTranspRashDoGra">Транспортные расходы до границы:</span>
       <span class="label labelTranspRashPosleGra">Транспортные расходы после границы:</span>
+
       <div class="styledSelect">
         <select class="textBoxType">
           <option th:each="product : ${productsList}"
@@ -31,11 +35,13 @@
           </option>
         </select>
       </div>
+
       <input type="number" name="textBoxSS" class="textBox textBoxSS">
       <input type="number" name="textBoxWeight" class="textBox textBoxWeight">
       <input type="number" name="textBoxTamPoshl" class="textBox textBoxTamPoshl" id="textBoxTamPoshlID" readonly>
       <input type="number" name="textBoxTranspRashoDoGra" class="textBox textBoxTranspRashoDoGra">
       <input type="number" name="textBoxTranspRashoPosleGra" class="textBox textBoxTranspRashoPosleGra">
+
       <button class="buttonLockOffOn" onclick="toggleReadOnlyAndChangeImage()"></button>
       <button class="buttonGoRaschet" onclick="toggleVisibility()">РАССЧИТАТЬ</button>
     </div>
@@ -50,12 +56,16 @@
       <span class="label labelItogTamPoshl" id="resultTamPoshl"></span>
       <span class="label labelOutRas" id="result"></span>
       <span class="label labelOutRasPerOne" id="resultPerWeight"></span>
+
       <button class="buttonSave" onclick="saveData()">СОХРАНИТЬ</button>
     </div>
+
     <div id="validationMessage" class="validationMessage"></div>
+
     <div>
       <button id="buttosShow" class="buttosShowTable" onclick="showSavedCalculations()">Показать сохраненные расчеты</button>
       <button id="buttonHide" class="buttonHideTable" onclick="hideTable()">Скрыть таблицу</button>
+
       <table>
         <thead>
         <tr>

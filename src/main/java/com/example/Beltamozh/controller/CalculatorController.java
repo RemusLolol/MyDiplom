@@ -18,7 +18,6 @@ import java.util.Map;
 @Controller
 @RequestMapping("/calculator")
 public class CalculatorController {
-
     private final ProductServices productService;
     private final SavesOperationsService savesOperationsService;
 
@@ -43,16 +42,12 @@ public class CalculatorController {
 
     @PostMapping(value = "/submitForm", params = "!_")
     public ResponseEntity<BigDecimal> submitForm(@RequestBody Map<String, String> formData) {
-        BigDecimal textBoxSS = new BigDecimal(formData.get("textBoxSS"));
-        BigDecimal textBoxWeight = new BigDecimal(formData.get("textBoxWeight"));
-        BigDecimal textBoxTamPoshl = new BigDecimal(formData.get("textBoxTamPoshl"));
-        BigDecimal textBoxTranspRasho = new BigDecimal(formData.get("transpRash"));
-
-        CalculatorFormData calculatorFormData = new CalculatorFormData(textBoxSS, textBoxWeight, textBoxTamPoshl, textBoxTranspRasho);
-        System.out.println(calculatorFormData.getInfo());
+        CalculatorFormData calculatorFormData = new CalculatorFormData(
+                new BigDecimal(formData.get("textBoxSS")),
+                new BigDecimal(formData.get("textBoxWeight")),
+                new BigDecimal(formData.get("textBoxTamPoshl")),
+                new BigDecimal(formData.get("transpRash")));
         BigDecimal totalWithNDS = calculatorFormData.calculateItogSS();
-        System.out.println("totalWithNDS: " + totalWithNDS);
-
         return ResponseEntity.ok(totalWithNDS);
     }
 
@@ -65,15 +60,6 @@ public class CalculatorController {
                 new BigDecimal(formData.get("weightprod")),
                 new BigDecimal(formData.get("itogss")),
                 new BigDecimal(formData.get("itogssperweight")));
-
-        System.out.println("typetam: " + savesOperations.getTypetam());
-        System.out.println("tamposhl: " + savesOperations.getTamposhl());
-        System.out.println("transprash: " + savesOperations.getTransprash());
-        System.out.println("weightprod: " + savesOperations.getWeightprod());
-        System.out.println("itogss: " + savesOperations.getItogss());
-        System.out.println("itogssperweight: " + savesOperations.getItogssperweight());
-
-
         Savesoperations savedData = savesOperationsService.saveOrUpdateSavesOperations(savesOperations);
         return ResponseEntity.ok(savedData);
     }
@@ -87,6 +73,5 @@ public class CalculatorController {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-    }
-
+     }
 }

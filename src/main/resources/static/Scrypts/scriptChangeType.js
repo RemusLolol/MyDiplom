@@ -1,7 +1,6 @@
 $(document).ready(function () {
     $('.textBoxType').change(function () {
         var selectedTamname = $(this).val();
-
         $.ajax({
             type: 'GET',
             url: '/calculator/getTamposhl',

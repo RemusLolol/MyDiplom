@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.math.BigDecimal;
 
 @Getter
@@ -23,7 +22,6 @@ public class CalculatorFormData {
         BigDecimal totalSS = getTextBoxSS().add(nds).add(tamPoshl).add(textBoxTranspRash);
         return totalSS;
     }
-
     public String getInfo() {
         return "SS: " + getTextBoxSS() + " " +
                 " Weight: " + getTextBoxWeight()+
