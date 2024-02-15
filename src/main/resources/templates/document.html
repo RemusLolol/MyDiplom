@@ -5,9 +5,12 @@
         <title>Документ</title>
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="styleMessageForDoc.css">
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+        <script src="https://unpkg.com/pdf-lib@1.4.0/dist/pdf-lib.min.js"></script>
+        <script src="https://unpkg.com/downloadjs@1.4.7"></script>
 
         <STYLE>
             #currencySelector {
@@ -15,269 +18,258 @@
             }
         </STYLE>
     </head>
-    <body>
-    <div class="container border mt-4 mb-4">
-        <form role="form" class="form-horizontal">
-            <div class="question my-3">
-                <p class="h6">
-                    7) (а) Имеется ли взаимосвязь между продавцом и покупателем в значении, указанном в статье 37 Таможенного кодекса Евразийского экономического союза?
-                </p>
-                <div class="form-check ms-2">
-                    <label class="d-block">
-                        <input type="radio" class="form-check-input" name="optionalRadios1" value="Да"> Да
-                    </label>
-                    <label class="d-block">
-                        <input type="radio" class="form-check-input" name="optionalRadios1" value="Нет"> Нет
-                    </label>
+     <body>
+        <div class="container border mt-4 mb-4">
+            <form role="form" class="form-horizontal">
+                <div class="question my-3">
+                    <p class="h6">
+                        7) (а) Имеется ли взаимосвязь между продавцом и покупателем в значении, указанном в статье 37 Таможенного кодекса Евразийского экономического союза?
+                    </p>
+                    <div class="form-check ms-2">
+                        <label class="d-block">
+                            <input type="radio" class="form-check-input" name="optionalRadios1" value="Да"> Да
+                        </label>
+                        <label class="d-block">
+                            <input type="radio" class="form-check-input" name="optionalRadios1" value="Нет"> Нет
+                        </label>
+                    </div>
                 </div>
-            </div>
-            <div class="question my-3">
-                <p class="h6">
-                    (б) Оказала ли взаимосвязь между продавцом и покупателем влияние на цену, фактически уплаченную или подлежащую уплате за ввозимые товары?
-                </p>
-                <div class="form-check ms-2">
-                    <label class="d-block">
-                        <input type="radio" class="form-check-input" name="optionalRadios2" value="Да"> Да
-                    </label>
-                    <label class="d-block">
-                        <input type="radio" class="form-check-input" name="optionalRadios2" value="Нет"> Нет
-                    </label>
+                <div class="question my-3">
+                    <p class="h6">
+                        (б) Оказала ли взаимосвязь между продавцом и покупателем влияние на цену, фактически уплаченную или подлежащую уплате за ввозимые товары?
+                    </p>
+                    <div class="form-check ms-2">
+                        <label class="d-block">
+                            <input type="radio" class="form-check-input" name="optionalRadios2" value="Да"> Да
+                        </label>
+                        <label class="d-block">
+                            <input type="radio" class="form-check-input" name="optionalRadios2" value="Нет"> Нет
+                        </label>
+                    </div>
                 </div>
-            </div>
-            <div class="question my-3">
-                <p class="h6">
-                    (в) Стоимость сделки с ввозимыми товарами близка к одной из возможных проверочных величин, указанных в пункте 5 статьи 39 Таможенного кодекса Евразийского экономического союза?
-                </p>
-                <div class="form-check ms-2">
-                    <label class="d-block">
-                        <input type="radio" class="form-check-input" name="optionalRadios3" value="Да"> Да
-                    </label>
-                    <label class="d-block">
-                        <input type="radio" class="form-check-input" name="optionalRadios3" value="Нет"> Нет
-                    </label>
+                <div class="question my-3">
+                    <p class="h6">
+                        (в) Стоимость сделки с ввозимыми товарами близка к одной из возможных проверочных величин, указанных в пункте 5 статьи 39 Таможенного кодекса Евразийского экономического союза?
+                    </p>
+                    <div class="form-check ms-2">
+                        <label class="d-block">
+                            <input type="radio" class="form-check-input" name="optionalRadios3" value="Да"> Да
+                        </label>
+                        <label class="d-block">
+                            <input type="radio" class="form-check-input" name="optionalRadios3" value="Нет"> Нет
+                        </label>
+                    </div>
                 </div>
-            </div>
-            <div class="question my-3">
-                <p class="h6">
-                    8) (а) Имеются ли ОГРАНИЧЕНИЯ в отношении прав покупателя на пользование и распоряжение ввозимыми товарами, за исключением ограничений, которые:
-                    - ограничивают географический регион, в котором ввозимые товары могут быть перепроданы;
-                    - существенно не влияют на стоимость ввозимых товаров;
-                    - установлены актами органов Евразийского экономического союза или законодательством государств - членов Евразийского экономического союза
-                </p>
-                <div class="form-check ms-2">
-                    <label class="d-block">
-                        <input type="radio" class="form-check-input" name="optionalRadios4" value="Да"> Да
-                    </label>
-                    <label class="d-block">
-                        <input type="radio" class="form-check-input" name="optionalRadios4" value="Нет"> Нет
-                    </label>
+                <div class="question my-3">
+                    <p class="h6">
+                        8) (а) Имеются ли ОГРАНИЧЕНИЯ в отношении прав покупателя на пользование и распоряжение ввозимыми товарами, за исключением ограничений, которые:
+                        - ограничивают географический регион, в котором ввозимые товары могут быть перепроданы;
+                        - существенно не влияют на стоимость ввозимых товаров;
+                        - установлены актами органов Евразийского экономического союза или законодательством государств - членов Евразийского экономического союза
+                    </p>
+                    <div class="form-check ms-2">
+                        <label class="d-block">
+                            <input type="radio" class="form-check-input" name="optionalRadios4" value="Да"> Да
+                        </label>
+                        <label class="d-block">
+                            <input type="radio" class="form-check-input" name="optionalRadios4" value="Нет"> Нет
+                        </label>
+                    </div>
                 </div>
-            </div>
-            <div class="question my-3">
-                <p class="h6">
-                    (б) Зависит ли продажа ввозимых товаров или их цена от соблюдения УСЛОВИЙ или ОБЯЗАТЕЛЬСТВ, оказывающих влияние на цену ввозимых товаров? Если влияние таких условий или обязательств на цену ввозимых товаров может быть количественно определено, сумма стоимостной оценки таких условий или обязательств указывается в разделе "б" графы 11
-                </p>
-                <div class="form-check ms-2">
-                    <label class="d-block">
-                        <input type="radio" class="form-check-input" name="optionalRadios5" value="Да"> Да
-                    </label>
-                    <label class="d-block">
-                        <input type="radio" class="form-check-input" name="optionalRadios5" value="Нет"> Нет
-                    </label>
+                <div class="question my-3">
+                    <p class="h6">
+                        (б) Зависит ли продажа ввозимых товаров или их цена от соблюдения УСЛОВИЙ или ОБЯЗАТЕЛЬСТВ, оказывающих влияние на цену ввозимых товаров? Если влияние таких условий или обязательств на цену ввозимых товаров может быть количественно определено, сумма стоимостной оценки таких условий или обязательств указывается в разделе "б" графы 11
+                    </p>
+                    <div class="form-check ms-2">
+                        <label class="d-block">
+                            <input type="radio" class="form-check-input" name="optionalRadios5" value="Да"> Да
+                        </label>
+                        <label class="d-block">
+                            <input type="radio" class="form-check-input" name="optionalRadios5" value="Нет"> Нет
+                        </label>
+                    </div>
                 </div>
-            </div>
-            <div class="question my-3">
-                <p class="h6">
-                    9) (а) Предусмотрены ли ЛИЦЕНЗИОННЫЕ и иные подобные ПЛАТЕЖИ за использование объектов ИНТЕЛЛЕКТУАЛЬНОЙ СОБСТВЕННОСТИ, которые относятся к ввозимым товарам и которые прямо или косвенно произвел или должен произвести покупатель в качестве условия продажи ввозимых товаров для вывоза на таможенную территорию Евразийского экономического союза?
-                </p>
-                <div class="form-check ms-2">
-                    <label class="d-block">
-                        <input type="radio" class="form-check-input" name="optionalRadios6" value="Да"> Да
-                    </label>
-                    <label class="d-block">
-                        <input type="radio" class="form-check-input" name="optionalRadios6" value="Нет"> Нет
-                    </label>
+                <div class="question my-3">
+                    <p class="h6">
+                        9) (а) Предусмотрены ли ЛИЦЕНЗИОННЫЕ и иные подобные ПЛАТЕЖИ за использование объектов ИНТЕЛЛЕКТУАЛЬНОЙ СОБСТВЕННОСТИ, которые относятся к ввозимым товарам и которые прямо или косвенно произвел или должен произвести покупатель в качестве условия продажи ввозимых товаров для вывоза на таможенную территорию Евразийского экономического союза?
+                    </p>
+                    <div class="form-check ms-2">
+                        <label class="d-block">
+                            <input type="radio" class="form-check-input" name="optionalRadios6" value="Да"> Да
+                        </label>
+                        <label class="d-block">
+                            <input type="radio" class="form-check-input" name="optionalRadios6" value="Нет"> Нет
+                        </label>
+                    </div>
                 </div>
-            </div>
-            <div class="question my-3">
-                <p class="h6">
-                    (б) Зависит ли продажа от соблюдения условия, в соответствии с которым ЧАСТЬ ДОХОДА (ВЫРУЧКИ), полученного в результате ПОСЛЕДУЮЩЕЙ ПРОДАЖИ, РАСПОРЯЖЕНИЯ иным способом или ИСПОЛЬЗОВАНИЯ ввозимых товаров, прямо или косвенно причитается продавцу? В случае ответа "ДА" на вопросы в разделах "а" и (или) "б" в графах 15 и 16 указываются соответствующие величины
-                </p>
-                <div class="form-check ms-2">
-                    <label class="d-block">
-                        <input type="radio" class="form-check-input" name="optionalRadios7" value="Да"> Да
-                    </label>
-                    <label class="d-block">
-                        <input type="radio" class="form-check-input" name="optionalRadios7" value="Нет"> Нет
-                    </label>
+                <div class="question my-3">
+                    <p class="h6">
+                        (б) Зависит ли продажа от соблюдения условия, в соответствии с которым ЧАСТЬ ДОХОДА (ВЫРУЧКИ), полученного в результате ПОСЛЕДУЮЩЕЙ ПРОДАЖИ, РАСПОРЯЖЕНИЯ иным способом или ИСПОЛЬЗОВАНИЯ ввозимых товаров, прямо или косвенно причитается продавцу? В случае ответа "ДА" на вопросы в разделах "а" и (или) "б" в графах 15 и 16 указываются соответствующие величины
+                    </p>
+                    <div class="form-check ms-2">
+                        <label class="d-block">
+                            <input type="radio" class="form-check-input" name="optionalRadios7" value="Да"> Да
+                        </label>
+                        <label class="d-block">
+                            <input type="radio" class="form-check-input" name="optionalRadios7" value="Нет"> Нет
+                        </label>
+                    </div>
                 </div>
-            </div>
-            <!--Основа для расчета-->
-            <div class="form-group">
-                <span class="fs-3">ОСНОВА ДЛЯ РАСЧЕТА:</span>
-            </div>
-            <div class="question my-3">
-                <p class="h6">11(а) Цена, фактически уплаченная или подлежащая уплате за ввозимые товары в ВАЛЮТЕ СЧЕТА</p>
+                <!--Основа для расчета-->
                 <div class="form-group">
-                    <label class="w-100">
-                        <input id="OsnForRasch11" type="number" placeholder="Введите цену" class="w-25">
-                    </label>
+                    <span class="fs-3">ОСНОВА ДЛЯ РАСЧЕТА:</span>
                 </div>
-                <div class="d-flex align-items-center">
-                    <label>Валюта счета:</label>
-                    <select class="form-select form-select-sm" aria-label=".form-select-sm" id="currencySelector"></select>
+                <div class="question my-3">
+                    <p class="h6">11(а) Цена, фактически уплаченная или подлежащая уплате за ввозимые товары в ВАЛЮТЕ СЧЕТА</p>
+                    <div class="form-group">
+                        <label class="w-100">
+                            <input id="OsnForRasch11" type="number" placeholder="Введите цену" class="w-25">
+                        </label>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <label>Валюта счета:</label>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm" id="currencySelector"></select>
+                    </div>
+                    <label id="labelPeresch" class="control-label">В НАЦИОНАЛЬНОЙ ВАЛЮТЕ </label>
                 </div>
-                <label id="labelPeresch" class="control-label">В НАЦИОНАЛЬНОЙ ВАЛЮТЕ </label>
-            </div>
-            <script src="../static/Scrypts/scryptForDocument.js"></script>
-            <div class="question my-3">
-                <p id="labelPerechb" class="h6">(б) Косвенные платежи (условия или обязательства) в НАЦИОНАЛЬНОЙ ВАЛЮТЕ (курс пересчета)</p>
+                <script src="../static/Scrypts/scryptForDocument.js"></script>
+                <div class="question my-3">
+                    <p id="labelPerechb" class="h6">(б) Косвенные платежи (условия или обязательства) в НАЦИОНАЛЬНОЙ ВАЛЮТЕ (курс пересчета)</p>
+                    <div class="form-group">
+                        <label class="w-100">
+                            <input id="OsnForRasch11b" type="number" placeholder="Введите" class="w-25">
+                        </label>
+                    </div>
+                </div>
+                <div class="question my-3">
+                    <label id="itogOsn" class="h5">12) Итого по разделам "а" и "б" графы 11 в национальной валюте:</label>
+                </div>
+                <!--Дополнительные начисления-->
                 <div class="form-group">
-                    <label class="w-100">
-                        <input id="OsnForRasch11b" type="number" placeholder="Введите" class="w-25">
-                    </label>
+                    <span class="fs-4">ДОПОЛНИТЕЛЬНЫЕ НАЧИСЛЕНИЯ:</span>
                 </div>
-            </div>
-            <div class="question my-3">
-                <label id="itogOsn" class="h5">12) Итого по разделам "а" и "б" графы 11 в национальной валюте:</label>
-            </div>
-            <!--Дополнительные начисления-->
-            <div class="form-group">
-                <span class="fs-4">ДОПОЛНИТЕЛЬНЫЕ НАЧИСЛЕНИЯ:</span>
-            </div>
-            <div class="question my-3">
-                <p class="h6">13) Расходы, осуществленные покупателем на:</p>
+                <div class="question my-3">
+                    <p class="h6">13) Расходы, осуществленные покупателем на:</p>
+                    <div class="form-group">
+                        <label class="w-100"><input id="Dop13" type="number" placeholder="Введите" class="w-25"></label>
+                    </div>
+                </div>
+                <div class="question my-3 ms-4">
+                    <p class="h6">(б) Тару и упаковку, в том числе стоимость упаковочных материалов и работ по упаковке:</p>
+                    <div class="form-group">
+                        <label class="w-100"><input id="Dop13b" type="number" placeholder="Введите" class="w-25"></label>
+                    </div>
+                </div>
+                <div class="question my-3">
+                    <p class="h6">14) Соответствующим образом распределенная стоимость следующих товаров и услуг...</p>
+                    <div class="form-group">
+                        <label class="w-100"><input id="Dop14" type="number" placeholder="Введите" class="w-25"></label>
+                    </div>
+                </div>
+                <div class="question my-3 ms-4">
+                    <p class="h6">(а) Сырье, материалы, детали, полуфабрикаты и иные товары, из которых произведены (состоят) ввозимые товары:</p>
+                    <div class="form-group">
+                        <label class="w-100"><input id="Dop14a" type="number" placeholder="Введите" class="w-25"></label>
+                    </div>
+                </div>
+                <div class="question my-3 ms-4">
+                    <p class="h6">(б) Инструменты, штампы, формы и иные подобные товары, использованные при производстве ввозимых товаров:</p>
+                    <div class="form-group">
+                        <label class="w-100"><input id="Dop14b" type="number" placeholder="Введите" class="w-25"></label>
+                    </div>
+                </div>
+                <div class="question my-3 ms-4">
+                    <p class="h6">(в) Материалы, израсходованные при производстве ввозимых товаров:</p>
+                    <div class="form-group">
+                        <label class="w-100"><input id="Dop14v" type="number" placeholder="Введите" class="w-25"></label>
+                    </div>
+                </div>
+                <div class="question my-3 ms-4">
+                    <p class="h6">(г) Проектирование, разработка, инженерная, конструкторская работа, художественное оформление...</p>
+                    <div class="form-group">
+                        <label class="w-100"><input id="Dop14g" type="number" placeholder="Введите" class="w-25"></label>
+                    </div>
+                </div>
+                <div class="question my-3">
+                    <p class="h6">15) Лицензионные и иные подобные платежи за использование объектов интеллектуальной собственности:</p>
+                    <div class="form-group">
+                        <label class="w-100"><input id="Dop15" type="number" placeholder="Введите" class="w-25"></label>
+                    </div>
+                </div>
+                <div class="question my-3">
+                    <p class="h6">16) Часть дохода (выручки), полученного в результате последующей продажи...</p>
+                    <div class="form-group">
+                        <label class="w-100"><input id="Dop16" type="number" placeholder="Введите" class="w-25"></label>
+                    </div>
+                </div>
+                <div class="question my-3">
+                    <p class="h6">17) Расходы на перевозку (транспортировку) ввозимых товаров до:</p>
+                    <div class="form-group">
+                        <label class="w-100"><input id="Dop17" type="number" placeholder="Введите" class="w-25"></label>
+                    </div>
+                </div>
+                <div class="question my-3">
+                    <p class="h6">18) Лицензионные и иные подобные платежи за использование объектов интеллектуальной собственности:</p>
+                    <div class="form-group">
+                        <label class="w-100"><input id="Dop18" type="number" placeholder="Введите" class="w-25"></label>
+                    </div>
+                </div>
+                <div class="question my-3">
+                    <p class="h6">19) Расходы на страхование в связи с операциями, указанными в графах 17 и 18:</p>
+                    <div class="form-group">
+                        <label class="w-100"><input id="Dop19" type="number" placeholder="Введите" class="w-25"></label>
+                    </div>
+                </div>
+                <div class="question my-3">
+                    <p id="itogoDop" class="h6">20) Итого по графам 13 - 19 в национальной валюте: </p>
+                    <p></p>
+                </div>
+                <!--Вычеты в национальной валюте-->
                 <div class="form-group">
-                    <label class="w-100"><input id="Dop13" type="number" placeholder="Введите" class="w-25"></label>
+                    <span class="fs-4">ВЫЧЕТЫ в национальной валюте:</span>
                 </div>
-            </div>
-            <div class="question my-3 ms-4">
-                <p class="h6">(б) Тару и упаковку, в том числе стоимость упаковочных материалов и работ по упаковке:</p>
-                <div class="form-group">
-                    <label class="w-100"><input id="Dop13b" type="number" placeholder="Введите" class="w-25"></label>
+                <div class="question my-3">
+                    <p class="h6">21) Расходы на строительство, возведение, сборку, монтаж, обслуживание или оказание технического содействия,
+                        производимые после ввоза товаров на таможенную территорию Евразийского экономического союза:</p>
+                    <div class="form-group">
+                        <label class="w-100">
+                            <input id="Vch21" type="number" placeholder="Введите" class="w-25">
+                        </label>
+                    </div>
                 </div>
-            </div>
-            <div class="question my-3">
-                <p class="h6">14) Соответствующим образом распределенная стоимость следующих товаров и услуг...</p>
-                <div class="form-group">
-                    <label class="w-100"><input id="Dop14" type="number" placeholder="Введите" class="w-25"></label>
+                <div class="question my-3">
+                    <p class="h6">22) Расходы на перевозку (транспортировку) ввозимых товаров по таможенной территории Евразийского экономического союза:</p>
+                    <div class="form-group">
+                        <label class="w-100">
+                            <input id="Vch22" type="number" placeholder="Введите" class="w-25">
+                        </label>
+                    </div>
                 </div>
-            </div>
-            <div class="question my-3 ms-4">
-                <p class="h6">(а) Сырье, материалы, детали, полуфабрикаты и иные товары, из которых произведены (состоят) ввозимые товары:</p>
-                <div class="form-group">
-                    <label class="w-100"><input id="Dop14a" type="number" placeholder="Введите" class="w-25"></label>
+                <div class="question my-3">
+                    <p class="h6">23) Сумма пошлин, налогов и сборов, уплачиваемых в связи с ввозом товаров на таможенную территорию Евразийского
+                        экономического союза или продажей товаров на такой таможенной территории:</p>
+                    <div class="form-group">
+                        <label class="w-100">
+                            <input id="Vch23" type="number" placeholder="Введите" class="w-25">
+                        </label>
+                    </div>
                 </div>
-            </div>
-            <div class="question my-3 ms-4">
-                <p class="h6">(б) Инструменты, штампы, формы и иные подобные товары, использованные при производстве ввозимых товаров:</p>
-                <div class="form-group">
-                    <label class="w-100"><input id="Dop14b" type="number" placeholder="Введите" class="w-25"></label>
+                <div class="question my-3">
+                    <p id="itogoVch" class="h6">24) Итого по графам 21 - 23 в национальной валюте: </p>
                 </div>
-            </div>
-            <div class="question my-3 ms-4">
-                <p class="h6">(в) Материалы, израсходованные при производстве ввозимых товаров:</p>
-                <div class="form-group">
-                    <label class="w-100"><input id="Dop14v" type="number" placeholder="Введите" class="w-25"></label>
+                <div class="question my-3">
+                    <p id="itog25" class="h6">25) Таможенная стоимость ввозимых товаров (12 + 20 - 24):</p>
                 </div>
-            </div>
-            <div class="question my-3 ms-4">
-                <p class="h6">(г) Проектирование, разработка, инженерная, конструкторская работа, художественное оформление...</p>
-                <div class="form-group">
-                    <label class="w-100"><input id="Dop14g" type="number" placeholder="Введите" class="w-25"></label>
+                <div class="question my-3">
+                    <p id="itogNac" class="h6">В НАЦИОНАЛЬНОЙ ВАЛЮТЕ:</p>
                 </div>
-            </div>
-            <div class="question my-3">
-                <p class="h6">15) Лицензионные и иные подобные платежи за использование объектов интеллектуальной собственности:</p>
-                <div class="form-group">
-                    <label class="w-100"><input id="Dop15" type="number" placeholder="Введите" class="w-25"></label>
+                <div class="question my-3">
+                    <p id="itogUSA" class="h6">В ДОЛЛАРАХ США (курс пересчета):</p>
+                    <button class="btn btn-outline-primary px-3" type="button" id="fillPDFButton" onclick="fillDTSDocument()">Сформировать дтс</button>
+                    <button class="btn btn-outline-primary px-3" type="button" onclick="rashetVivod()">Расчитать</button>
                 </div>
-            </div>
-            <div class="question my-3">
-                <p class="h6">16) Часть дохода (выручки), полученного в результате последующей продажи...</p>
-                <div class="form-group">
-                    <label class="w-100"><input id="Dop16" type="number" placeholder="Введите" class="w-25"></label>
-                </div>
-            </div>
-            <div class="question my-3">
-                <p class="h6">17) Расходы на перевозку (транспортировку) ввозимых товаров до:</p>
-                <div class="form-group">
-                    <label class="w-100"><input id="Dop17" type="number" placeholder="Введите" class="w-25"></label>
-                </div>
-            </div>
-            <div class="question my-3">
-                <p class="h6">18) Лицензионные и иные подобные платежи за использование объектов интеллектуальной собственности:</p>
-                <div class="form-group">
-                    <label class="w-100"><input id="Dop18" type="number" placeholder="Введите" class="w-25"></label>
-                </div>
-            </div>
-            <div class="question my-3">
-                <p class="h6">19) Расходы на страхование в связи с операциями, указанными в графах 17 и 18:</p>
-                <div class="form-group">
-                    <label class="w-100"><input id="Dop19" type="number" placeholder="Введите" class="w-25"></label>
-                </div>
-            </div>
-            <div class="question my-3">
-                <p id="itogoDop" class="h6">20) Итого по графам 13 - 19 в национальной валюте: </p>
-                <p></p>
-            </div>
-            <!--Вычеты в национальной валюте-->
-            <div class="form-group">
-                <span class="fs-4">ВЫЧЕТЫ в национальной валюте:</span>
-            </div>
-            <div class="question my-3">
-                <p class="h6">21) Расходы на строительство, возведение, сборку, монтаж, обслуживание или оказание технического содействия,
-                    производимые после ввоза товаров на таможенную территорию Евразийского экономического союза:</p>
-                <div class="form-group">
-                    <label class="w-100">
-                        <input id="Vch21" type="number" placeholder="Введите" class="w-25">
-                    </label>
-                </div>
-            </div>
-            <div class="question my-3">
-                <p class="h6">22) Расходы на перевозку (транспортировку) ввозимых товаров по таможенной территории Евразийского экономического союза:</p>
-                <div class="form-group">
-                    <label class="w-100">
-                        <input id="Vch22" type="number" placeholder="Введите" class="w-25">
-                    </label>
-                </div>
-            </div>
-            <div class="question my-3">
-                <p class="h6">23) Сумма пошлин, налогов и сборов, уплачиваемых в связи с ввозом товаров на таможенную территорию Евразийского
-                    экономического союза или продажей товаров на такой таможенной территории:</p>
-                <div class="form-group">
-                    <label class="w-100">
-                        <input id="Vch23" type="number" placeholder="Введите" class="w-25">
-                    </label>
-                </div>
-            </div>
-            <div class="question my-3">
-                <p id="itogoVch" class="h6">24) Итого по графам 21 - 23 в национальной валюте: </p>
-            </div>
-            <div class="question my-3">
-                <p id="itog25" class="h6">25) Таможенная стоимость ввозимых товаров (12 + 20 - 24):</p>
-            </div>
-            <div class="question my-3">
-                <p id="itogNac" class="h6">В НАЦИОНАЛЬНОЙ ВАЛЮТЕ:</p>
-            </div>
-            <div class="question my-3">
-                <p id="itogUSA" class="h6">В ДОЛЛАРАХ США (курс пересчета):</p>
-            </div>
-            <button class="btn btn-primary rounded-pill px-3" type="button" onclick="rashetVivod()">Расчитать</button>
-            <button class="btn btn-primary rounded-pill px-3" type="button" onclick="generatePDF()">Сформировать дтс</button>
-            <script>
-                function generatePDF() {
-                    const doc = new jsPDF({
-                        orientation: "landscape",
-                        unit: "in",
-                        format: [4, 2]
-                    });
-
-                    doc.text("Hello world!", 1, 1);
-                    doc.save("two-by-four.pdf");
-                }
-            </script>
-        </form>
-    </div>
+                <div id="validationMesDoc" class="validationMesDoc"></div>
+            </form>
+        </div>
     </body>
 </html>

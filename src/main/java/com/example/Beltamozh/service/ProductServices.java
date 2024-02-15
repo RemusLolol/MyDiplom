@@ -16,10 +16,10 @@ public class ProductServices {
     private final ModelMapper modelMapper;
 
     @Autowired
-    public ProductServices(ProductsRepository productsRepository, ModelMapper modelMapper) {
-        this.productsRepository = productsRepository;
-        this.modelMapper = modelMapper;
-    }
+        public ProductServices(ProductsRepository productsRepository, ModelMapper modelMapper) {
+            this.productsRepository = productsRepository;
+            this.modelMapper = modelMapper;
+        }
 
     public List<Products> getAllProducts() {
         List<Products> productsList = productsRepository.findAll();

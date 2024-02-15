@@ -7,25 +7,23 @@
     <link rel="stylesheet" href="/Styles/styleInputData.css">
     <link rel="stylesheet" href="/Styles/styleOutputData.css">
     <link rel="stylesheet" href="/Styles/styleTable.css">
-
-    <script src="/Scrypts/scrypts.js"></script>
-    <script defer src="/Scrypts/scryptCalculate.js"></script>
-    <script src="/Scrypts/scryptSaves.js"></script>
-    <script src="/Scrypts/scryptShowSavedCalculations.js"></script>
-    <script src="/Scrypts/scryptHideTable.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="Scrypts/scriptChangeType.js"></script>
+    <script src="/Scrypts/scryptsForTable.js"></script>
+    <script src="/Scrypts/scryptInterOutputData.js"></script>
 
     <title>Калькулятор</title>
   </head>
   <body>
+    <div>
+
+    </div>
     <div class="boxToInterData">
-      <span class="label labelType">Тип:</span>
-      <span class="label labelSS">С\с товара:</span>
-      <span class="label labelWeight">Вес товара (в кг):</span>
-      <span class="label labelTamPoshl">Таможенная пошлина:</span>
-      <span class="label labelTranspRashDoGra">Транспортные расходы до границы:</span>
-      <span class="label labelTranspRashPosleGra">Транспортные расходы после границы:</span>
+      <label class="label labelType">Тип:</label>
+      <label class="label labelSS">С\с товара:</label>
+      <label class="label labelWeight">Вес товара (в кг):</label>
+      <label class="label labelTamPoshl">Таможенная пошлина:</label>
+      <label class="label labelTranspRashDoGra">Транспортные расходы до границы:</label>
+      <label class="label labelTranspRashPosleGra">Транспортные расходы после границы:</label>
 
       <div class="styledSelect">
         <select class="textBoxType">
@@ -43,19 +41,19 @@
       <input type="number" name="textBoxTranspRashoPosleGra" class="textBox textBoxTranspRashoPosleGra">
 
       <button class="buttonLockOffOn" onclick="toggleReadOnlyAndChangeImage()"></button>
-      <button class="buttonGoRaschet" onclick="toggleVisibility()">РАССЧИТАТЬ</button>
+      <button class="buttonGoRaschet" onclick="calculate()">РАССЧИТАТЬ</button>
     </div>
 
     <div class="boxOutputData">
-      <span class="label labelExpl">Итоги расчетов:</span>
-      <span class="label labelItoRas" >Итоговая с\с поставки:</span>
-      <span class="label labelItogRasPerOne">Итоговая с\с поставки (за единицу веса):</span>
-      <span class="label labelNDS">НДС:</span>
-      <span class="label labelTamPoshl2">Таможенная пошлина:</span>
-      <span class="label labelItogNDS" id="resultNDS"></span>
-      <span class="label labelItogTamPoshl" id="resultTamPoshl"></span>
-      <span class="label labelOutRas" id="result"></span>
-      <span class="label labelOutRasPerOne" id="resultPerWeight"></span>
+      <label class="label labelExpl">Итоги расчетов:</label>
+      <label class="label labelItoRas" >Итоговая с\с поставки:</label>
+      <label class="label labelItogRasPerOne">Итоговая с\с поставки (за единицу веса):</label>
+      <label class="label labelNDS">НДС:</label>
+      <label class="label labelTamPoshl2">Таможенная пошлина:</label>
+      <label class="label labelItogNDS" id="resultNDS"></label>
+      <label class="label labelItogTamPoshl" id="resultTamPoshl"></label>
+      <label class="label labelOutRas" id="result"></label>
+      <label class="label labelOutRasPerOne" id="resultPerWeight"></label>
 
       <button class="buttonSave" onclick="saveData()">СОХРАНИТЬ</button>
     </div>
@@ -63,6 +61,7 @@
     <div id="validationMessage" class="validationMessage"></div>
 
     <div>
+      <button class="buttonFillDoc">Заполнить документ</button>
       <button id="buttosShow" class="buttosShowTable" onclick="showSavedCalculations()">Показать сохраненные расчеты</button>
       <button id="buttonHide" class="buttonHideTable" onclick="hideTable()">Скрыть таблицу</button>
 
