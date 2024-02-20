@@ -48,3 +48,6 @@ function hideTable(){
     $('#buttosShow').text('Показать сохраненные расчеты');
     $('#buttonHide').css('visibility', 'hidden')
 }
+function openDocument() {
+    window.open('/document', '_blank');
+}

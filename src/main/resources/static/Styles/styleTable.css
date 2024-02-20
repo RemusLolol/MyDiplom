@@ -1,7 +1,7 @@
 .buttonFillDoc{
     position: absolute;
-    left: 10px;
-    top: 330px;
+    left: 100px;
+    top: 420px;
     width: 250px;
     height: 65px;
     border-radius: 50px;
@@ -22,8 +22,8 @@
 
 .buttosShowTable{
     position: absolute;
-    left: 280px;
-    top: 330px;
+    left: 380px;
+    top: 420px;
     width: 250px;
     height: 65px;
     border-radius: 50px;
@@ -43,8 +43,8 @@
 }
 .buttonHideTable{
     position: absolute;
-    left: 550px;
-    top: 330px;
+    left: 650px;
+    top: 420px;
     width: 250px;
     height: 65px;
     border-radius: 50px;
@@ -56,9 +56,9 @@
     cursor: pointer;
     border: none;
     appearance: none;
+    visibility: hidden;
     opacity: 1;
     transition: opacity 0.3s ease-in-out;
-    visibility: hidden;
 }
 .buttonHideTable:hover{
     opacity: 0.8;
@@ -68,7 +68,7 @@
 table {
     width: 1200px;
     position: absolute;
-    top: 450px;
+    top: 540px;
     left: 20px;
     border-collapse: collapse;
     visibility: hidden;

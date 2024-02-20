@@ -1,6 +1,6 @@
 .boxOutputData {
-    left: 700px;
-    top: 10px;
+    left: 800px;
+    top: 100px;
     width: 500px;
     height: 300px;
     position: absolute;
@@ -29,26 +29,3 @@
 .labelItogNDS {left: 60px; top: 75px;}
 .labelTamPoshl2{left:10px; top:115px;}
 .labelItogTamPoshl {left: 200px; top:115px;}
-
-.buttonSave{
-    position: absolute;
-    left: 10px;
-    top: 230px;
-    height: 40px;
-    width: 220px;
-    border-radius: 50px;
-    color: #ffffff;
-    background-color:#9E00FF;
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    font-weight: bold;
-
-    border: none;
-    appearance: none;
-
-    opacity: 1;
-    transition: opacity 0.3s ease-in-out;}
-
-.buttonSave:hover{
-    opacity: 0.8;
-}
