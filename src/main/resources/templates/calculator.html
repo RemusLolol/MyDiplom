@@ -21,6 +21,7 @@
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             }
             .table {
+                text-align: center;
                 border-collapse: collapse;
                 border: 1px solid black;
             }
@@ -28,7 +29,13 @@
             .table td {
                 border: 1px solid black;
             }
+            .table thead tr:first-child th {
+                font-weight: bold;
+            }
 
+            .table thead tr:last-child th {
+                font-size: 0.9em;
+            }
             .modal-content {
                 background-color: #343a40;
                 color: #ffffff;
@@ -172,7 +179,7 @@
                 cursor: not-allowed;
             }
         </style>
-        <script src="/Scrypts/scryptInterOutputData.js"></script>
+        <script src="/Scrypts/scryptCalculator.js"></script>
     </head>
 
     <body>
@@ -185,7 +192,7 @@
     <div class="sidebar" id="sidebar">
         <nav class="nav">
             <a href="#">Калькулятор</a>
-            <a href="#">Документ</a>
+            <a href="#" onclick="openDocument()">Документ</a>
         </nav>
     </div>
 
@@ -197,6 +204,7 @@
             burger.classList.toggle('open');
         }
     </script>
+
     <div id="alertContainer" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;"></div>
     <div name="interData" class="container">
         <div class="row">
@@ -263,7 +271,7 @@
                     <div class="form-group row">
                         <div class="col-sm-10">
                             <button type="button" onclick="calculate()" class="btn btn-secondary">Рассчитать</button>
-                            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalTable">Таблица</button>
+                            <button type="button" onclick="showSavedCalculations()" class="btn btn-secondary">Таблица</button>
                         </div>
                     </div>
                 </form>
@@ -271,16 +279,13 @@
         </div>
     </div>
 
-    <!-- Модальное окно с результатами отчета-->
+    <!-- Модальное окно с результатами-->
     <div class="modal fade" id="modalItog" tabindex="-1" role="dialog" aria-labelledby="modalItogLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalItogLabel">Результаты расчета</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -310,25 +315,24 @@
 
     <!-- Модальное окно с таблицей -->
     <div class="modal fade" id="modalTable" tabindex="-1" role="dialog" aria-labelledby="modalTableLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalTableLabel">Введенные данные</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
                 <div class="modal-body">
                     <table class="table table-dark table-striped">
                         <thead>
                         <tr>
-                            <th colspan="4">Введенные данные</th>
-                            <th colspan="2">Итоговая с/с</th>
+                            <th colspan="6">Введенные данные</th>
+                            <th colspan="2">Результаты</th>
                         </tr>
                         <tr>
                             <th>Тип</th>
                             <th>Таможенная пошлина</th>
-                            <th>Транспортные расходы</th>
+                            <th>C/c</th>
+                            <th>Транспортные расходы до границы</th>
+                            <th>Транспортные расходы после границы</th>
                             <th>Вес</th>
                             <th>Полностью</th>
                             <th>За единицу</th>

@@ -53,10 +53,11 @@ function calculate() {
     }
 
     let formData = {
-        textBoxSS: ssValue,
-        textBoxWeight: weightValue,
-        textBoxTamPoshl: tamPoshlValue,
-        transpRash: (parseFloat(transpRashDoGraValue) + parseFloat(transpRashPosleGraValue))
+        ss: ssValue,
+        weight: weightValue,
+        tamposhl: tamPoshlValue,
+        transprashdogra:transpRashDoGraValue,
+        transprashposlegravalue:transpRashPosleGraValue
     };
 
     fetch('/calculator/submitForm', {
@@ -99,18 +100,21 @@ function calculate() {
 }
 
 function saveData() {
-    let selectedType = document.querySelector('.textBoxType').value;
-    let textBoxTamPoshlValue = document.querySelector('.textBoxTamPoshl').value;
-    let textBoxTranspRashDoGraValue = document.querySelector('.textBoxTranspRashoDoGra').value;
-    let textBoxTranspRashPosleGraValue = document.querySelector('.textBoxTranspRashoPosleGra').value;
-    let textBoxWeightValue = document.querySelector('.textBoxWeight').value;
-    let resultValue = $('#result').text().replace(' р.', '');
-    let resultPerWeightValue = $('#resultPerWeight').text().replace(' р.', '');
+    let selectedType = document.getElementById('floatingSelect').value;
+    let textBoxTamPoshlValue = document.getElementById('inputTamPoshl').value;
+    let textBoxSS = document.getElementById('inputSS').value;
+    let textBoxTranspRashDoGraValue = document.getElementById('inputDoGra').value;
+    let textBoxTranspRashPosleGraValue = document.getElementById('inputPosleGra').value;
+    let textBoxWeightValue = document.getElementById('inputWeight').value;
+    let resultValue = document.getElementById('resultSS').textContent.replace(' р.', '');
+    let resultPerWeightValue = document.getElementById('resultPerWeight').textContent.replace(' р.', '');
 
     let formData = {
         typetam: selectedType,
         tamposhl: textBoxTamPoshlValue,
-        transprash: parseFloat(textBoxTranspRashDoGraValue) + parseFloat(textBoxTranspRashPosleGraValue),
+        transprashdogra: textBoxTranspRashDoGraValue,
+        transprashposlegra: textBoxTranspRashPosleGraValue,
+        ss: textBoxSS,
         weightprod: textBoxWeightValue,
         itogss: resultValue,
         itogssperweight: resultPerWeightValue
@@ -126,15 +130,74 @@ function saveData() {
     })
         .then(response => response.json())
         .then(data => {
-            console.log('Данные успешно сохранены на сервере:', data);
-            validationMessage.innerText = "Данные сохранены успешно";
-            validationMessage.style.backgroundColor = "#00FF00";
-            validationMessage.style.opacity = "1";
-            setTimeout(function () {
-                validationMessage.style.opacity = "0";
+            let alert = `<div class="alert alert-success" role="alert" style="padding: 10px; background-color: #28a745; color: #fff; font-size: 14px; font-weight: bold;">
+                    Расчет сохранен
+                  </div>`;
+            document.getElementById('alertContainer').innerHTML = alert;
+
+            setTimeout(function() {
+                document.getElementById('alertContainer').innerHTML = '';
             }, 2000);
         })
         .catch(error => {
             console.error('Ошибка при сохранении данных:', error);
         });
+}
+
+function showSavedCalculations() {
+    clearTable();
+
+    fetch('/calculator/getAllSavesOperations')
+        .then(response => response.json())
+        .then(data => {
+            if(data.length === 0){
+                let alert = `<div class="alert alert-danger" role="alert" style="padding: 10px; background-color: #ee2e2e; font-size:14px; font-weight: bold;"">
+                        Данных в таблице нету
+                      </div>`;
+                document.getElementById('alertContainer').innerHTML = alert;
+
+                setTimeout(function() {
+                    document.getElementById('alertContainer').innerHTML = '';
+                }, 2000);
+                return;                return;
+            }
+            $('#modalTable').modal('show');
+            fillTable(data);
+
+            let alert = `<div class="alert alert-success" role="alert" style="padding: 10px; background-color: #28a745; color: #fff; font-size: 14px; font-weight: bold;">
+                    Таблица показана
+                  </div>`;
+            document.getElementById('alertContainer').innerHTML = alert;
+
+            setTimeout(function() {
+                document.getElementById('alertContainer').innerHTML = '';
+            }, 2000);
+        })
+        .catch(error => {
+            console.error('Ошибка при получении данных:', error);
+        });
+}
+function clearTable() {
+    $('table tbody').empty();
+}
+function fillTable(data) {
+    var tbody = $('table tbody');
+
+    data.forEach(item => {
+        var row = `<tr>
+                       <td>${item.typetam}</td>
+                       <td>${item.tamposhl}</td>
+                       <td>${item.ss}</td>
+                       <td>${item.transprashdogra}</td>
+                       <td>${item.transprashposlegra}</td>
+                       <td>${item.weightprod}</td>
+                       <td>${item.itogss}</td>
+                       <td>${item.itogssperweight}</td>
+                   </tr>`;
+        tbody.append(row);
+    });
+}
+
+function openDocument() {
+    window.open('/document', '_blank');
 }
