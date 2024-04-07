@@ -4,7 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.*;
+import lombok.Data;
 import java.math.BigDecimal;
 
 @Entity
@@ -15,7 +15,9 @@ public class Savesoperations {
     private Integer id;
     private String typetam;
     private BigDecimal tamposhl;
-    private BigDecimal transprash;
+    private BigDecimal ss;
+    private BigDecimal transprashdogra;
+    private BigDecimal transprashposlegra;
     private BigDecimal weightprod;
     private BigDecimal itogss;
     private BigDecimal itogssperweight;

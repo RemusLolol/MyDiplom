@@ -3,7 +3,6 @@ package com.example.Beltamozh.controller;
 import com.example.Beltamozh.model.Products;
 import com.example.Beltamozh.model.Savesoperations;
 import com.example.Beltamozh.service.ProductServices;
-import com.example.Beltamozh.model.CalculatorFormData;
 import com.example.Beltamozh.service.SavesOperationsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,15 +40,15 @@ public class CalculatorController {
 
     @PostMapping(value = "/submitForm", params = "!_")
     public ResponseEntity<BigDecimal> submitForm(@RequestBody Map<String, String> formData) {
-        CalculatorFormData calculatorFormData = new CalculatorFormData();
+        Savesoperations savesoperations = new Savesoperations();
 
-        calculatorFormData.setTextBoxSS(new BigDecimal(formData.get("textBoxSS")));
-        calculatorFormData.setTextBoxWeight(new BigDecimal(formData.get("textBoxWeight")));
-        calculatorFormData.setTextBoxTamPoshl(new BigDecimal(formData.get("textBoxTamPoshl")));
-        calculatorFormData.setTextBoxTranspRash(new BigDecimal(formData.get("transpRash")));
+        savesoperations.setSs(new BigDecimal(formData.get("ss")));
+        savesoperations.setWeightprod(new BigDecimal(formData.get("weight")));
+        savesoperations.setTamposhl(new BigDecimal(formData.get("tamposhl")));
+        savesoperations.setTransprashdogra(new BigDecimal(formData.get("transprashdogra")));
+        savesoperations.setTransprashposlegra(new BigDecimal(formData.get("transprashposlegravalue")));
 
-        BigDecimal totalWithNDS = calculatorFormData.calculateItogSS();
-        return ResponseEntity.ok(totalWithNDS);
+        return ResponseEntity.ok(savesOperationsService.calculateItogSS(savesoperations));
     }
 
     @PostMapping("/saveData")
@@ -58,7 +57,9 @@ public class CalculatorController {
 
         savesOperations.setTypetam(formData.get("typetam"));
         savesOperations.setTamposhl(new BigDecimal(formData.get("tamposhl")));
-        savesOperations.setTransprash(new BigDecimal(formData.get("transprash")));
+        savesOperations.setSs(new BigDecimal(formData.get("ss")));
+        savesOperations.setTransprashdogra(new BigDecimal(formData.get("transprashdogra")));
+        savesOperations.setTransprashposlegra(new BigDecimal(formData.get("transprashposlegra")));
         savesOperations.setWeightprod(new BigDecimal(formData.get("weightprod")));
         savesOperations.setItogss(new BigDecimal(formData.get("itogss")));
         savesOperations.setItogss(new BigDecimal(formData.get("itogss")));
