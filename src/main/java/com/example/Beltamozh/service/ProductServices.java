@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductServices {
@@ -22,18 +20,12 @@ public class ProductServices {
         }
 
     public List<Products> getAllProducts() {
-        List<Products> productsList = productsRepository.findAll();
-        List<Products> productDTOList = productsList.stream()
-                .map(product -> modelMapper.map(product, Products.class))
-                .collect(Collectors.toList());
-        return productDTOList;
+        return productsRepository.findAll();
     }
+
     public BigDecimal getTamposhlByTamname(String tamname) {
-        Optional<Products> productOptional = productsRepository.findByTamname(tamname);
-        if (productOptional.isPresent()) {
-            return productOptional.get().getTamposhl();
-        } else {
-            return null;
-        }
+        return productsRepository.findByTamname(tamname)
+                .map(Products::getTamposhl)
+                .orElse(null);
     }
 }

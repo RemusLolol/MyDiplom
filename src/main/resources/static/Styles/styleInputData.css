@@ -22,12 +22,9 @@
     position: absolute;
     height: 50px;
     width: 300px;
-    top: 320px;
-    left: 810px;
     background-color: #FF0000;
     color: #FFFFFF;
     font-size: 14px;
-    font-family: 'Inter', sans-serif;
     font-weight: bold;
     padding: 10px;
     border-radius: 10px;

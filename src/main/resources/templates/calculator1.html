@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/Styles/styleInputData.css">
+    <link rel="stylesheet" href="/Styles/styleOutputData.css">
+    <link rel="stylesheet" href="/Styles/styleTable.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="/Scrypts/scryptForDocument.js"></script>
+
+    <title>Калькулятор</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/headers/">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+
+    <link href="/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .bd-mode-toggle .dropdown-menu .active .bi {
+        display: block !important;
+      }
+    </style>
+
+    <link href="/Styles/headers.css" rel="stylesheet">
+    <script src="/assets/js/color-modes.js"></script>
+  </head>
+
+  <body>
+
+    <div class="container">
+      <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+          <svg class="bi me-2" width="40" height="32">
+            <use xlink:href="#bootstrap" />
+          </svg>
+          <span class="fs-4">Калькулятор</span>
+        </a>
+
+        <ul class="nav nav-pills">
+          <li class="nav-item"><a href="#" class="nav-link active">Калькулаятор</a></li>
+          <li class="nav-item"><a href="#" onclick="openDocument()" class="nav-link">Документ</a></li>
+        </ul>
+      </header>
+    </div>
+
+    <div class="boxToInterData">
+      <div class="form-floating" style="position: absolute; top: 35px; left: 10px; width: 600px; height: 40px">
+        <select class="form-select" id="floatingSelect" aria-label="Floating label select example"
+          style="position: relative; background-color: #293BDD; color: #ffffff">
+          <option th:each="product:${productsList}" th:value="${product.tamname}" th:text="${product.tamname}"></option>
+        </select>
+        <label for="floatingSelect">Выберите тип</label>
+      </div>
+
+      <div class="input-group mb-3" style="position: absolute; top:100px; left:10px">
+        <input readonly type="number" id="inputTamPoshl"
+          style="position:absolute; height: 30px; width: 200px; background-color: #293BDD;" class="form-control"
+          placeholder="Таможенная пошлина" aria-label="Таможенная пошлина" aria-describedby="basic-addon1">
+        <button class="buttonLockOffOn" onclick="toggleReadOnlyAndChangeImage()"></button>
+      </div>
+      <div class="input-group mb-3" style="position: absolute; top:100px; left:260px">
+        <input type="number" id="inputSS"
+          style="position: absolute; height: 30px; width: 150px; background-color: #293BDD;" class="form-control"
+          placeholder="С/с товара" aria-label="С/с товара" aria-describedby="basic-addon1">
+      </div>
+      <div class="input-group mb-3" style="position: absolute; top:100px; left:420px">
+        <input type="number" id="inputWeight"
+          style="position: absolute; height: 30px; width: 150px; background-color: #293BDD;" class="form-control"
+          placeholder="Вес товара(в кг)" aria-label="Вес товара(в кг)" aria-describedby="basic-addon1">
+      </div>
+      <div class="input-group mb-3" style="position: absolute; top:140px; left:10px">
+        <input type="number" id="inputDoGra"
+          style="position: absolute; height: 30px; width: 340px; background-color: #293BDD;" class="form-control"
+          placeholder="Транспортные расходы до границы" aria-label="Транспортные расходы до границы"
+          aria-describedby="basic-addon1">
+      </div>
+      <div class="input-group mb-3" style="position: absolute; top:180px; left:10px">
+        <input type="number" id="inputPosleGra"
+          style="position: absolute; height: 30px; width: 340px; background-color: #293BDD;" class="form-control"
+          placeholder="Транспортные расходы после границы" aria-label="Транспортные расходы после границы"
+          aria-describedby="basic-addon1">
+      </div>
+      <button class="btn btn-primary rounded-pill px-3" type="button"
+        style="width: 300px; position: absolute; left: 140px; top: 240px; font-family: 'Inter', sans-serif; font-size: 16px; font-weight: bold;"
+        onclick="calculate()">РАССЧИТАТЬ</button>
+    </div>
+
+    <div class="boxOutputData">
+      <div class="row">
+        <div class="col-12">
+          <label class="label labelExpl">Итоги расчетов:</label>
+        </div>
+      </div>
+      <div class="row">
+        <label class="label labelNDS">НДС:</label>
+        <label class="label labelItogNDS" id="resultNDS"></label>
+        <label class="label labelTamPoshl2">Таможенная пошлина:</label>
+        <label class="label labelItogTamPoshl" id="resultTamPoshl"></label>
+      </div>
+      <div class="row">
+        <label class="label labelItoRas">Итоговая с\с поставки:</label>
+        <label class="label labelOutRas" id="resultSS"></label>
+        <label class="label labelItogRasPerOne">Итоговая с\с поставки (за единицу веса):</label>
+        <label class="label labelOutRasPerOne" id="resultPerWeight"></label>
+      </div>
+      <div class="row">
+        <button class="buttonSave" style="width:200px" onclick="saveData()">СОХРАНИТЬ</button>
+      </div>
+    </div>
+
+    <div id="validationMessage" class="validationMessage"></div>
+
+    <div>
+      <button id="buttosShow" class="buttosShowTable" onclick="showSavedCalculations()">Показать сохраненные
+        расчеты</button>
+      <button id="buttonHide" class="buttonHideTable" onclick="hideTable()">Скрыть таблицу</button>
+
+      <table>
+        <thead>
+          <tr>
+            <th colspan="4">Введенные данные</th>
+            <th colspan="2">Итоговая с/с</th>
+          </tr>
+          <tr>
+            <th>Тип</th>
+            <th>Таможенная пошлина</th>
+            <th>Транспортные расходы</th>
+            <th>Вес</th>
+            <th>Полностью</th>
+            <th>За единицу</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+
+    <script src="/Scrypts/scryptInterOutputData.js"></script>
+  </body>
+
+</html>

@@ -1,15 +1,9 @@
 package com.example.Beltamozh.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import java.math.BigDecimal;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class CalculatorFormData {
     private BigDecimal textBoxSS;
     private BigDecimal textBoxWeight;
@@ -21,11 +15,5 @@ public class CalculatorFormData {
         BigDecimal tamPoshl = getTextBoxSS().multiply(getTextBoxTamPoshl()).divide(BigDecimal.valueOf(100.00));
         BigDecimal totalSS = getTextBoxSS().add(nds).add(tamPoshl).add(textBoxTranspRash);
         return totalSS;
-    }
-    public String getInfo() {
-        return "SS: " + getTextBoxSS() + " " +
-                " Weight: " + getTextBoxWeight()+
-                " TamPoshl: " + getTextBoxTamPoshl()+
-                " TransRashoDoGra: " + getTextBoxTranspRash();
     }
 }

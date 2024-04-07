@@ -1,6 +1,5 @@
 package com.example.Beltamozh.controller;
 
-
 import com.example.Beltamozh.model.Products;
 import com.example.Beltamozh.model.Savesoperations;
 import com.example.Beltamozh.service.ProductServices;
@@ -42,24 +41,29 @@ public class CalculatorController {
 
     @PostMapping(value = "/submitForm", params = "!_")
     public ResponseEntity<BigDecimal> submitForm(@RequestBody Map<String, String> formData) {
-        CalculatorFormData calculatorFormData = new CalculatorFormData(
-                new BigDecimal(formData.get("textBoxSS")),
-                new BigDecimal(formData.get("textBoxWeight")),
-                new BigDecimal(formData.get("textBoxTamPoshl")),
-                new BigDecimal(formData.get("transpRash")));
+        CalculatorFormData calculatorFormData = new CalculatorFormData();
+
+        calculatorFormData.setTextBoxSS(new BigDecimal(formData.get("textBoxSS")));
+        calculatorFormData.setTextBoxWeight(new BigDecimal(formData.get("textBoxWeight")));
+        calculatorFormData.setTextBoxTamPoshl(new BigDecimal(formData.get("textBoxTamPoshl")));
+        calculatorFormData.setTextBoxTranspRash(new BigDecimal(formData.get("transpRash")));
+
         BigDecimal totalWithNDS = calculatorFormData.calculateItogSS();
         return ResponseEntity.ok(totalWithNDS);
     }
 
     @PostMapping("/saveData")
     public ResponseEntity<Savesoperations> saveData(@RequestBody Map<String, String> formData) {
-        Savesoperations savesOperations =
-                new Savesoperations(formData.get("typetam"),
-                new BigDecimal(formData.get("tamposhl")),
-                new BigDecimal(formData.get("transprash")),
-                new BigDecimal(formData.get("weightprod")),
-                new BigDecimal(formData.get("itogss")),
-                new BigDecimal(formData.get("itogssperweight")));
+        Savesoperations savesOperations = new Savesoperations();
+
+        savesOperations.setTypetam(formData.get("typetam"));
+        savesOperations.setTamposhl(new BigDecimal(formData.get("tamposhl")));
+        savesOperations.setTransprash(new BigDecimal(formData.get("transprash")));
+        savesOperations.setWeightprod(new BigDecimal(formData.get("weightprod")));
+        savesOperations.setItogss(new BigDecimal(formData.get("itogss")));
+        savesOperations.setItogss(new BigDecimal(formData.get("itogss")));
+        savesOperations.setItogssperweight(new BigDecimal(formData.get("itogssperweight")));
+
         Savesoperations savedData = savesOperationsService.saveOrUpdateSavesOperations(savesOperations);
         return ResponseEntity.ok(savedData);
     }

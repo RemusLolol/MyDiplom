@@ -1,133 +1,352 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Калькулятор</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <style>
+            body {
+                background-color: #343a40;
+                color: #ffffff;
+            }
 
-    <link rel="stylesheet" href="/Styles/styleInputData.css">
-    <link rel="stylesheet" href="/Styles/styleOutputData.css">
-    <link rel="stylesheet" href="/Styles/styleTable.css">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="/Scrypts/scryptsForTable.js"></script>
+            form {
+                max-width: 800px;
+                margin: 50px auto;
+                background-color: #343a40;
+                border-radius: 10px;
+                padding: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            }
+            .table {
+                border-collapse: collapse;
+                border: 1px solid black;
+            }
+            .table th,
+            .table td {
+                border: 1px solid black;
+            }
 
-    <title>Калькулятор</title>
+            .modal-content {
+                background-color: #343a40;
+                color: #ffffff;
+            }
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/headers/">
+            .modal-body table td {
+                background-color: #343a40;
+                color: #ffffff;
+            }
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+            .modal-body table th {
+                background-color: #343a40;
+                color: #ffffff;
+            }
 
-    <link href="/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+            .form-control {
+                font-size: 0.9em;
+                padding: 0.375rem 0.75rem;
+                max-width: 300px;
+            }
+            .form-control {
+                color: #ffffff;
+                background-color: #343a40;
+                border-color: #6c757d;
+            }
+            .form-group label {
+                color: #ffffff;
+            }
 
-    <style>
-      .bi {
-        vertical-align: -.125em;
-        fill: currentColor;
-      }
+            .form-control:focus {
+                color: #ffffff;
+                background-color: #343a40;
+                border-color: #6c757d;
+                box-shadow: none;
+            }
 
-      .nav-scroller .nav {
-        display: flex;
-        flex-wrap: nowrap;
-        padding-bottom: 1rem;
-        margin-top: -1px;
-        overflow-x: auto;
-        text-align: center;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-      }
+            .burger {
+                position: fixed;
+                top: 16px;
+                left: 16px;
+                cursor: pointer;
+                z-index: 1000;
+                color: #ffffff;
+                transition: transform 0.3s ease-out;
+            }
 
-      .bd-mode-toggle .dropdown-menu .active .bi {
-        display: block !important;
-      }
-    </style>
+            .burger span {
+                display: block;
+                width: 32px;
+                height: 4px;
+                background-color: #ffffff;
+                margin-bottom: 4px;
+                transition: transform 0.3s ease-out;
+            }
 
-    <link href="/Styles/headers.css" rel="stylesheet">
-    <script src="/assets/js/color-modes.js"></script>
-  </head>
-  <body>
+            .burger.open span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
 
-    <div class="container">
-      <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-        <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-          <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-          <span class="fs-4">Калькулятор</span>
-        </a>
+            .burger.open span:nth-child(2) {
+                opacity: 0;
+            }
 
-        <ul class="nav nav-pills">
-          <li class="nav-item"><a href="#" class="nav-link active">Калькулаятор</a></li>
-          <li class="nav-item"><a href="#" onclick="openDocument()" class="nav-link">Документ</a></li>
-        </ul>
-      </header>
+            .burger.open span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 250px;
+                height: 100%;
+                background-color: #212529;
+                color: #ffffff;
+                transition: transform 0.3s ease-out;
+                transform: translateX(-100%);
+                overflow: hidden;
+                z-index: 999;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .sidebar a {
+                display: block;
+                padding: 16px;
+                text-decoration: none;
+                color: #ffffff;
+                transition: background-color 0.3s ease-out;
+            }
+
+            .sidebar a:hover {
+                background-color: #343a40;
+            }
+
+            .burger.open .close {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                font-size: 1.5em;
+                color: #ffffff;
+                cursor: pointer;
+                display: none;
+                z-index: 1000;
+                transform: translate(-50%, -50%);
+            }
+
+            .burger.open .close::before,
+            .burger.open .close::after {
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 2px;
+                background-color: #ffffff;
+                transition: transform 0.3s ease-out;
+            }
+
+            .burger.open .close::before {
+                transform: rotate(45deg);
+                top: -4px;
+            }
+
+            .burger.open .close::after {
+                transform: rotate(-45deg);
+                top: 4px;
+            }
+
+            .burger.open .close {
+                display: block;
+            }
+
+            .sidebar .nav {
+                margin-top: 64px;
+                display: flex;
+                flex-direction: column;
+            }
+            #inputTamPoshl[readonly] {
+                background-color: #343a40;
+                cursor: not-allowed;
+            }
+        </style>
+        <script src="/Scrypts/scryptInterOutputData.js"></script>
+    </head>
+
+    <body>
+    <div class="burger" onclick="toggleSidebar()">
+        <span></span>
+        <span></span>
+        <span></span>
     </div>
 
-    <div class="boxToInterData">
-        <div class="form-floating" style="position: absolute; top: 35px; left: 10px; width: 600px; height: 40px">
-            <select class="form-select" id="floatingSelect" aria-label="Floating label select example" style="position: relative; background-color: #293BDD; color: #ffffff">
-              <option th:each="product:${productsList}" th:value="${product.tamname}" th:text="${product.tamname}"></option>
-            </select>
-            <label for="floatingSelect">Выберите тип</label>
-        </div>
-
-        <div class="input-group mb-3" style="position: absolute; top:100px; left:10px">
-            <input type="number" id="inputTamPoshl" style="position:absolute; height: 30px; width: 200px; background-color: #293BDD;" class="form-control" placeholder="Таможенная пошлина" aria-label="Таможенная пошлина" aria-describedby="basic-addon1">
-            <button class="buttonLockOffOn" onclick="toggleReadOnlyAndChangeImage()"></button>
-        </div>
-        <div class="input-group mb-3" style="position: absolute; top:100px; left:260px">
-            <input type="number" id="inputSS" style="position: absolute; height: 30px; width: 150px; background-color: #293BDD;" class="form-control" placeholder="С/с товара" aria-label="С/с товара" aria-describedby="basic-addon1">
-        </div>
-        <div class="input-group mb-3" style="position: absolute; top:100px; left:420px">
-            <input type="number" id="inputWeight" style="position: absolute; height: 30px; width: 150px; background-color: #293BDD;" class="form-control" placeholder="Вес товара(в кг)" aria-label="Вес товара(в кг)" aria-describedby="basic-addon1">
-        </div>
-        <div class="input-group mb-3" style="position: absolute; top:140px; left:10px">
-            <input type="number" id="inputDoGra" style="position: absolute; height: 30px; width: 340px; background-color: #293BDD;" class="form-control" placeholder="Транспортные расходы до границы" aria-label="Транспортные расходы до границы" aria-describedby="basic-addon1">
-        </div>
-        <div class="input-group mb-3" style="position: absolute; top:180px; left:10px">
-            <input type="number" id="inputPosleGra" style="position: absolute; height: 30px; width: 340px; background-color: #293BDD;" class="form-control" placeholder="Транспортные расходы после границы" aria-label="Транспортные расходы после границы" aria-describedby="basic-addon1">
-        </div>
-        <button class="btn btn-primary rounded-pill px-3" type="button" style="width: 300px; position: absolute; left: 140px; top: 240px; font-family: 'Inter', sans-serif; font-size: 16px; font-weight: bold;" onclick="calculate()">РАССЧИТАТЬ</button>
+    <div class="sidebar" id="sidebar">
+        <nav class="nav">
+            <a href="#">Калькулятор</a>
+            <a href="#">Документ</a>
+        </nav>
     </div>
 
-    <div class="boxOutputData">
-      <label class="label labelExpl">Итоги расчетов:</label>
-      <label class="label labelItoRas" >Итоговая с\с поставки:</label>
-      <label class="label labelItogRasPerOne">Итоговая с\с поставки (за единицу веса):</label>
-      <label class="label labelNDS">НДС:</label>
-      <label class="label labelTamPoshl2">Таможенная пошлина:</label>
-      <label class="label labelItogNDS" id="resultNDS"></label>
-      <label class="label labelItogTamPoshl" id="resultTamPoshl"></label>
-      <label class="label labelOutRas" id="resultSS"></label>
-      <label class="label labelOutRasPerOne" id="resultPerWeight"></label>
-
-      <button class="buttonSave" onclick="saveData()">СОХРАНИТЬ</button>
+    <script>
+        function toggleSidebar() {
+            var sidebar = document.getElementById('sidebar');
+            var burger = document.querySelector('.burger');
+            sidebar.classList.toggle('open');
+            burger.classList.toggle('open');
+        }
+    </script>
+    <div id="alertContainer" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;"></div>
+    <div name="interData" class="container">
+        <div class="row">
+            <div class="col-sm-12" style="border-radius:10px; padding:10px; box-shadow:0 0 10px rgba(0, 0, 0, 0.2); ">
+                <h2>Калькулятор</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <form>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <label for="floatingSelect">Выберите тип</label>
+                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example" style="position: relative; background-color: #343a40; color: #ffffff">
+                                <option th:each="product:${productsList}" th:value="${product.tamname}" th:text="${product.tamname}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <div class="input-group" style="width: 300px;">
+                                <input type="number" class="form-control" id="inputTamPoshl" placeholder="Введите таможенную пошлину" readonly>
+                                <div class="input-group-append">
+                                    <button onclick="readTamPoshl()" class="btn btn-secondary" type="button" id="lockButton"><i id="locker" class="fas fa-lock"></i></button>
+                                    <script>
+                                        function readTamPoshl() {
+                                            inputTam = document.getElementById('inputTamPoshl');
+                                            inputTam.readOnly = !inputTam.readOnly;
+                                            var locker = document.getElementById('locker');
+                                            if (inputTam.readOnly) {
+                                                locker.classList.remove('fa-unlock');
+                                                locker.classList.add('fa-lock');
+                                            } else {
+                                                locker.classList.remove('fa-lock');
+                                                locker.classList.add('fa-unlock');
+                                            }
+                                        }
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input type="number" style="width: 300px;" class="form-control" id="inputSS" placeholder="Введите себестоимость товара">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input type="number" style="width: 220px;" class="form-control" id="inputWeight" placeholder="Введите вес товара (в кг)">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input type="number" style="width: 375px;" class="form-control" id="inputDoGra" placeholder="Введите транспортные расходы до границы">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input type="number" style="width: 375px;" class="form-control" id="inputPosleGra" placeholder="Введите транспортные расходы после границы">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <button type="button" onclick="calculate()" class="btn btn-secondary">Рассчитать</button>
+                            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalTable">Таблица</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
-    <div id="validationMessage" class="validationMessage"></div>
-
-    <div>
-      <button class="buttonFillDoc" onclick="openDocument()">Заполнить документ</button>
-
-      <button id="buttosShow" class="buttosShowTable" onclick="showSavedCalculations()">Показать сохраненные расчеты</button>
-      <button id="buttonHide" class="buttonHideTable" onclick="hideTable()">Скрыть таблицу</button>
-
-      <table>
-        <thead>
-        <tr>
-          <th colspan="4">Введенные данные</th>
-          <th colspan="2">Итоговая с/с</th>
-        </tr>
-        <tr>
-          <th>Тип</th>
-          <th>Таможенная пошлина</th>
-          <th>Транспортные расходы</th>
-          <th>Вес</th>
-          <th>Полностью</th>
-          <th>За единицу</th>
-        </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
+    <!-- Модальное окно с результатами отчета-->
+    <div class="modal fade" id="modalItog" tabindex="-1" role="dialog" aria-labelledby="modalItogLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalItogLabel">Результаты расчета</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <label class="col-6 label labelNDS">НДС:</label>
+                        <label class="col-6 label labelItogNDS" id="resultNDS"></label>
+                    </div>
+                    <div class="row">
+                        <label class="col-6 label labelTamPoshl2">Таможенная пошлина:</label>
+                        <label class="col-6 label labelItogTamPoshl" id="resultTamPoshl"></label>
+                    </div>
+                    <div class="row">
+                        <label class="col-6 label labelItoRas">Итоговая с\с поставки:</label>
+                        <label class="col-6 label labelOutRas" id="resultSS"></label>
+                    </div>
+                    <div class="row">
+                        <label class="col-6 label labelItogRasPerOne">Итоговая с\с поставки (за единицу веса):</label>
+                        <label class="col-6 label labelOutRasPerOne" id="resultPerWeight"></label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" style="width:200px" onclick="saveData()">Сохранить</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <script src="/Scrypts/scryptInterOutputData.js"></script>
-  </body>
+    <!-- Модальное окно с таблицей -->
+    <div class="modal fade" id="modalTable" tabindex="-1" role="dialog" aria-labelledby="modalTableLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTableLabel">Введенные данные</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-dark table-striped">
+                        <thead>
+                        <tr>
+                            <th colspan="4">Введенные данные</th>
+                            <th colspan="2">Итоговая с/с</th>
+                        </tr>
+                        <tr>
+                            <th>Тип</th>
+                            <th>Таможенная пошлина</th>
+                            <th>Транспортные расходы</th>
+                            <th>Вес</th>
+                            <th>Полностью</th>
+                            <th>За единицу</th>
+                        </tr>
+                        </thead>
+                        <tbody id="modalTableBody">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
 </html>

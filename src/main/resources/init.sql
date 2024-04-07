@@ -4,6 +4,16 @@ CREATE TABLE products (
     tamposhl DECIMAL(5,2)
 );
 
+CREATE TABLE savesoperations(
+    id int NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    typeTam VARCHAR(255) NOT NULL,
+    tamposhl DECIMAL(5,2) NOT NULL,
+    transprash DECIMAL(5,2) NOT NULL,
+    weightprod DECIMAL(5,2) NOT NULL,
+    itogss DECIMAL(5,2) NOT NULL,
+    itogssperweight DECIMAL(5,2) NOT NULl
+);
+
 INSERT INTO products (tamname, tamposhl) VALUES
     ('I. Живые животные; продукты животного происхождения', 5.00),
     ('II. Продукты растительного происхождения', 5.00),
