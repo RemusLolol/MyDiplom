@@ -18,6 +18,8 @@ var validationMesDoc = document.getElementById("validationMesDoc");
                 rateForSelectedCurrency = currency.Cur_OfficialRate;
                 date = currency.Date;
                 ratesData[currency.Cur_Abbreviation] = currency.Cur_OfficialRate;
+                console.log(currency.Cur_Abbreviation);
+                console.log(currency.Cur_OfficialRate);
             });
         })
         .catch(error => console.error('Ошибка при получении данных:', error));
@@ -247,4 +249,8 @@ function fillDTSDocument(){
         const blob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });
         download(blob, 'dts-1(заполненный).pdf', 'application/pdf');
     });
+}
+
+function openCalculator() {
+    window.open('/calculator', '_blank');
 }
