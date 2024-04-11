@@ -148,107 +148,152 @@ function rashetVivod() {
         .catch(error => console.error('Ошибка при получении данных:', error));
 }
 
-function fillDTSDocument(){
-    const osnForRasch11Value = parseFloat(document.getElementById("OsnForRasch11").value);
-    const osnForRasch11bValue = parseFloat(document.getElementById("OsnForRasch11b").value);
-    const osnForRasch12 = parseFloat(document.getElementById("itogOsn").values);
+function download(blob, filename, mimetype) {
+    const url = window.URL.createObjectURL(new Blob([blob], { type: mimetype }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+    }, 0);
+}
 
-    const dopForRasch13 = parseFloat(document.getElementById("Dop13b").value);
-    const dopForRasch14 = parseFloat(document.getElementById("Dop14").value);
-    const dopForRasch14a = parseFloat(document.getElementById("Dop14a").value);
-    const dopForRasch14b = parseFloat(document.getElementById("Dop14b").value);
-    const dopForRasch14v = parseFloat(document.getElementById("Dop14v").value);
-    const dopForRasch14g = parseFloat(document.getElementById("Dop14g").value);
-    const dopForRasch15 = parseFloat(document.getElementById("Dop15").value);
-    const dopForRasch16 = parseFloat(document.getElementById("Dop16").value);
-    const dopForRasch17 = parseFloat(document.getElementById("Dop17").value);
-    const dopForRasch18 = parseFloat(document.getElementById("Dop18").value);
-    const dopForRasch19 = parseFloat(document.getElementById("Dop19").value);
-    const itogDop = parseFloat(document.getElementById("itogoDop").value);
+async function fillDTSDocument() {
+    try {
+        const osnForRasch11Value = parseFloat(document.getElementById("OsnForRasch11").value);
+        const osnForRasch11bValue = parseFloat(document.getElementById("OsnForRasch11b").value);
+        const osnForRasch12 = parseFloat(document.getElementById("itogOsn").values);
 
-    const vch21 = parseFloat(document.getElementById("Vch21").value);
-    const vch22 = parseFloat(document.getElementById("Vch22").value);
-    const vch23 = parseFloat(document.getElementById("Vch23").value);
-    const itogVch = parseFloat(document.getElementById("itogoVch").value);
+        const dopForRasch13 = parseFloat(document.getElementById("Dop13b").value);
+        const dopForRasch14 = parseFloat(document.getElementById("Dop14").value);
+        const dopForRasch14a = parseFloat(document.getElementById("Dop14a").value);
+        const dopForRasch14b = parseFloat(document.getElementById("Dop14b").value);
+        const dopForRasch14v = parseFloat(document.getElementById("Dop14v").value);
+        const dopForRasch14g = parseFloat(document.getElementById("Dop14g").value);
+        const dopForRasch15 = parseFloat(document.getElementById("Dop15").value);
+        const dopForRasch16 = parseFloat(document.getElementById("Dop16").value);
+        const dopForRasch17 = parseFloat(document.getElementById("Dop17").value);
+        const dopForRasch18 = parseFloat(document.getElementById("Dop18").value);
+        const dopForRasch19 = parseFloat(document.getElementById("Dop19").value);
+        const itogDop = parseFloat(document.getElementById("itogoDop").value);
 
-    const totalItog = parseFloat(document.getElementById(("itog25")).value);
-    const totalItogNac = parseFloat(document.getElementById(("itogNac")).value);
+        const vch21 = parseFloat(document.getElementById("Vch21").value);
+        const vch22 = parseFloat(document.getElementById("Vch22").value);
+        const vch23 = parseFloat(document.getElementById("Vch23").value);
+        const itogVch = parseFloat(document.getElementById("itogoVch").value);
 
-    if(osnForRasch11Value === null || osnForRasch11bValue === null || osnForRasch12 === null){
+        const totalItog = parseFloat(document.getElementById(("itog25")).value);
+        const totalItogNac = parseFloat(document.getElementById(("itogNac")).value);
 
-    }
+        //validateInputValues(osnForRasch11Value, osnForRasch11bValue, osnForRasch12, dopForRasch13, dopForRasch14, dopForRasch14a, dopForRasch14b, dopForRasch14v, dopForRasch14g, dopForRasch15, dopForRasch16, dopForRasch17, dopForRasch18, dopForRasch19, itogDop, vch21, vch22, vch23, itogVch, totalItog, totalItogNac);
 
-    if(dopForRasch13 == null || dopForRasch14 === null || dopForRasch14a === null ||
-        dopForRasch14b === null || dopForRasch14v === null || dopForRasch14g === null ||
-        dopForRasch15 === null || dopForRasch16 === null || dopForRasch17 === null ||
-        dopForRasch18 === null || dopForRasch19 === null || itogDop === null){
-
-    }
-
-    if(vch21 === null || vch22 === null || vch23 === null || itogVch === null){
-
-    }
-
-    if(totalItog === null || totalItogNac === null){
-
-    }
-
-    document.getElementById('fillPDFButton').addEventListener('click', async () => {
-        const pdfBytes = await fetch("DTS-1.pdf").then(response => response.arrayBuffer());
+        const pdfBytes = await fetch("/DTS-1.pdf").then(response => response.arrayBuffer());
         const pdfDoc = await PDFLib.PDFDocument.load(pdfBytes);
 
-        //редактирование для первой страницы
-        const firstPage = pdfDoc.getPages()[0];
-        const text = 'X';
-        const fontSize = 12;
-        firstPage.drawText(text, { x: 470, y: 540, size: fontSize }); //Координаты для первого Да
-        firstPage.drawText(text, {x: 510, y: 540, size: fontSize}); //Координаты для первого Нет
-        firstPage.drawText(text, {x:470, y:515, size:fontSize}); //Координаты для Второго Да
-        firstPage.drawText(text, {x:510, y:515, size:fontSize}); //Координаты для Второго Нет
-        firstPage.drawText(text, {x:470, y: 455, size: fontSize}); //Координаты для Третьего Да
-        firstPage.drawText(text, {x:510, y: 455, size: fontSize}); //Координаты для Третьего Нет
-        firstPage.drawText(text, {x:470, y: 395, size: fontSize}); //Координаты для Четветого Да
-        firstPage.drawText(text, {x:510, y: 395, size: fontSize}); //Координаты для Четвертого Нет
-        firstPage.drawText(text, {x:470, y: 360, size: fontSize}); //Координаты для Пятого Да
-        firstPage.drawText(text, {x:510, y: 360, size: fontSize}); //Координаты для Пятого Нет
-        firstPage.drawText(text, {x:470, y: 270, size: fontSize}); //Координаты для Шестого Да
-        firstPage.drawText(text, {x:510, y: 270, size: fontSize}); //Координаты для Шестого Нет
-        firstPage.drawText(text, {x:470, y: 235, size: fontSize}); //Координаты для Седьмого Да
-        firstPage.drawText(text, {x:510, y: 235, size: fontSize}); //Координаты для Седьмого Нет
+        // Редактирование первой страницы
+        modifyFirstPage(pdfDoc);
 
-        //редактирование для второй страницы
-        const twicePage = pdfDoc.getPages()[1];
-        const fontSizeRasch = 10;
-        const textRasch = "000.00";
-        const textVal = "USD";
-        const textData = "01.01.1999"
-        
-        //Основа для расчета
-        twicePage.drawText(textVal, {x:225, y: 745, size: fontSizeRasch}); //Валюта для первого пункта
-        twicePage.drawText(textRasch, {x:350, y: 745, size: fontSizeRasch}); //сумма для первого пункта
-        twicePage.drawText(textData, {x:200, y: 725, size: fontSizeRasch}); //Дата для второго пункта
-        twicePage.drawText(textRasch, {x:350, y:725, size: fontSizeRasch}); // сумма для второго пункта
-        twicePage.drawText(textData, {x:200, y: 695, size: fontSizeRasch}); //Дата для третьего пункта
-        twicePage.drawText(textRasch, {x:350, y: 695, size: fontSizeRasch}); //Сумма для третьего пункта
-        twicePage.drawText(textRasch, {x:350, y: 682, size:fontSizeRasch}); //Итог
+        // Редактирование второй страницы
+        modifySecondPage(pdfDoc);
 
-        //Дополнительные начисления
-        twicePage.drawText(textRasch, {x:350, y:655, size:fontSizeRasch});//Сумма для 13 пункта
-        twicePage.drawText(textRasch, {x:350, y:643, size:fontSizeRasch});//Сумма для 14 пункта
-        twicePage.drawText(textRasch, {x:350, y:550, size:fontSizeRasch});//Сумма для 13 пункта
-        twicePage.drawText(textRasch, {x:350, y:522, size:fontSizeRasch});//Сумма для 14 пункта
-        twicePage.drawText(textRasch, {x:350, y:505, size:fontSizeRasch});//Сумма для 13 пункта
-        twicePage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Сумма для 15 пункта
-        twicePage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Сумма для 16 пункта
-        twicePage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Сумма для 17 пункта
-        twicePage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Сумма для 18 пункта
-        twicePage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Сумма для 19 пункта
-        twicePage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Итог
-
+        // Сохранение заполненного PDF
         const modifiedPdfBytes = await pdfDoc.save();
-        const blob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });
-        download(blob, 'dts-1(заполненный).pdf', 'application/pdf');
+        downloadPDF(modifiedPdfBytes);
+    } catch (error) {
+        console.error('Ошибка при заполнении документа:', error);
+    }
+}
+
+function validateInputValues(...values) {
+    const hasNullValues = values.some(value => value === null || isNaN(value));
+    if (hasNullValues) {
+        throw new Error('Пожалуйста, заполните все поля перед заполнением документа.');
+    }
+}
+
+function modifyFirstPage(pdfDoc) {
+    const firstPage = pdfDoc.getPages()[0];
+    const text = 'X';
+    const fontSize = 12;
+    const radios = document.querySelectorAll('input[type="radio"]:checked');
+    radios.forEach(radio => {
+        const value = radio.value;
+        switch (value) {
+            case 'Да':
+                if (radio.name === 'optionalRadios1') {
+                    firstPage.drawText(text, { x: 470, y: 540, size: fontSize });
+                } else if (radio.name === 'optionalRadios2') {
+                    firstPage.drawText(text, {x: 470, y: 515, size: fontSize });
+                } else if (radio.name === 'optionalRadios3') {
+                    firstPage.drawText(text, { x: 470, y: 455, size: fontSize});
+                } else if(radio.name === 'optionalRadios4') {
+                    firstPage.drawText(text, { x: 470, y: 395, size: fontSize});
+                } else if(radio.name === 'optionalRadios5') {
+                    firstPage.drawText(text, { x: 470, y: 360, size: fontSize});
+                } else if(radio.name === 'optionalRadios6'){
+                    firstPage.drawText(text, {x:470, y: 270, size: fontSize});
+                } else if(radio.name === 'optionalRadios7'){
+                    firstPage.drawText(text, {x:470, y: 235, size: fontSize});
+                }
+                break;
+            case 'Нет':
+                if (radio.name === 'optionalRadios1') {
+                    firstPage.drawText(text, {x: 510, y: 540, size: fontSize});
+                } else if (radio.name === 'optionalRadios2') {
+                    firstPage.drawText(text, {x:510, y:515, size:fontSize});
+                } else if (radio.name === 'optionalRadios3') {
+                    firstPage.drawText(text, {x:510, y: 455, size: fontSize});
+                } else if(radio.name === 'optionalRadios4') {
+                    firstPage.drawText(text, {x:510, y: 395, size: fontSize});
+                } else if(radio.name === 'optionalRadios5') {
+                    firstPage.drawText(text, {x:510, y: 360, size: fontSize});
+                } else if(radio.name === 'optionalRadios6'){
+                    firstPage.drawText(text, {x:510, y: 270, size: fontSize});
+                } else if(radio.name === 'optionalRadios7'){
+                    firstPage.drawText(text, {x:510, y: 235, size: fontSize});
+                }
+                break;
+            default:
+                break;
+        }
     });
+}
+
+function modifySecondPage(pdfDoc) {
+    const secondPage = pdfDoc.getPages()[1];
+    const fontSizeRasch = 10;
+    const textRasch = "000.00";
+    const textVal = "USD";
+    const textData = "01.01.1999";
+
+    secondPage.drawText(textVal, {x:225, y: 745, size: fontSizeRasch}); //Валюта для первого пункта
+    secondPage.drawText(textRasch, {x:350, y: 745, size: fontSizeRasch}); //сумма для первого пункта
+    secondPage.drawText(textData, {x:200, y: 725, size: fontSizeRasch}); //Дата для второго пункта
+    secondPage.drawText(textRasch, {x:350, y:725, size: fontSizeRasch}); // сумма для второго пункта
+    secondPage.drawText(textData, {x:200, y: 695, size: fontSizeRasch}); //Дата для третьего пункта
+    secondPage.drawText(textRasch, {x:350, y: 695, size: fontSizeRasch}); //Сумма для третьего пункта
+    secondPage.drawText(textRasch, {x:350, y: 682, size:fontSizeRasch}); //Итог
+
+
+    secondPage.drawText(textRasch, {x:350, y:655, size:fontSizeRasch});//Сумма для 13 пункта
+    secondPage.drawText(textRasch, {x:350, y:643, size:fontSizeRasch});//Сумма для 14 пункта
+    secondPage.drawText(textRasch, {x:350, y:550, size:fontSizeRasch});//Сумма для 13 пункта
+    secondPage.drawText(textRasch, {x:350, y:522, size:fontSizeRasch});//Сумма для 14 пункта
+    secondPage.drawText(textRasch, {x:350, y:505, size:fontSizeRasch});//Сумма для 13 пункта
+    secondPage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Сумма для 15 пункта
+    secondPage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Сумма для 16 пункта
+    secondPage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Сумма для 17 пункта
+    secondPage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Сумма для 18 пункта
+    secondPage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Сумма для 19 пункта
+    secondPage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Итог
+}
+
+function downloadPDF(pdfBytes) {
+    const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+    download(blob, 'dts-1(заполненный).pdf', 'application/pdf');
 }
 
 function openCalculator() {
