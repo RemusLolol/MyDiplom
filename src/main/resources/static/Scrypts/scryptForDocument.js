@@ -1,9 +1,8 @@
-var rateForSelectedCurrency;
-var validationMesDoc = document.getElementById("validationMesDoc");
+let rateForSelectedCurrency;
+let date;
 (function getDataForApi() {
     const selectElement = document.getElementById('currencySelector');
     const ratesData = {};
-    var date;
 
     fetch('https://api.nbrb.by/exrates/rates?periodicity=0')
         .then(response => response.json())
@@ -29,14 +28,9 @@ var validationMesDoc = document.getElementById("validationMesDoc");
         rateForSelectedCurrency = ratesData[selectedCurrency];
 
         var nac = rateForSelectedCurrency * parseFloat(document.getElementById("OsnForRasch11").value).toFixed(2);
-        document.getElementById('labelPeresch').innerText = "В НАЦИОНАЛЬНОЙ ВАЛЮТЕ (курс пересчета: " + date + "): " + nac.toFixed(2);
-        document.getElementById('labelPerechb').innerText = "(б) Косвенные платежи (условия или обязательства) в НАЦИОНАЛЬНОЙ ВАЛЮТЕ (курс пересчета: " + date + ")";
-
-        if (rateForSelectedCurrency !== undefined) {
-            console.log(`Курс ${selectedCurrency} к белорусскому рублю: ${rateForSelectedCurrency}`);
-        } else {
-            console.log(`Курс для ${selectedCurrency} не найден.`);
-        }
+        document.getElementById('labelPeresch').innerText = "В НАЦИОНАЛЬНОЙ ВАЛЮТЕ (курс пересчета: " + formattedDate(date) + "): " + nac.toFixed(2);
+        document.getElementById('labelPerechb').innerText = "(б) Косвенные платежи (условия или обязательства) в НАЦИОНАЛЬНОЙ ВАЛЮТЕ (курс пересчета: "
+            + formattedDate(date) + ")";
     });
 })();
 
@@ -44,15 +38,15 @@ function rashetVivod() {
     //Расчет Основы для Расчета
     const OsnForRasch11Value = parseFloat(document.getElementById("OsnForRasch11").value) || 0;
     const OsnForRasch11bValue = parseFloat(document.getElementById("OsnForRasch11b").value) || 0;
-    if(OsnForRasch11Value === 0 || OsnForRasch11bValue === 0){
-        validationMesDoc.innerText = "Пожалуйста, заполните все поля в пункте Основные расчеты";
-        validationMesDoc.style.backgroundColor = "#FF0000";
-        validationMesDoc.style.opacity = 1;
-        setTimeout(function () {
-            validationMesDoc.style.opacity = 0;
-        }, 2000);
-        return;
-    }
+    // if(OsnForRasch11Value === 0 || OsnForRasch11bValue === 0){
+    //     validationMesDoc.innerText = "Пожалуйста, заполните все поля в пункте Основные расчеты";
+    //     validationMesDoc.style.backgroundColor = "#FF0000";
+    //     validationMesDoc.style.opacity = 1;
+    //     setTimeout(function () {
+    //         validationMesDoc.style.opacity = 0;
+    //     }, 2000);
+    //     return;
+    // }
     const result = ((OsnForRasch11Value * rateForSelectedCurrency) + OsnForRasch11bValue).toFixed(2);
     document.getElementById("itogOsn").innerText = "12) Итого по разделам \"а\" и \"б\" графы 11 в национальной валюте: " + result;
 
@@ -79,15 +73,15 @@ function rashetVivod() {
             break;
         }
     }
-    if (hasEmptyValue) {
-        validationMesDoc.innerText = "Пожалуйста, заполните все поля в пункте Дополнительные начисления";
-        validationMesDoc.style.backgroundColor = "#FF0000";
-        validationMesDoc.style.opacity = 1;
-        setTimeout(function () {
-            validationMesDoc.style.opacity = 0;
-        }, 2000);
-        return;
-    }
+    // if (hasEmptyValue) {
+    //     validationMesDoc.innerText = "Пожалуйста, заполните все поля в пункте Дополнительные начисления";
+    //     validationMesDoc.style.backgroundColor = "#FF0000";
+    //     validationMesDoc.style.opacity = 1;
+    //     setTimeout(function () {
+    //         validationMesDoc.style.opacity = 0;
+    //     }, 2000);
+    //     return;
+    // }
     const totalDop = values.reduce((acc, currentValue) => acc + currentValue, 0);
     document.getElementById("itogoDop").innerText = "20) Итого по графам 13 - 19 в национальной валюте: " + totalDop.toFixed(2);
 
@@ -98,15 +92,15 @@ function rashetVivod() {
             break;
         }
     }
-    if (hasEmptyValue) {
-        validationMesDoc.innerText = "Пожалуйста, заполните все поля в пункте Вычеты в национальной валюте";
-        validationMesDoc.style.backgroundColor = "#FF0000";
-        validationMesDoc.style.opacity = 1;
-        setTimeout(function () {
-            validationMesDoc.style.opacity = 0;
-        }, 2000);
-        return;
-    }
+    // if (hasEmptyValue) {
+    //     validationMesDoc.innerText = "Пожалуйста, заполните все поля в пункте Вычеты в национальной валюте";
+    //     validationMesDoc.style.backgroundColor = "#FF0000";
+    //     validationMesDoc.style.opacity = 1;
+    //     setTimeout(function () {
+    //         validationMesDoc.style.opacity = 0;
+    //     }, 2000);
+    //     return;
+    // }
 
     //Расчет Вычетов в национальной валюте
     const valuesVch = [
@@ -165,7 +159,7 @@ async function fillDTSDocument() {
     try {
         const osnForRasch11Value = parseFloat(document.getElementById("OsnForRasch11").value);
         const osnForRasch11bValue = parseFloat(document.getElementById("OsnForRasch11b").value);
-        const osnForRasch12 = parseFloat(document.getElementById("itogOsn").values);
+        const osnForRasch12 = parseFloat(document.getElementById("itogOsn").value);
 
         const dopForRasch13 = parseFloat(document.getElementById("Dop13b").value);
         const dopForRasch14 = parseFloat(document.getElementById("Dop14").value);
@@ -262,33 +256,57 @@ function modifyFirstPage(pdfDoc) {
     });
 }
 
+function formattedDate(date){
+    const dateObject = new Date(date);
+    const day = String(dateObject.getDate()).padStart(2, '0');
+    const month = String(dateObject.getMonth() + 1).padStart(2, '0');
+    const year = dateObject.getFullYear();
+    const formatted = `${day}.${month}.${year}`;
+    return formatted;
+}
+
 function modifySecondPage(pdfDoc) {
     const secondPage = pdfDoc.getPages()[1];
     const fontSizeRasch = 10;
-    const textRasch = "000.00";
-    const textVal = "USD";
-    const textData = "01.01.1999";
 
-    secondPage.drawText(textVal, {x:225, y: 745, size: fontSizeRasch}); //Валюта для первого пункта
-    secondPage.drawText(textRasch, {x:350, y: 745, size: fontSizeRasch}); //сумма для первого пункта
-    secondPage.drawText(textData, {x:200, y: 725, size: fontSizeRasch}); //Дата для второго пункта
-    secondPage.drawText(textRasch, {x:350, y:725, size: fontSizeRasch}); // сумма для второго пункта
-    secondPage.drawText(textData, {x:200, y: 695, size: fontSizeRasch}); //Дата для третьего пункта
-    secondPage.drawText(textRasch, {x:350, y: 695, size: fontSizeRasch}); //Сумма для третьего пункта
-    secondPage.drawText(textRasch, {x:350, y: 682, size:fontSizeRasch}); //Итог
+    fillOsnRasch(secondPage, fontSizeRasch, formattedDate(date));
 
+    // secondPage.drawText(textRasch, {x:350, y:655, size:fontSizeRasch});//Сумма для 13 пункта
+    // secondPage.drawText(textRasch, {x:350, y:643, size:fontSizeRasch});//Сумма для 14 пункта
+    // secondPage.drawText(textRasch, {x:350, y:550, size:fontSizeRasch});//Сумма для 13 пункта
+    // secondPage.drawText(textRasch, {x:350, y:522, size:fontSizeRasch});//Сумма для 14 пункта
+    // secondPage.drawText(textRasch, {x:350, y:505, size:fontSizeRasch});//Сумма для 13 пункта
+    // secondPage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Сумма для 15 пункта
+    // secondPage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Сумма для 16 пункта
+    // secondPage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Сумма для 17 пункта
+    // secondPage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Сумма для 18 пункта
+    // secondPage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Сумма для 19 пункта
+    // secondPage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Итог
+}
 
-    secondPage.drawText(textRasch, {x:350, y:655, size:fontSizeRasch});//Сумма для 13 пункта
-    secondPage.drawText(textRasch, {x:350, y:643, size:fontSizeRasch});//Сумма для 14 пункта
-    secondPage.drawText(textRasch, {x:350, y:550, size:fontSizeRasch});//Сумма для 13 пункта
-    secondPage.drawText(textRasch, {x:350, y:522, size:fontSizeRasch});//Сумма для 14 пункта
-    secondPage.drawText(textRasch, {x:350, y:505, size:fontSizeRasch});//Сумма для 13 пункта
-    secondPage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Сумма для 15 пункта
-    secondPage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Сумма для 16 пункта
-    secondPage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Сумма для 17 пункта
-    secondPage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Сумма для 18 пункта
-    secondPage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Сумма для 19 пункта
-    secondPage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Итог
+function extractNumberFromString(str) {
+    const parts = str.split(':');
+    if (parts.length < 2) {
+        return null;
+    }
+    const secondPart = parts.pop().trim();
+    const regex = /[-+]?\d*\.?\d+/;
+    const match = secondPart.match(regex);
+    if (match) {
+        return match[0];
+    } else {
+        return null;
+    }
+}
+
+function fillOsnRasch(secondPage, fontSizeRasch, formattedDate){
+    secondPage.drawText(document.getElementById('currencySelector').value, {x: 225, y: 745, size: fontSizeRasch});
+    secondPage.drawText(document.getElementById("OsnForRasch11").value, {x: 350, y: 745, size: fontSizeRasch});
+    secondPage.drawText(formattedDate, {x: 200, y: 725, size: fontSizeRasch});
+    secondPage.drawText(extractNumberFromString(document.getElementById('labelPeresch').textContent).toString(), {x:350, y:725, size: fontSizeRasch});
+    secondPage.drawText(formattedDate, {x:200, y: 695, size: fontSizeRasch});
+    secondPage.drawText(document.getElementById("OsnForRasch11b").value, {x:350, y: 695, size: fontSizeRasch});
+    secondPage.drawText(extractNumberFromString(document.getElementById("itogOsn").textContent), {x:350, y: 682, size:fontSizeRasch});
 }
 
 function downloadPDF(pdfBytes) {
