@@ -18,8 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     rateForSelectedCurrency = currency.Cur_OfficialRate;
                     date = currency.Date;
                     ratesData[currency.Cur_Abbreviation] = currency.Cur_OfficialRate;
-                    console.log(currency.Cur_Abbreviation);
-                    console.log(currency.Cur_OfficialRate);
                 });
             })
             .catch(error => console.error('Ошибка при получении данных:', error));
@@ -65,75 +63,127 @@ function fillMainCalc(){
     document.getElementById("itogOsn").innerText = "12) Итого по разделам \"а\" и \"б\" графы 11 в национальной валюте: " + result;
 }
 
+function fillDopCalc() {
+    const Dop13Value = parseFloat(document.getElementById("Dop13").value) || 0;
+    const Dop13bValue = parseFloat(document.getElementById("Dop13b").value) || 0;
+    const Dop14Value = parseFloat(document.getElementById("Dop14").value) || 0;
+    const Dop14aValue = parseFloat(document.getElementById("Dop14a").value) || 0;
+    const Dop14bValue = parseFloat(document.getElementById("Dop14b").value) || 0;
+    const Dop14vValue = parseFloat(document.getElementById("Dop14v").value) || 0;
+    const Dop14gValue = parseFloat(document.getElementById("Dop14g").value) || 0;
+    const Dop15Value = parseFloat(document.getElementById("Dop15").value) || 0;
+    const Dop16Value = parseFloat(document.getElementById("Dop16").value) || 0;
+    const Dop17Value = parseFloat(document.getElementById("Dop17").value) || 0;
+    const Dop18Value = parseFloat(document.getElementById("Dop18").value) || 0;
+    const Dop19Value = parseFloat(document.getElementById("Dop19").value) || 0;
+
+    const total = Dop13Value + Dop13bValue + Dop14Value + Dop14aValue + Dop14bValue +
+        Dop14vValue + Dop14gValue + Dop15Value + Dop16Value + Dop17Value + Dop18Value + Dop19Value;
+
+    document.getElementById("itogoDop").innerText = "20) Итого по графам 13 - 19 в национальной валюте: " + total.toFixed(2);
+}
+
+function fillItogNacValues(){
+    const Vch21 = parseFloat(document.getElementById("Vch21").value) || 0;
+    const Vch22 = parseFloat(document.getElementById("Vch22").value) || 0;
+    const Vch23 = parseFloat(document.getElementById("Vch23").value) || 0;
+
+    const total = Vch21 + Vch22 + Vch23;
+
+    document.getElementById("itogoVch").innerText = "24) Итого по графам 21 - 23 в национальной валюте: " + total.toFixed(2);
+}
+
 function rashetVivod() {
-    //Расчет для Дополнительного начисления
-    const values = [
-        parseFloat(document.getElementById("Dop13").value) || 0,
-        parseFloat(document.getElementById("Dop13b").value) || 0,
-        parseFloat(document.getElementById("Dop14").value) || 0,
-        parseFloat(document.getElementById("Dop14a").value) || 0,
-        parseFloat(document.getElementById("Dop14b").value) || 0,
-        parseFloat(document.getElementById("Dop14v").value) || 0,
-        parseFloat(document.getElementById("Dop14g").value) || 0,
-        parseFloat(document.getElementById("Dop15").value) || 0,
-        parseFloat(document.getElementById("Dop16").value) || 0,
-        parseFloat(document.getElementById("Dop17").value) || 0,
-        parseFloat(document.getElementById("Dop18").value) || 0,
-        parseFloat(document.getElementById("Dop19").value) || 0
-    ];
-    let hasEmptyValue = false;
 
-    for (let i = 0; i < values.length; i++) {
-        if (isNaN(values[i]) || values[i] === 0) {
-            hasEmptyValue = true;
-            break;
-        }
+    if (!checkAndInitializeInputsOsn()) {
+        return;
     }
-    const totalDop = values.reduce((acc, currentValue) => acc + currentValue, 0);
-    document.getElementById("itogoDop").innerText = "20) Итого по графам 13 - 19 в национальной валюте: " + totalDop.toFixed(2);
+    if (!checkAndInitializeInputsDop()) {
+        return;
+    }
+    if (!checkAndInitializeInputsVch()) {
+        return;
+    }
+    const itogOsnText = document.getElementById("itogOsn").innerText;
+    const itogoDopText = document.getElementById("itogoDop").innerText;
+    const itogoVchText = document.getElementById("itogoVch").innerText;
 
-    hasEmptyValue = false;
-    for (let i = 0; i < values.length; i++) {
-        if (isNaN(values[i]) || values[i] === 0) {
-            hasEmptyValue = true;
-            break;
-        }
+    const itogOsnValue = parseFloat(itogOsnText.split(":")[1].trim());
+    const itogoDopValue = parseFloat(itogoDopText.split(":")[1].trim());
+    const itogoVchValue = parseFloat(itogoVchText.split(":")[1].trim());
+
+    if (isNaN(itogOsnValue) || isNaN(itogoDopValue) || isNaN(itogoVchValue)) {
+        console.error("Ошибка: Один из итогов не является числом.");
+        return;
     }
 
-    //Расчет Вычетов в национальной валюте
-    const valuesVch = [
-        parseFloat(document.getElementById("Vch21").value) || 0,
-        parseFloat(document.getElementById("Vch22").value) || 0,
-        parseFloat(document.getElementById("Vch23").value) || 0
-    ];
+    const totalItog25 = itogOsnValue + itogoDopValue - itogoVchValue;
+    const totalNac = itogOsnValue + itogoDopValue + itogoVchValue;
 
-    const totalVch = valuesVch.reduce((acc, currentValue) => acc + currentValue, 0);
-    document.getElementById("itogoVch").innerText = "24) Итого по графам 21 - 23 в национальной валюте: " + totalVch.toFixed(2);
-
-    //Финальные итоги
-    const totalItog25 = parseFloat(result) + parseFloat(totalDop) - parseFloat(totalVch);
     document.getElementById("itog25").innerText = "25) Таможенная стоимость ввозимых товаров (12 + 20 - 24): " + totalItog25.toFixed(2);
-    document.getElementById("itogNac").innerText = "В НАЦИОНАЛЬНОЙ ВАЛЮТЕ: " + totalItog25.toFixed(2);
+    document.getElementById("itogNac").innerText = "В НАЦИОНАЛЬНОЙ ВАЛЮТЕ: " + totalNac.toFixed(2);
+    getUsdTotal(totalNac);
+}
 
+function checkAndInitializeInputsOsn() {
+    const OsnForRasch11Value = parseFloat(document.getElementById("OsnForRasch11").value);
+    const OsnForRasch11bValue = parseFloat(document.getElementById("OsnForRasch11b").value);
+
+    if (isNaN(OsnForRasch11Value) || isNaN(OsnForRasch11bValue)) {
+        console.error("Один из входных параметров не является числом Осн.");
+        return false;
+    }
+
+    return true;
+}
+
+function checkAndInitializeInputsDop() {
+    const Dop13Value = parseFloat(document.getElementById("Dop13").value);
+    const Dop13bValue = parseFloat(document.getElementById("Dop13b").value);
+    const Dop14Value = parseFloat(document.getElementById("Dop14").value);
+    const Dop14aValue = parseFloat(document.getElementById("Dop14a").value);
+    const Dop14bValue = parseFloat(document.getElementById("Dop14b").value);
+    const Dop14vValue = parseFloat(document.getElementById("Dop14v").value);
+    const Dop14gValue = parseFloat(document.getElementById("Dop14g").value);
+    const Dop15Value = parseFloat(document.getElementById("Dop15").value);
+    const Dop16Value = parseFloat(document.getElementById("Dop16").value);
+    const Dop17Value = parseFloat(document.getElementById("Dop17").value);
+    const Dop18Value = parseFloat(document.getElementById("Dop18").value);
+    const Dop19Value = parseFloat(document.getElementById("Dop19").value);
+
+    if (isNaN(Dop13Value) || isNaN(Dop13bValue) || isNaN(Dop14Value) ||
+        isNaN(Dop14aValue) || isNaN(Dop14bValue) || isNaN(Dop14vValue) || isNaN(Dop14gValue) || isNaN(Dop15Value) ||
+        isNaN(Dop16Value) || isNaN(Dop17Value) || isNaN(Dop18Value) || isNaN(Dop19Value)) {
+        console.error("Один из входных параметров не является числом Доп.");
+        return false;
+    }
+
+    return true;
+}
+
+function checkAndInitializeInputsVch() {
+    const Vch21 = parseFloat(document.getElementById("Vch21").value);
+    const Vch22 = parseFloat(document.getElementById("Vch22").value);
+    const Vch23 = parseFloat(document.getElementById("Vch23").value);
+
+    if (isNaN(Vch21) || isNaN(Vch22) || isNaN(Vch23)) {
+        console.error("Один из входных параметров не является числом Выч.");
+        return false;
+    }
+
+    return true;
+}
+
+function getUsdTotal(itogNac){
     fetch('https://api.nbrb.by/exrates/rates?periodicity=0')
         .then(response => response.json())
         .then(data => {
-            console.log('Все данные:', data);
-
             data.forEach(currency => {
                 if (currency.Cur_Abbreviation === 'USD') {
                     usdRate = currency.Cur_OfficialRate;
                     usdDate = currency.Date;
-
-                    totalUSD = totalItog25 * parseFloat(usdRate);
-                    document.getElementById("itogUSA").innerText = "В ДОЛЛАРАХ США (курс пересчета: "  + usdDate + "): "  + totalUSD.toFixed(2);
-
-                    validationMesDoc.innerText = "Расчет произвелся успешно";
-                    validationMesDoc.style.backgroundColor = "#00FF00";
-                    validationMesDoc.style.opacity = 1;
-                    setTimeout(function () {
-                        validationMesDoc.style.opacity = 0;
-                    }, 2000);
+                    totalUSD = itogNac * parseFloat(usdRate);
+                    document.getElementById("itogUSA").innerText = "В ДОЛЛАРАХ США (курс пересчета: "  + formattedDate(usdDate) + "): "  + totalUSD.toFixed(2);
                 }
             });
         })
@@ -340,6 +390,15 @@ function toggleDopCalc(){
 
 function toggleItog(){
     var surveyForm = document.getElementById("itogContainer");
+    if (surveyForm.style.height === "0px") {
+        slideDown(surveyForm);
+    } else {
+        slideUp(surveyForm);
+    }
+}
+
+function toggleItogNacValue(){
+    var surveyForm = document.getElementById("itogNacValue");
     if (surveyForm.style.height === "0px") {
         slideDown(surveyForm);
     } else {
