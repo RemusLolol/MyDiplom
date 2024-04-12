@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function () {
     (function getDataForApi() {
         const selectElement = document.getElementById('currencySelector');
         const ratesData = {};
-
         fetch('https://api.nbrb.by/exrates/rates?periodicity=0')
             .then(response => response.json())
             .then(data => {
@@ -14,18 +13,15 @@ document.addEventListener('DOMContentLoaded', function () {
                     optionElement.value = currency.Cur_Abbreviation;
                     optionElement.textContent = currency.Cur_Abbreviation;
                     selectElement.appendChild(optionElement);
-
                     rateForSelectedCurrency = currency.Cur_OfficialRate;
                     date = currency.Date;
                     ratesData[currency.Cur_Abbreviation] = currency.Cur_OfficialRate;
                 });
             })
             .catch(error => console.error('Ошибка при получении данных:', error));
-
         selectElement.addEventListener('change', function () {
             const selectedCurrency = this.value;
             rateForSelectedCurrency = ratesData[selectedCurrency];
-
             var nac = rateForSelectedCurrency * parseFloat(document.getElementById("OsnForRasch11").value).toFixed(2);
             if (isNaN(nac)) {
                 document.getElementById('labelPeresch').innerText = "В НАЦИОНАЛЬНОЙ ВАЛЮТЕ (курс пересчета: " + formattedDate(date) + "): ";
@@ -66,7 +62,6 @@ function fillMainCalc(){
 function fillDopCalc() {
     const Dop13Value = parseFloat(document.getElementById("Dop13").value) || 0;
     const Dop13bValue = parseFloat(document.getElementById("Dop13b").value) || 0;
-    const Dop14Value = parseFloat(document.getElementById("Dop14").value) || 0;
     const Dop14aValue = parseFloat(document.getElementById("Dop14a").value) || 0;
     const Dop14bValue = parseFloat(document.getElementById("Dop14b").value) || 0;
     const Dop14vValue = parseFloat(document.getElementById("Dop14v").value) || 0;
@@ -77,7 +72,7 @@ function fillDopCalc() {
     const Dop18Value = parseFloat(document.getElementById("Dop18").value) || 0;
     const Dop19Value = parseFloat(document.getElementById("Dop19").value) || 0;
 
-    const total = Dop13Value + Dop13bValue + Dop14Value + Dop14aValue + Dop14bValue +
+    const total = Dop13Value + Dop13bValue + Dop14aValue + Dop14bValue +
         Dop14vValue + Dop14gValue + Dop15Value + Dop16Value + Dop17Value + Dop18Value + Dop19Value;
 
     document.getElementById("itogoDop").innerText = "20) Итого по графам 13 - 19 в национальной валюте: " + total.toFixed(2);
@@ -94,7 +89,6 @@ function fillItogNacValues(){
 }
 
 function rashetVivod() {
-
     if (!checkAndInitializeInputsOsn()) {
         return;
     }
@@ -117,134 +111,43 @@ function rashetVivod() {
         return;
     }
 
-    const totalItog25 = itogOsnValue + itogoDopValue - itogoVchValue;
-    const totalNac = itogOsnValue + itogoDopValue + itogoVchValue;
+    const totalNac = itogOsnValue + itogoDopValue - itogoVchValue;
 
-    document.getElementById("itog25").innerText = "25) Таможенная стоимость ввозимых товаров (12 + 20 - 24): " + totalItog25.toFixed(2);
     document.getElementById("itogNac").innerText = "В НАЦИОНАЛЬНОЙ ВАЛЮТЕ: " + totalNac.toFixed(2);
     getUsdTotal(totalNac);
-}
-
-function checkAndInitializeInputsOsn() {
-    const OsnForRasch11Value = parseFloat(document.getElementById("OsnForRasch11").value);
-    const OsnForRasch11bValue = parseFloat(document.getElementById("OsnForRasch11b").value);
-
-    if (isNaN(OsnForRasch11Value) || isNaN(OsnForRasch11bValue)) {
-        console.error("Один из входных параметров не является числом Осн.");
-        return false;
-    }
-
-    return true;
-}
-
-function checkAndInitializeInputsDop() {
-    const Dop13Value = parseFloat(document.getElementById("Dop13").value);
-    const Dop13bValue = parseFloat(document.getElementById("Dop13b").value);
-    const Dop14Value = parseFloat(document.getElementById("Dop14").value);
-    const Dop14aValue = parseFloat(document.getElementById("Dop14a").value);
-    const Dop14bValue = parseFloat(document.getElementById("Dop14b").value);
-    const Dop14vValue = parseFloat(document.getElementById("Dop14v").value);
-    const Dop14gValue = parseFloat(document.getElementById("Dop14g").value);
-    const Dop15Value = parseFloat(document.getElementById("Dop15").value);
-    const Dop16Value = parseFloat(document.getElementById("Dop16").value);
-    const Dop17Value = parseFloat(document.getElementById("Dop17").value);
-    const Dop18Value = parseFloat(document.getElementById("Dop18").value);
-    const Dop19Value = parseFloat(document.getElementById("Dop19").value);
-
-    if (isNaN(Dop13Value) || isNaN(Dop13bValue) || isNaN(Dop14Value) ||
-        isNaN(Dop14aValue) || isNaN(Dop14bValue) || isNaN(Dop14vValue) || isNaN(Dop14gValue) || isNaN(Dop15Value) ||
-        isNaN(Dop16Value) || isNaN(Dop17Value) || isNaN(Dop18Value) || isNaN(Dop19Value)) {
-        console.error("Один из входных параметров не является числом Доп.");
-        return false;
-    }
-
-    return true;
-}
-
-function checkAndInitializeInputsVch() {
-    const Vch21 = parseFloat(document.getElementById("Vch21").value);
-    const Vch22 = parseFloat(document.getElementById("Vch22").value);
-    const Vch23 = parseFloat(document.getElementById("Vch23").value);
-
-    if (isNaN(Vch21) || isNaN(Vch22) || isNaN(Vch23)) {
-        console.error("Один из входных параметров не является числом Выч.");
-        return false;
-    }
-
-    return true;
-}
-
-function getUsdTotal(itogNac){
-    fetch('https://api.nbrb.by/exrates/rates?periodicity=0')
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(currency => {
-                if (currency.Cur_Abbreviation === 'USD') {
-                    usdRate = currency.Cur_OfficialRate;
-                    usdDate = currency.Date;
-                    totalUSD = itogNac * parseFloat(usdRate);
-                    document.getElementById("itogUSA").innerText = "В ДОЛЛАРАХ США (курс пересчета: "  + formattedDate(usdDate) + "): "  + totalUSD.toFixed(2);
-                }
-            });
-        })
-        .catch(error => console.error('Ошибка при получении данных:', error));
-}
-
-function download(blob, filename, mimetype) {
-    const url = window.URL.createObjectURL(new Blob([blob], { type: mimetype }));
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(() => {
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-    }, 0);
+    showModalAndAlertAccept('Итог посчитан');
 }
 
 async function fillDTSDocument() {
+    if (!checkAllAnswers()) {
+        showModalAndAlertError('Ответьте на все вопросы в пункте: Блок Вопросов Да/Нет.');
+        return;
+    } else if(!checkAndInitializeInputsOsn()){
+        showModalAndAlertError('Введите все данные в пункте: ОСНОВА ДЛЯ РАСЧЕТА')
+        return;
+    } else if(!checkAndInitializeInputsDop()){
+        showModalAndAlertError('Введите все данные в пункте: ДОПОЛНИТЕЛЬНЫЕ НАЧИСЛЕНИЯ')
+        return;
+    } else if(!checkAndInitializeInputsVch()){
+        showModalAndAlertError('Введите все данные в пункте: ВЫЧЕТЫ в национальной валюте')
+        return;
+    } else if(!checkAndLogContainsNumber()){
+        showModalAndAlertError('Не заполнен пункт: ИТОГИ')
+        return;
+    }
     try {
-        if (!checkAllAnswers()) {
-            console.error('Не все вопросы были отмечены.');
-            return;
-        }
         const pdfBytes = await fetch("/DTS-1.pdf").then(response => response.arrayBuffer());
         const pdfDoc = await PDFLib.PDFDocument.load(pdfBytes);
 
-        // Редактирование первой страницы
         modifyFirstPage(pdfDoc);
-
-        // Редактирование второй страницы
         modifySecondPage(pdfDoc);
 
-        // Сохранение заполненного PDF
         const modifiedPdfBytes = await pdfDoc.save();
         downloadPDF(modifiedPdfBytes);
+        showModalAndAlertAccept("ДТС заполнен.")
     } catch (error) {
         console.error('Ошибка при заполнении документа:', error);
     }
-}
-
-function checkAllAnswers() {
-    const questions = document.querySelectorAll('.question');
-    let answered = false;
-    for (let i = 0; i < questions.length; i++) {
-        const radios = questions[i].querySelectorAll('input[type="radio"]');
-        for (let j = 0; j < radios.length; j++) {
-            if (radios[j].checked === true) {
-                answered = true;
-                break;
-            }
-            else{
-                answered = false;
-            }
-        }
-        if (answered === false) {
-            return false;
-        }
-    }
-    return true;
 }
 
 function modifyFirstPage(pdfDoc) {
@@ -295,6 +198,153 @@ function modifyFirstPage(pdfDoc) {
     });
 }
 
+function modifySecondPage(pdfDoc) {
+    const secondPage = pdfDoc.getPages()[1];
+    const fontSizeRasch = 10;
+
+    fillOsnRasch(secondPage, fontSizeRasch, formattedDate(date));
+    fillDopRasch(secondPage, fontSizeRasch);
+    fillVchNacValue(secondPage, fontSizeRasch);
+    fillItogs(secondPage, fontSizeRasch);
+}
+
+function fillOsnRasch(secondPage, fontSizeRasch, formattedDate){
+    secondPage.drawText(document.getElementById('currencySelector').value, {x: 225, y: 745, size: fontSizeRasch});
+    secondPage.drawText(document.getElementById("OsnForRasch11").value, {x: 350, y: 745, size: fontSizeRasch});
+    secondPage.drawText(formattedDate, {x: 200, y: 725, size: fontSizeRasch});
+    secondPage.drawText(extractNumberFromString(document.getElementById('labelPeresch').textContent).toString(), {x:350, y:725, size: fontSizeRasch});
+    secondPage.drawText(formattedDate, {x:200, y: 695, size: fontSizeRasch});
+    secondPage.drawText(document.getElementById("OsnForRasch11b").value, {x:350, y: 695, size: fontSizeRasch});
+    secondPage.drawText(extractNumberFromString(document.getElementById("itogOsn").textContent), {x:350, y: 682, size:fontSizeRasch});
+}
+
+function fillDopRasch(secondPage, fontSizeRasch){
+    const itogoDopText = document.getElementById("itogoDop").innerText;
+    const itogoDopValue = parseFloat(itogoDopText.split(":")[1].trim());
+
+    secondPage.drawText(document.getElementById("Dop13").value, {x:350, y:655, size:fontSizeRasch});
+    secondPage.drawText(document.getElementById("Dop13b").value, {x:350, y:643, size:fontSizeRasch});
+    secondPage.drawText(document.getElementById("Dop14a").value, {x:350, y:550, size:fontSizeRasch});
+    secondPage.drawText(document.getElementById("Dop14b").value, {x:350, y:522, size:fontSizeRasch});
+    secondPage.drawText(document.getElementById("Dop14v").value, {x:350, y:505, size:fontSizeRasch});
+    secondPage.drawText(document.getElementById("Dop14g").value, {x:350, y:460, size:fontSizeRasch});
+    secondPage.drawText(document.getElementById("Dop15").value, {x:350, y:430, size:fontSizeRasch});
+    secondPage.drawText(document.getElementById("Dop16").value, {x:350, y:390, size:fontSizeRasch});
+    secondPage.drawText(document.getElementById("Dop17").value, {x:350, y:365, size:fontSizeRasch});
+    secondPage.drawText(document.getElementById("Dop18").value, {x:350, y:325, size:fontSizeRasch});
+    secondPage.drawText(document.getElementById("Dop19").value, {x:350, y:308, size:fontSizeRasch});
+    secondPage.drawText(itogoDopValue.toString(), {x:350, y:295, size:fontSizeRasch});
+}
+
+function fillVchNacValue(secondPage, fontSizeRasch){
+    const itogoVchText = document.getElementById("itogoVch").innerText;
+    const itogoVchValue = parseFloat(itogoVchText.split(":")[1].trim());
+
+    secondPage.drawText(document.getElementById("Vch21").value, {x:350, y:260, size:fontSizeRasch});
+    secondPage.drawText(document.getElementById("Vch22").value, {x:350, y:230, size:fontSizeRasch});
+    secondPage.drawText(document.getElementById("Vch23").value, {x:350, y:205, size:fontSizeRasch});
+    secondPage.drawText(itogoVchValue.toString(), {x:350, y:190, size:fontSizeRasch});
+}
+
+function fillItogs(secondPage, fontSizeRasch){
+    const itogNac = document.getElementById("itogNac").textContent;
+    const itogUSD = document.getElementById("itogUSA").textContent;
+    const matchDate = itogUSD.match(/\(курс пересчета:\s*(\d{2}\.\d{2}\.\d{4})\)/);
+
+    const itogNacValue = parseFloat(itogNac.match(/:\s*([0-9.]+)/)[1]);
+    const itogUSDValue = parseFloat(itogUSD.match(/:\s*([0-9.]+)/)[1]);
+
+    secondPage.drawText(itogNacValue.toString(), {x:350, y:170, size:fontSizeRasch});
+    secondPage.drawText(itogUSDValue.toString(), {x:350, y:160, size:fontSizeRasch});
+    secondPage.drawText(matchDate[1].toString(), {x:200, y:160, size:fontSizeRasch})
+}
+
+function downloadPDF(pdfBytes) {
+    const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+    download(blob, 'dts-1(заполненный).pdf', 'application/pdf');
+}
+
+function checkAllAnswers() {
+    const questions = document.querySelectorAll('.question');
+    let answered = false;
+    for (let i = 0; i < questions.length; i++) {
+        const radios = questions[i].querySelectorAll('input[type="radio"]');
+        for (let j = 0; j < radios.length; j++) {
+            if (radios[j].checked === true) {
+                answered = true;
+                break;
+            }
+            else{
+                answered = false;
+            }
+        }
+        if (answered === false) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function checkAndInitializeInputsOsn() {
+    const OsnForRasch11Value = parseFloat(document.getElementById("OsnForRasch11").value);
+    const OsnForRasch11bValue = parseFloat(document.getElementById("OsnForRasch11b").value);
+
+    if (isNaN(OsnForRasch11Value) || isNaN(OsnForRasch11bValue)) {
+        showModalAndAlertError("Один из входных параметров не является числом Осн.");
+        return false;
+    }
+
+    return true;
+}
+
+function checkAndInitializeInputsDop() {
+    const Dop13Value = parseFloat(document.getElementById("Dop13").value);
+    const Dop13bValue = parseFloat(document.getElementById("Dop13b").value);
+    const Dop14aValue = parseFloat(document.getElementById("Dop14a").value);
+    const Dop14bValue = parseFloat(document.getElementById("Dop14b").value);
+    const Dop14vValue = parseFloat(document.getElementById("Dop14v").value);
+    const Dop14gValue = parseFloat(document.getElementById("Dop14g").value);
+    const Dop15Value = parseFloat(document.getElementById("Dop15").value);
+    const Dop16Value = parseFloat(document.getElementById("Dop16").value);
+    const Dop17Value = parseFloat(document.getElementById("Dop17").value);
+    const Dop18Value = parseFloat(document.getElementById("Dop18").value);
+    const Dop19Value = parseFloat(document.getElementById("Dop19").value);
+
+    if (isNaN(Dop13Value) || isNaN(Dop13bValue) || isNaN(Dop14aValue) ||
+        isNaN(Dop14bValue) || isNaN(Dop14vValue) || isNaN(Dop14gValue) || isNaN(Dop15Value) ||
+        isNaN(Dop16Value) || isNaN(Dop17Value) || isNaN(Dop18Value) || isNaN(Dop19Value)) {
+        showModalAndAlertError("Один из входных параметров не является числом Доп.");
+        return false;
+    }
+
+    return true;
+}
+
+function checkAndInitializeInputsVch() {
+    const Vch21 = parseFloat(document.getElementById("Vch21").value);
+    const Vch22 = parseFloat(document.getElementById("Vch22").value);
+    const Vch23 = parseFloat(document.getElementById("Vch23").value);
+
+    if (isNaN(Vch21) || isNaN(Vch22) || isNaN(Vch23)) {
+        showModalAndAlertError("Один из входных параметров не является числом Выч.");
+        return false;
+    }
+
+    return true;
+}
+
+function checkAndLogContainsNumber() {
+    const itogNac = document.getElementById("itogNac").textContent;
+    const itogUSD = document.getElementById("itogUSA").textContent;
+
+    const regex = /\d+/;
+
+    const containsNumber1 = regex.test(itogNac);
+    const containsNumber2 = regex.test(itogUSD);
+
+    return containsNumber1 || containsNumber2;
+}
+
 function formattedDate(date){
     const dateObject = new Date(date);
     const day = String(dateObject.getDate()).padStart(2, '0');
@@ -302,14 +352,6 @@ function formattedDate(date){
     const year = dateObject.getFullYear();
     const formatted = `${day}.${month}.${year}`;
     return formatted;
-}
-
-function modifySecondPage(pdfDoc) {
-    const secondPage = pdfDoc.getPages()[1];
-    const fontSizeRasch = 10;
-
-    //fillOsnRasch(secondPage, fontSizeRasch, formattedDate(date));
-    fillDopRasch(secondPage, fontSizeRasch);
 }
 
 function extractNumberFromString(str) {
@@ -327,39 +369,38 @@ function extractNumberFromString(str) {
     }
 }
 
-function fillOsnRasch(secondPage, fontSizeRasch, formattedDate){
-    secondPage.drawText(document.getElementById('currencySelector').value, {x: 225, y: 745, size: fontSizeRasch});
-    secondPage.drawText(document.getElementById("OsnForRasch11").value, {x: 350, y: 745, size: fontSizeRasch});
-    secondPage.drawText(formattedDate, {x: 200, y: 725, size: fontSizeRasch});
-    secondPage.drawText(extractNumberFromString(document.getElementById('labelPeresch').textContent).toString(), {x:350, y:725, size: fontSizeRasch});
-    secondPage.drawText(formattedDate, {x:200, y: 695, size: fontSizeRasch});
-    secondPage.drawText(document.getElementById("OsnForRasch11b").value, {x:350, y: 695, size: fontSizeRasch});
-    secondPage.drawText(extractNumberFromString(document.getElementById("itogOsn").textContent), {x:350, y: 682, size:fontSizeRasch});
+function getUsdTotal(itogNac){
+    fetch('https://api.nbrb.by/exrates/rates?periodicity=0')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(currency => {
+                if (currency.Cur_Abbreviation === 'USD') {
+                    usdRate = currency.Cur_OfficialRate;
+                    usdDate = currency.Date;
+                    totalUSD = itogNac * parseFloat(usdRate);
+                    document.getElementById("itogUSA").innerText = "В ДОЛЛАРАХ США (курс пересчета: "  + formattedDate(usdDate) + "): "  + totalUSD.toFixed(2);
+                }
+            });
+        })
+        .catch(error => console.error('Ошибка при получении данных:', error));
 }
 
-function fillDopRasch(secondPage, fontSizeRasch){
-    // secondPage.drawText(textRasch, {x:350, y:655, size:fontSizeRasch});//Сумма для 13 пункта
-    // secondPage.drawText(textRasch, {x:350, y:643, size:fontSizeRasch});//Сумма для 14 пункта
-    // secondPage.drawText(textRasch, {x:350, y:550, size:fontSizeRasch});//Сумма для 13 пункта
-    // secondPage.drawText(textRasch, {x:350, y:522, size:fontSizeRasch});//Сумма для 14 пункта
-    // secondPage.drawText(textRasch, {x:350, y:505, size:fontSizeRasch});//Сумма для 13 пункта
-    // secondPage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Сумма для 15 пункта
-    // secondPage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Сумма для 16 пункта
-    // secondPage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Сумма для 17 пункта
-    // secondPage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Сумма для 18 пункта
-    // secondPage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Сумма для 19 пункта
-    // secondPage.drawText(textRasch, {x:350, y:455, size:fontSizeRasch});//Итог
-}
-
-function downloadPDF(pdfBytes) {
-    const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-    download(blob, 'dts-1(заполненный).pdf', 'application/pdf');
+function download(blob, filename, mimetype) {
+    const url = window.URL.createObjectURL(new Blob([blob], { type: mimetype }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+    }, 0);
 }
 
 function openCalculator() {
     window.open('/calculator', '_blank');
 }
-
 
 function toggleSurvey() {
     var surveyForm = document.getElementById("surveyContainer");
@@ -445,4 +486,28 @@ function toggleSidebar() {
     var burger = document.querySelector('.burger');
     sidebar.classList.toggle('open');
     burger.classList.toggle('open');
+}
+
+function showModalAndAlertAccept(textAlert) {
+    const alertMessage = `<div class="alert alert-success" role="alert" style="padding: 10px; background-color: #28a745; color: #fff;
+                font-size: 14px; font-weight: bold;">
+                    ${textAlert}
+                </div>`;
+    document.getElementById('alertContainer').innerHTML = alertMessage;
+
+    setTimeout(function() {
+        document.getElementById('alertContainer').innerHTML = '';
+    }, 2000);
+}
+
+function showModalAndAlertError(textAlert) {
+    const alertMessage = `<div class="alert alert-success" role="alert" style="padding: 10px; background-color: #b02e2e; color: #fff;
+                font-size: 14px; font-weight: bold;">
+                    ${textAlert}
+                </div>`;
+    document.getElementById('alertContainer').innerHTML = alertMessage;
+
+    setTimeout(function() {
+        document.getElementById('alertContainer').innerHTML = '';
+    }, 2000);
 }

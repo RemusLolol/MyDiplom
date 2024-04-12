@@ -89,6 +89,8 @@
     </head>
 
     <body>
+    <div id="alertContainer" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;"></div>
+
     <div class="burger" onclick="toggleSidebar()">
         <span></span>
         <span></span>
@@ -292,15 +294,8 @@
                     </label>
                 </div>
             </div>
-            <div class="question my-3">
-                <p class="h6">14) Соответствующим образом распределенная стоимость следующих товаров и услуг...</p>
-                <div class="form-group">
-                    <label class="w-100">
-                        <input onchange="fillDopCalc()" id="Dop14" type="number" placeholder="Введите" class="w-25">
-                    </label>
-                </div>
-            </div>
             <div class="question my-3 ms-4">
+                <p class="h6">14) Соответствующим образом распределенная стоимость следующих товаров и услуг...</p>
                 <p class="h6">(а) Сырье, материалы, детали, полуфабрикаты и иные товары, из которых произведены (состоят) ввозимые товары:</p>
                 <div class="form-group">
                     <label class="w-100">
@@ -422,20 +417,20 @@
         </footer>
         <form id="itogContainer" role="form" class="form-horizontal col-sm-12" style="height: 0; overflow: hidden;">
             <div class="question my-3">
-                <p id="itog25" class="h6">25) Таможенная стоимость ввозимых товаров (12 + 20 - 24):</p>
+                <p id="itog25" class="h6">25) Таможенная стоимость ввозимых товаров (12 + 20 - 24): </p>
             </div>
             <div class="question my-3">
                 <p id="itogNac" class="h6">В НАЦИОНАЛЬНОЙ ВАЛЮТЕ:</p>
             </div>
             <div class="question my-3">
-                <p id="itogUSA" class="h6">В ДОЛЛАРАХ США (курс пересчета):</p>
+                <p id="itogUSA" class="h6">В ДОЛЛАРАХ США (курс пересчета: ):</p>
             </div>
-            <button class="btn btn-outline-primary px-3" type="button" onclick="rashetVivod()">Расчитать Итоги</button>
+            <button class="btn btn-secondary px-3" type="button" onclick="rashetVivod()">Расчитать Итоги</button>
         </form>
     </div>
 
     <div class="container mt-4 mb-4 text-end">
-        <button class="btn btn-outline-primary px-3" type="button" id="fillPDFButton" onclick="fillDTSDocument()">Сформировать дтс</button>
+        <button class="btn btn-secondary px-3" type="button" id="fillPDFButton" onclick="fillDTSDocument()">Сформировать дтс</button>
     </div>
     </body>
 </html>
