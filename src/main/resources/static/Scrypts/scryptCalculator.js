@@ -196,8 +196,87 @@ function fillTable(data) {
                    </tr>`;
         tbody.append(row);
     });
+    clearTable();
 }
 
 function openDocument() {
     window.open('/document', '_blank');
+}
+
+function saveTableOnFile() {
+    var table = document.getElementById("modalTableBody");
+    var data = [];
+
+    var headerRow1 = ["Введенные данные", "", "", "", "", "", "Результаты", ""];
+    var headerRow2 = ["Тип", "Таможенная пошлина", "C/c", "Транспортные расходы до границы", "Транспортные расходы после границы",
+        "Вес", "Полностью", "За единицу"];
+    data.push(headerRow1);
+    data.push(headerRow2);
+
+    for (var i = 0; i < table.rows.length; i++) {
+        var rowData = [];
+        for (var j = 0; j < table.rows[i].cells.length; j++) {
+            rowData.push(table.rows[i].cells[j].innerText);
+        }
+        data.push(rowData);
+    }
+
+    var wb = XLSX.utils.book_new();
+    var ws = XLSX.utils.aoa_to_sheet(data);
+
+    ws['!merges'] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: 5 } }];
+    ws['!merges'].push({ s: { r: 0, c: 6 }, e: { r: 0, c: 7 } });
+
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+    XLSX.writeFile(wb, document.getElementById('tableName').textContent+'.xlsx');
+}
+
+function dropTable(){
+    
+}
+
+function toggleEditName() {
+    var editContainer = document.getElementById("editNameContainer");
+    var currentName = document.getElementById("tableName").innerText;
+    var inputField = document.getElementById("newTableName");
+
+    editContainer.style.display = "block";
+    inputField.value = currentName;
+
+    document.getElementById("tableName").style.display = "none";
+}
+
+function loadTableFromExcel(event) {
+    var input = event.target;
+    var files = input.files;
+    if (files && files.length > 0) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var data = new Uint8Array(reader.result);
+            var workbook = XLSX.read(data, { type: 'array' });
+            var sheetName = workbook.SheetNames[0];
+            var sheet = workbook.Sheets[sheetName];
+            var tableData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+            tableData.shift();
+            tableData.shift();
+            displayTable(tableData);
+        };
+        reader.readAsArrayBuffer(files[0]);
+    }
+}
+
+function displayTable(tableData) {
+    var tableBody = document.getElementById("modalTableBody");
+    tableBody.innerHTML = "";
+
+    for (var i = 0; i < tableData.length; i++) {
+        var row = document.createElement("tr");
+        for (var j = 0; j < tableData[i].length; j++) {
+            var cell = document.createElement("td");
+            cell.textContent = tableData[i][j];
+            row.appendChild(cell);
+        }
+        tableBody.appendChild(row);
+    }
 }
