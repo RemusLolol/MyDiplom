@@ -134,208 +134,216 @@
         </style>
         <script src="/Scrypts/scryptCalculator.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </head>
 
     <body>
-    <div class="burger" onclick="toggleSidebar()">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-    <div class="sidebar" id="sidebar">
-        <nav class="nav">
-            <a href="#">Калькулятор</a>
-            <a href="#" onclick="openDocument()">Документ</a>
-        </nav>
-    </div>
-    <script>
-        function toggleSidebar() {
-            var sidebar = document.getElementById('sidebar');
-            var burger = document.querySelector('.burger');
-            sidebar.classList.toggle('open');
-            burger.classList.toggle('open');
-        }
-    </script>
-
-    <div id="alertContainer" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;"></div>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 center-text" style="border-radius:10px; padding:10px; box-shadow:0 0 10px rgba(0, 0, 0, 0.2); ">
-                <h2>Калькулятор</h2>
-            </div>
+        <div class="burger" onclick="toggleSidebar()">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <form>
-                    <div class="form-group row col-2">
-                        <div class="col-sm-10">
-                            <label for="floatingSelect">Выберите тип</label>
-                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example" style="position: relative; background-color: #343a40; color: #ffffff">
-                                <option th:each="product:${productsList}" th:value="${product.tamname}" th:text="${product.tamname}">
-                                </option>
-                            </select>
+        <div class="sidebar" id="sidebar">
+            <nav class="nav">
+                <a href="#" style="color: #1e722c"><i class="fas fa-calculator"></i> Калькулятор</a>
+                <a href="#" onclick="openDocument()"><i class="fas fa-file-alt"></i> Документ</a>
+            </nav>
+        </div>
+        <script>
+            function toggleSidebar() {
+                var sidebar = document.getElementById('sidebar');
+                var burger = document.querySelector('.burger');
+                sidebar.classList.toggle('open');
+                burger.classList.toggle('open');
+            }
+        </script>
+
+        <div id="alertContainer" style="position: fixed; bottom: 20px; right: 20px; z-index: 1050;"></div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 center-text" style="border-radius:10px; padding:10px; box-shadow:0 0 10px rgba(0, 0, 0, 0.2); ">
+                    <h2>Калькулятор</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <form>
+                        <div class="form-group row col-2">
+                            <div class="col-sm-10">
+                                <label for="floatingSelect">Выберите тип</label>
+                                <select class="form-select" id="floatingSelect" aria-label="Floating label select example" style="position: relative; background-color: #343a40; color: #ffffff">
+                                    <option th:each="product:${productsList}" th:value="${product.tamname}" th:text="${product.tamname}">
+                                    </option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row col-2" >
-                        <div class="col-sm-10">
-                            <div class="input-group" style="width: 300px;">
-                                <input type="number" class="form-control" id="inputTamPoshl" placeholder="Введите таможенную пошлину" readonly>
-                                <div class="input-group-append">
-                                    <button onclick="readTamPoshl()" class="btn btn-secondary" type="button" id="lockButton"><i id="locker" class="fas fa-lock"></i></button>
-                                    <script>
-                                        function readTamPoshl() {
-                                            inputTam = document.getElementById('inputTamPoshl');
-                                            inputTam.readOnly = !inputTam.readOnly;
-                                            var locker = document.getElementById('locker');
-                                            if (inputTam.readOnly) {
-                                                locker.classList.remove('fa-unlock');
-                                                locker.classList.add('fa-lock');
-                                            } else {
-                                                locker.classList.remove('fa-lock');
-                                                locker.classList.add('fa-unlock');
+                        <div class="form-group row col-2" >
+                            <div class="col-sm-10">
+                                <div class="input-group" style="width: 300px;">
+                                    <input type="number" class="form-control" id="inputTamPoshl" placeholder="Введите таможенную пошлину" readonly>
+                                    <div class="input-group-append">
+                                        <button onclick="readTamPoshl()" class="btn btn-secondary" type="button" id="lockButton"><i id="locker" class="fas fa-lock"></i></button>
+                                        <script>
+                                            function readTamPoshl() {
+                                                inputTam = document.getElementById('inputTamPoshl');
+                                                inputTam.readOnly = !inputTam.readOnly;
+                                                var locker = document.getElementById('locker');
+                                                if (inputTam.readOnly) {
+                                                    locker.classList.remove('fa-unlock');
+                                                    locker.classList.add('fa-lock');
+                                                } else {
+                                                    locker.classList.remove('fa-lock');
+                                                    locker.classList.add('fa-unlock');
+                                                }
                                             }
-                                        }
-                                    </script>
+                                        </script>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group row col-2">
-                        <div class="col-sm-10">
-                            <input type="number" style="width: 300px;" class="form-control" id="inputSS" placeholder="Введите себестоимость товара">
+                        <div class="form-group row col-2">
+                            <div class="col-sm-10">
+                                <input type="number" style="width: 300px;" class="form-control" id="inputSS" placeholder="Введите себестоимость товара">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row col-2">
-                        <div class="col-sm-10">
-                            <input type="number" style="width: 220px;" class="form-control" id="inputWeight" placeholder="Введите вес товара (в кг)">
+                        <div class="form-group row col-2">
+                            <div class="col-sm-10">
+                                <input type="number" style="width: 220px;" class="form-control" id="inputWeight" placeholder="Введите вес товара (в кг)">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row col-2">
-                        <div class="col-sm-10">
-                            <input type="number" style="width: 375px;" class="form-control" id="inputDoGra" placeholder="Введите транспортные расходы до границы">
+                        <div class="form-group row col-2">
+                            <div class="col-sm-10">
+                                <input type="number" style="width: 375px;" class="form-control" id="inputDoGra" placeholder="Введите транспортные расходы до границы">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row col-2">
-                        <div class="col-sm-10">
-                            <input type="number" style="width: 375px;" class="form-control" id="inputPosleGra" placeholder="Введите транспортные расходы после границы">
+                        <div class="form-group row col-2">
+                            <div class="col-sm-10">
+                                <input type="number" style="width: 375px;" class="form-control" id="inputPosleGra" placeholder="Введите транспортные расходы после границы">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row col-12">
-                        <div class="col-sm-10">
-                            <button type="button" onclick="calculate()" class="btn btn-secondary">Рассчитать</button>
-                            <button type="button" onclick="showSavedCalculations()" class="btn btn-secondary">Таблица</button>
+                        <div class="form-group row col-12">
+                            <div class="col-sm-10">
+                                <button type="button" onclick="calculate()" class="btn btn-secondary">
+                                    <i class="fas fa-calculator"></i> Рассчитать
+                                </button>
+                                <button type="button" onclick="showSavedCalculations()" class="btn btn-secondary">
+                                    <i class="fas fa-table"></i> Таблица
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Модальное окно с результатами-->
-    <div class="modal fade" id="modalItog" tabindex="-1" role="dialog" aria-labelledby="modalItogLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalItogLabel">Результаты расчета</h5>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <label class="col-6 label labelNDS">НДС:</label>
-                        <label class="col-6 label labelItogNDS" id="resultNDS"></label>
-                    </div>
-                    <div class="row">
-                        <label class="col-6 label labelTamPoshl2">Таможенная пошлина:</label>
-                        <label class="col-6 label labelItogTamPoshl" id="resultTamPoshl"></label>
-                    </div>
-                    <div class="row">
-                        <label class="col-6 label labelItoRas">Итоговая с\с поставки:</label>
-                        <label class="col-6 label labelOutRas" id="resultSS"></label>
-                    </div>
-                    <div class="row">
-                        <label class="col-6 label labelItogRasPerOne">Итоговая с\с поставки (за единицу веса):</label>
-                        <label class="col-6 label labelOutRasPerOne" id="resultPerWeight"></label>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" style="width:200px" onclick="saveData()">Сохранить</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    </form>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Модальное окно с таблицей -->
-    <div class="modal fade" id="modalTable" tabindex="-1" role="dialog" aria-labelledby="modalTableLabel"
-         aria-hidden="true">
-        <div class="modal-dialog modal-xl" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalTableLabel">Таблица</h5>
-                    <input type="file" class="custom-file-input" id="customFile" style="display: none;" accept=".xlsx" onchange="loadTableFromExcel(event)">
-                    <label class="custom-file-label" for="customFile" style="display: none;">
-                        <i class="fas fa-file-upload"></i> Browse
-                    </label>
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" onclick="document.getElementById('customFile').click()">
-                            <i class="fas fa-folder-open"></i> Загрузить
-                        </button>
+        <div class="modal fade" id="modalItog" tabindex="-1" role="dialog" aria-labelledby="modalItogLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalItogLabel">Результаты расчета</h5>
                     </div>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-dark table-striped">
-                        <thead>
-                        <tr>
-                            <th colspan="6">Введенные данные</th>
-                            <th colspan="2">Результаты</th>
-                        </tr>
-                        <tr>
-                            <th>Тип</th>
-                            <th>Таможенная пошлина</th>
-                            <th>C/c</th>
-                            <th>Транспортные расходы до границы</th>
-                            <th>Транспортные расходы после границы</th>
-                            <th>Вес</th>
-                            <th>Полностью</th>
-                            <th>За единицу</th>
-                        </tr>
-                        </thead>
-                        <tbody id="modalTableBody">
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <h6 id="tableName" class="text-muted">Введенные данные</h6>
-                    <div id="editNameContainer" style="display: none;">
-                        <input type="text" id="newTableName" class="form-control" placeholder="Введите новое название">
-                        <button type="button" class="btn btn-secondary" onclick="saveEditedTableName()">
-                            <i class="fas fa-save"></i>
-                        </button>
+                    <div class="modal-body">
+                        <div class="row">
+                            <label class="col-6 label labelNDS">НДС:</label>
+                            <label class="col-6 label labelItogNDS" id="resultNDS"></label>
+                        </div>
+                        <div class="row">
+                            <label class="col-6 label labelTamPoshl2">Таможенная пошлина:</label>
+                            <label class="col-6 label labelItogTamPoshl" id="resultTamPoshl"></label>
+                        </div>
+                        <div class="row">
+                            <label class="col-6 label labelItoRas">Итоговая с\с поставки:</label>
+                            <label class="col-6 label labelOutRas" id="resultSS"></label>
+                        </div>
+                        <div class="row">
+                            <label class="col-6 label labelItogRasPerOne">Итоговая с\с поставки (за единицу веса):</label>
+                            <label class="col-6 label labelOutRasPerOne" id="resultPerWeight"></label>
+                        </div>
                     </div>
-                    <button type="button" class="btn btn-outline-secondary" onclick="toggleEditName()"
-                            title="Редактировать название">
-                        <i class="fas fa-edit"></i>
-                    </button>
-
-                    <div class="ml-auto">
-                        <button type="button" class="btn btn-secondary" onclick="dropTable()" title="Очистить">
-                            <i class="fas fa-trash-alt"></i>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" style="width:200px" onclick="saveData()">
+                            <i class="fas fa-save"></i> Сохранить
                         </button>
-                        <button type="button" class="btn btn-secondary" onclick="saveTableOnFile()" title="Сохранить">
-                            <i class="fas fa-save"></i>
-                        </button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" title="Закрыть">
-                            <i class="fas fa-times"></i>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <i class="fas fa-times"></i> Закрыть
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <div class="modal fade" id="modalTable" tabindex="-1" role="dialog" aria-labelledby="modalTableLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTableLabel">Таблица</h5>
+                        <input type="file" class="custom-file-input" id="customFile" style="display: none;" accept=".xlsx" onchange="loadTableFromExcel(event)">
+                        <label class="custom-file-label" for="customFile" style="display: none;">
+                            <i class="fas fa-file-upload"></i>
+                        </label>
+
+                        <div class="input-group-append">
+                            <input type="checkbox" id="startFromBeginningCheckbox">
+                            <label for="startFromBeginningCheckbox"> Начать таблицу с начала?  </label>
+                            <button class="btn btn-outline-secondary" type="button" onclick="document.getElementById('customFile').click()">
+                                <i class="fas fa-folder-open"></i> Загрузить
+                            </button>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-dark table-striped">
+                            <thead>
+                            <tr>
+                                <th colspan="6">Введенные данные</th>
+                                <th colspan="2">Результаты</th>
+                            </tr>
+                            <tr>
+                                <th>Тип</th>
+                                <th>Таможенная пошлина</th>
+                                <th>C/c</th>
+                                <th>Транспортные расходы до границы</th>
+                                <th>Транспортные расходы после границы</th>
+                                <th>Вес</th>
+                                <th>Полностью</th>
+                                <th>За единицу</th>
+                            </tr>
+                            </thead>
+                            <tbody id="modalTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <h6 id="tableName" class="text-muted">Введенные данные</h6>
+                        <div id="editNameContainer" style="display: none;">
+                            <input type="text" id="newTableName" class="form-control" placeholder="Введите новое название">
+                            <button type="button" class="btn btn-secondary" onclick="saveEditedTableName()">
+                                <i class="fas fa-save"></i> Сохранить
+                            </button>
+                        </div>
+                        <button type="button" class="btn btn-outline-secondary" onclick="toggleEditName()"
+                                title="Редактировать название">
+                            <i class="fas fa-edit"></i> Изменить название таблицы
+                        </button>
+
+                        <div class="ml-auto">
+                            <button type="button" class="btn btn-secondary" onclick="dropTable()" title="Очистить">
+                                <i class="fas fa-trash-alt"></i> Очистить таблицу
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="saveTableOnFile()" title="Сохранить">
+                                <i class="fas fa-save"></i> Сделать локальную копию
+                            </button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" title="Закрыть">
+                                <i class="fas fa-times"></i> Закрыть
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

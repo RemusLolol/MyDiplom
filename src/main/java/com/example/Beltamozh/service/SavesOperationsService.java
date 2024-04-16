@@ -30,4 +30,12 @@ public class SavesOperationsService {
         BigDecimal totalSS = savesOperations.getSs().add(nds).add(tamPoshl).add(savesOperations.getTransprashdogra().add(savesOperations.getTransprashposlegra()));
         return totalSS;
     }
+
+    public void deleteAllSavesOperations() {
+        savesOperationsRepository.deleteAll();
+    }
+
+    public List<Savesoperations> saveOrUpdateSavesOperations(List<Savesoperations> savesOperationsList) {
+        return savesOperationsRepository.saveAll(savesOperationsList);
+    }
 }

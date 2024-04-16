@@ -8,7 +8,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import java.util.List;
 import java.math.BigDecimal;
 import java.util.Map;
@@ -62,7 +68,6 @@ public class CalculatorController {
         savesOperations.setTransprashposlegra(new BigDecimal(formData.get("transprashposlegra")));
         savesOperations.setWeightprod(new BigDecimal(formData.get("weightprod")));
         savesOperations.setItogss(new BigDecimal(formData.get("itogss")));
-        savesOperations.setItogss(new BigDecimal(formData.get("itogss")));
         savesOperations.setItogssperweight(new BigDecimal(formData.get("itogssperweight")));
 
         Savesoperations savedData = savesOperationsService.saveOrUpdateSavesOperations(savesOperations);
@@ -78,5 +83,25 @@ public class CalculatorController {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-     }
+    }
+
+    @DeleteMapping("/deleteAllData")
+    public ResponseEntity<String> deleteAllData() {
+        try {
+            savesOperationsService.deleteAllSavesOperations();
+            return ResponseEntity.ok().body("Данные успешно удалены.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting saves operations: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/saveMultipleData")
+    public ResponseEntity<List<Savesoperations>> saveMultipleData(@RequestBody List<Savesoperations> savesOperationsList) {
+        try {
+            List<Savesoperations> savedData = savesOperationsService.saveOrUpdateSavesOperations(savesOperationsList);
+            return ResponseEntity.ok(savedData);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
 }
