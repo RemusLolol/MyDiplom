@@ -45,14 +45,14 @@ public class CalculatorController {
     }
 
     @PostMapping(value = "/submitForm", params = "!_")
-    public ResponseEntity<BigDecimal> submitForm(@RequestBody Map<String, String> formData) {
+    public ResponseEntity<Double> submitForm(@RequestBody Map<String, String> formData) {
         Savesoperations savesoperations = new Savesoperations();
 
-        savesoperations.setSs(new BigDecimal(formData.get("ss")));
-        savesoperations.setWeightprod(new BigDecimal(formData.get("weight")));
-        savesoperations.setTamposhl(new BigDecimal(formData.get("tamposhl")));
-        savesoperations.setTransprashdogra(new BigDecimal(formData.get("transprashdogra")));
-        savesoperations.setTransprashposlegra(new BigDecimal(formData.get("transprashposlegravalue")));
+        savesoperations.setSs(Double.valueOf(formData.get("ss")));
+        savesoperations.setWeightprod(Double.valueOf(formData.get("weight")));
+        savesoperations.setTamposhl(Double.valueOf(formData.get("tamposhl")));
+        savesoperations.setTransprashdogra(Double.valueOf(formData.get("transprashdogra")));
+        savesoperations.setTransprashposlegra(Double.valueOf(formData.get("transprashposlegravalue")));
 
         return ResponseEntity.ok(savesOperationsService.calculateItogSS(savesoperations));
     }
@@ -62,17 +62,18 @@ public class CalculatorController {
         Savesoperations savesOperations = new Savesoperations();
 
         savesOperations.setTypetam(formData.get("typetam"));
-        savesOperations.setTamposhl(new BigDecimal(formData.get("tamposhl")));
-        savesOperations.setSs(new BigDecimal(formData.get("ss")));
-        savesOperations.setTransprashdogra(new BigDecimal(formData.get("transprashdogra")));
-        savesOperations.setTransprashposlegra(new BigDecimal(formData.get("transprashposlegra")));
-        savesOperations.setWeightprod(new BigDecimal(formData.get("weightprod")));
-        savesOperations.setItogss(new BigDecimal(formData.get("itogss")));
-        savesOperations.setItogssperweight(new BigDecimal(formData.get("itogssperweight")));
+        savesOperations.setTamposhl(Double.valueOf(formData.get("tamposhl")));
+        savesOperations.setSs(Double.valueOf(formData.get("ss")));
+        savesOperations.setTransprashdogra(Double.valueOf(formData.get("transprashdogra")));
+        savesOperations.setTransprashposlegra(Double.valueOf(formData.get("transprashposlegra")));
+        savesOperations.setWeightprod(Double.valueOf(formData.get("weightprod")));
+        savesOperations.setItogss(Double.valueOf(formData.get("itogss")));
+        savesOperations.setItogssperweight(Double.valueOf(formData.get("itogssperweight")));
 
         Savesoperations savedData = savesOperationsService.saveOrUpdateSavesOperations(savesOperations);
         return ResponseEntity.ok(savedData);
     }
+
 
     @GetMapping("/getAllSavesOperations")
     public ResponseEntity<List<Savesoperations>> getAllSavesOperations() {

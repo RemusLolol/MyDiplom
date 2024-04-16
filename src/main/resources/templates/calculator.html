@@ -104,9 +104,6 @@
                 overflow: hidden;
                 z-index: 999;
             }
-            .sidebar.open {
-                transform: translateX(0);
-            }
             .sidebar a {
                 display: block;
                 padding: 16px;
@@ -125,6 +122,9 @@
             #inputTamPoshl[readonly] {
                 background-color: #343a40;
                 cursor: not-allowed;
+            }
+            .sidebar.open {
+                transform: translateX(0);
             }
             @media (max-width: 576px) {
                 .center-text {
@@ -151,14 +151,6 @@
                 <a href="#" onclick="openDocument()"><i class="fas fa-file-alt"></i> Документ</a>
             </nav>
         </div>
-        <script>
-            function toggleSidebar() {
-                var sidebar = document.getElementById('sidebar');
-                var burger = document.querySelector('.burger');
-                sidebar.classList.toggle('open');
-                burger.classList.toggle('open');
-            }
-        </script>
 
         <div id="alertContainer" style="position: fixed; bottom: 20px; right: 20px; z-index: 1050;"></div>
 
@@ -186,20 +178,6 @@
                                     <input type="number" class="form-control" id="inputTamPoshl" placeholder="Введите таможенную пошлину" readonly>
                                     <div class="input-group-append">
                                         <button onclick="readTamPoshl()" class="btn btn-secondary" type="button" id="lockButton"><i id="locker" class="fas fa-lock"></i></button>
-                                        <script>
-                                            function readTamPoshl() {
-                                                inputTam = document.getElementById('inputTamPoshl');
-                                                inputTam.readOnly = !inputTam.readOnly;
-                                                var locker = document.getElementById('locker');
-                                                if (inputTam.readOnly) {
-                                                    locker.classList.remove('fa-unlock');
-                                                    locker.classList.add('fa-lock');
-                                                } else {
-                                                    locker.classList.remove('fa-lock');
-                                                    locker.classList.add('fa-unlock');
-                                                }
-                                            }
-                                        </script>
                                     </div>
                                 </div>
                             </div>

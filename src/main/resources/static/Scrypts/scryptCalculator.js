@@ -7,6 +7,25 @@ document.addEventListener('DOMContentLoaded', function() {
     getTamPoshl();
 });
 
+function readTamPoshl() {
+    document.getElementById('inputTamPoshl').readOnly = !inputTam.readOnly;
+    let locker = document.getElementById('locker');
+    if (inputTam.readOnly) {
+        locker.classList.remove('fa-unlock');
+        locker.classList.add('fa-lock');
+    } else {
+        locker.classList.remove('fa-lock');
+        locker.classList.add('fa-unlock');
+    }
+}
+
+function toggleSidebar() {
+    let sidebar = document.getElementById('sidebar');
+    let burger = document.querySelector('.burger');
+    sidebar.classList.toggle('open');
+    burger.classList.toggle('open');
+}
+
 function getTamPoshl(){
     const floatingSelect = document.getElementById('floatingSelect');
     const inputTamPoshl = document.getElementById('inputTamPoshl');
@@ -120,6 +139,7 @@ function saveData() {
     })
         .then(response => response.json())
         .then(data => {
+            console.log(data);
             showModalAndAlertAccept("Расчет сохранен");
         })
         .catch(error => {
@@ -147,10 +167,10 @@ function clearTable() {
 }
 
 function fillTable(data) {
-    var tbody = $('table tbody');
+    let tbody = $('table tbody');
 
     data.forEach(item => {
-        var row = `<tr>
+        let row = `<tr>
                        <td>${item.typetam}</td>
                        <td>${item.tamposhl}</td>
                        <td>${item.ss}</td>
@@ -169,25 +189,25 @@ function openDocument() {
 }
 
 function saveTableOnFile() {
-    var table = document.getElementById("modalTableBody");
-    var data = [];
+    let table = document.getElementById("modalTableBody");
+    let data = [];
 
-    var headerRow1 = ["Введенные данные", "", "", "", "", "", "Результаты", ""];
-    var headerRow2 = ["Тип", "Таможенная пошлина", "C/c", "Транспортные расходы до границы", "Транспортные расходы после границы",
+    let headerRow1 = ["Введенные данные", "", "", "", "", "", "Результаты", ""];
+    let headerRow2 = ["Тип", "Таможенная пошлина", "C/c", "Транспортные расходы до границы", "Транспортные расходы после границы",
         "Вес", "Полностью", "За единицу"];
     data.push(headerRow1);
     data.push(headerRow2);
 
-    for (var i = 2; i < table.rows.length; i++) { // начинаем с третьей строки
-        var rowData = [];
-        for (var j = 0; j < table.rows[i].cells.length; j++) {
+    for (let i = 2; i < table.rows.length; i++) { // начинаем с третьей строки
+        let rowData = [];
+        for (let j = 0; j < table.rows[i].cells.length; j++) {
             rowData.push(table.rows[i].cells[j].innerText);
         }
         data.push(rowData);
     }
 
-    var wb = XLSX.utils.book_new();
-    var ws = XLSX.utils.aoa_to_sheet(data);
+    let wb = XLSX.utils.book_new();
+    let ws = XLSX.utils.aoa_to_sheet(data);
 
     ws['!merges'] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: 5 } }];
     ws['!merges'].push({ s: { r: 0, c: 6 }, e: { r: 0, c: 7 } });
@@ -198,9 +218,9 @@ function saveTableOnFile() {
 }
 
 function toggleEditName() {
-    var editContainer = document.getElementById("editNameContainer");
-    var currentName = document.getElementById("tableName").innerText;
-    var inputField = document.getElementById("newTableName");
+    let editContainer = document.getElementById("editNameContainer");
+    let currentName = document.getElementById("tableName").innerText;
+    let inputField = document.getElementById("newTableName");
 
     editContainer.style.display = "block";
     inputField.value = currentName;
@@ -232,32 +252,32 @@ function dropTable() {
 }
 
 function loadTableFromExcel(event) {
-    var input = event.target;
-    var files = input.files;
+    let input = event.target;
+    let files = input.files;
     if (files && files.length > 0) {
-        var fileName = files[0].name;
-        var fileExtension = fileName.split('.').pop().toLowerCase();
+        let fileName = files[0].name;
+        let fileExtension = fileName.split('.').pop().toLowerCase();
         if (fileExtension !== 'xlsx' && fileExtension !== 'xls') {
             showModalAndAlertError('Пожалуйста, выберите файл Excel (XLSX или XLS)');
             return;
         }
-        var reader = new FileReader();
+        let reader = new FileReader();
         reader.onload = function () {
-            var data = new Uint8Array(reader.result);
-            var workbook = XLSX.read(data, { type: 'array' });
-            var sheetName = workbook.SheetNames[0];
-            var sheet = workbook.Sheets[sheetName];
-            var tableData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+            let data = new Uint8Array(reader.result);
+            let workbook = XLSX.read(data, { type: 'array' });
+            let sheetName = workbook.SheetNames[0];
+            let sheet = workbook.Sheets[sheetName];
+            let tableData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
             tableData.shift();
             tableData.shift();
 
-            var selectedProductType = document.getElementById('floatingSelect').value;
+            let selectedProductType = document.getElementById('floatingSelect').value;
 
-            var filteredTableData = tableData.filter(function(row) {
+            let filteredTableData = tableData.filter(function(row) {
                 return row[0] === selectedProductType;
             });
 
-            var invalidRecordsCount = tableData.length - filteredTableData.length;
+            let invalidRecordsCount = tableData.length - filteredTableData.length;
 
             if (document.getElementById('startFromBeginningCheckbox').checked) {
                 dropTable().then(function() {
@@ -276,14 +296,13 @@ function loadTableFromExcel(event) {
 }
 
 function appendAndSaveData(filteredTableData, fileName) {
-    var tableBody = document.getElementById("modalTableBody");
+    let tableBody = document.getElementById("modalTableBody");
     tableBody.innerHTML = '';
 
     appendTableData(filteredTableData);
 
-    var fileNamePast = fileName.split('.').slice(0, -1).join('.');
-    document.getElementById('tableName').textContent = fileNamePast;
-    var savesOperationsList = fillDataFromTable();
+    document.getElementById('tableName').textContent = fileName.split('.').slice(0, -1).join('.');
+    let savesOperationsList = fillDataFromTable();
     fetch('/calculator/saveMultipleData', {
         method: 'POST',
         headers: {
@@ -298,6 +317,7 @@ function appendAndSaveData(filteredTableData, fileName) {
             return response.json();
         })
         .then(data => {
+            console.log(data);
             clearTable();
             fetch('/calculator/getAllSavesOperations')
                 .then(response => response.json())
@@ -316,12 +336,12 @@ function appendAndSaveData(filteredTableData, fileName) {
 }
 
 function fillDataFromTable() {
-    var tableBody = document.getElementById("modalTableBody");
-    var savesOperationsList = [];
+    let tableBody = document.getElementById("modalTableBody");
+    let savesOperationsList = [];
 
-    for (var i = 0; i < tableBody.rows.length; i++) {
-        var rowData = tableBody.rows[i].cells;
-        var savesOperation = {
+    for (let i = 0; i < tableBody.rows.length; i++) {
+        let rowData = tableBody.rows[i].cells;
+        let savesOperation = {
             typetam: rowData[0].innerText,
             tamposhl: rowData[1].innerText,
             ss: rowData[2].innerText,
@@ -337,11 +357,11 @@ function fillDataFromTable() {
 }
 
 function appendTableData(newData) {
-    var tableBody = document.getElementById("modalTableBody");
-    for (var i = 0; i < newData.length; i++) {
-        var row = document.createElement("tr");
-        for (var j = 0; j < newData[i].length; j++) {
-            var cell = document.createElement("td");
+    let tableBody = document.getElementById("modalTableBody");
+    for (let i = 0; i < newData.length; i++) {
+        let row = document.createElement("tr");
+        for (let j = 0; j < newData[i].length; j++) {
+            let cell = document.createElement("td");
             cell.textContent = newData[i][j];
             row.appendChild(cell);
         }
@@ -350,8 +370,8 @@ function appendTableData(newData) {
 }
 
 function saveEditedTableName() {
-    var newNameInput = document.getElementById("newTableName");
-    var newName = newNameInput.value.trim();
+    let newNameInput = document.getElementById("newTableName");
+    let newName = newNameInput.value.trim();
 
     if (newName === "") {
         showModalAndAlertError("Введите новое название");
@@ -363,22 +383,20 @@ function saveEditedTableName() {
 }
 
 function showModalAndAlertError(textAlert) {
-    const alertMessage = `<div class="alert alert-success" role="alert" style="padding: 10px; background-color: #b02e2e; color: #fff;
+    document.getElementById('alertContainer').innerHTML = `<div class="alert alert-success" role="alert" style="padding: 10px; background-color: #b02e2e; color: #fff;
                 font-size: 14px; font-weight: bold;">
                     ${textAlert}
                 </div>`;
-    document.getElementById('alertContainer').innerHTML = alertMessage;
     setTimeout(function() {
         document.getElementById('alertContainer').innerHTML = '';
     }, 2000);
 }
 
 function showModalAndAlertAccept(textAlert) {
-    const alertMessage = `<div class="alert alert-success" role="alert" style="padding: 10px; background-color: #28a745; color: #fff;
+    document.getElementById('alertContainer').innerHTML = `<div class="alert alert-success" role="alert" style="padding: 10px; background-color: #28a745; color: #fff;
                 font-size: 14px; font-weight: bold;">
                     ${textAlert}
                 </div>`;
-    document.getElementById('alertContainer').innerHTML = alertMessage;
 
     setTimeout(function() {
         document.getElementById('alertContainer').innerHTML = '';

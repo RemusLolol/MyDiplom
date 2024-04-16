@@ -5,7 +5,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
-import java.math.BigDecimal;
 
 @Entity
 @Data
@@ -14,11 +13,11 @@ public class Savesoperations {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String typetam;
-    private BigDecimal tamposhl;
-    private BigDecimal ss;
-    private BigDecimal transprashdogra;
-    private BigDecimal transprashposlegra;
-    private BigDecimal weightprod;
-    private BigDecimal itogss;
-    private BigDecimal itogssperweight;
+    private Double tamposhl;
+    private Double ss;
+    private Double transprashdogra;
+    private Double transprashposlegra;
+    private Double weightprod;
+    private Double itogss;
+    private Double itogssperweight;
 }

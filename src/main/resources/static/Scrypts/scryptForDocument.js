@@ -22,22 +22,13 @@ document.addEventListener('DOMContentLoaded', function () {
         selectElement.addEventListener('change', function () {
             const selectedCurrency = this.value;
             rateForSelectedCurrency = ratesData[selectedCurrency];
-            var nac = rateForSelectedCurrency * parseFloat(document.getElementById("OsnForRasch11").value).toFixed(2);
-            if (isNaN(nac)) {
-                document.getElementById('labelPeresch').innerText = "В НАЦИОНАЛЬНОЙ ВАЛЮТЕ (курс пересчета: " + formattedDate(date) + "): ";
-            }
-            else {
-                document.getElementById('labelPeresch').innerText = "В НАЦИОНАЛЬНОЙ ВАЛЮТЕ (курс пересчета: " + formattedDate(date) + "): " +
-                    nac.toFixed(2);
-            }
-            document.getElementById('labelPerechb').innerText = "(б) Косвенные платежи (условия или обязательства) в НАЦИОНАЛЬНОЙ ВАЛЮТЕ (курс пересчета: "
-                + formattedDate(date) + ")";
+            fillNac();
         });
     })();
 });
 
-function fillMainCalc(){
-    var nac = rateForSelectedCurrency * parseFloat(document.getElementById("OsnForRasch11").value).toFixed(2);
+function fillNac(){
+    let nac = rateForSelectedCurrency * parseFloat(document.getElementById("OsnForRasch11").value).toFixed(2);
     if (isNaN(nac)) {
         document.getElementById('labelPeresch').innerText = "В НАЦИОНАЛЬНОЙ ВАЛЮТЕ (курс пересчета: " + formattedDate(date) + "): ";
     }
@@ -47,6 +38,10 @@ function fillMainCalc(){
     }
     document.getElementById('labelPerechb').innerText = "(б) Косвенные платежи (условия или обязательства) в НАЦИОНАЛЬНОЙ ВАЛЮТЕ (курс пересчета: "
         + formattedDate(date) + ")";
+}
+
+function fillMainCalc(){
+    fillNac();
     const OsnForRasch11Value = parseFloat(document.getElementById("OsnForRasch11").value);
     const OsnForRasch11bValue = parseFloat(document.getElementById("OsnForRasch11b").value);
 
@@ -350,8 +345,7 @@ function formattedDate(date){
     const day = String(dateObject.getDate()).padStart(2, '0');
     const month = String(dateObject.getMonth() + 1).padStart(2, '0');
     const year = dateObject.getFullYear();
-    const formatted = `${day}.${month}.${year}`;
-    return formatted;
+    return `${day}.${month}.${year}`;
 }
 
 function extractNumberFromString(str) {
@@ -375,10 +369,7 @@ function getUsdTotal(itogNac){
         .then(data => {
             data.forEach(currency => {
                 if (currency.Cur_Abbreviation === 'USD') {
-                    usdRate = currency.Cur_OfficialRate;
-                    usdDate = currency.Date;
-                    totalUSD = itogNac * parseFloat(usdRate);
-                    document.getElementById("itogUSA").innerText = "В ДОЛЛАРАХ США (курс пересчета: "  + formattedDate(usdDate) + "): "  + totalUSD.toFixed(2);
+                    document.getElementById("itogUSA").innerText = "В ДОЛЛАРАХ США (курс пересчета: "  + formattedDate(currency.Date) + "): "  + itogNac * parseFloat(currency.Cur_OfficialRate).toFixed(2);
                 }
             });
         })
@@ -403,7 +394,7 @@ function openCalculator() {
 }
 
 function toggleSurvey() {
-    var surveyForm = document.getElementById("surveyContainer");
+    let surveyForm = document.getElementById("surveyContainer");
     if (surveyForm.style.height === "0px") {
         slideDown(surveyForm);
     } else {
@@ -412,7 +403,7 @@ function toggleSurvey() {
 }
 
 function toggleMainCalc(){
-    var surveyForm = document.getElementById("mainCalcContainer");
+    let surveyForm = document.getElementById("mainCalcContainer");
     if (surveyForm.style.height === "0px") {
         slideDown(surveyForm);
     } else {
@@ -421,7 +412,7 @@ function toggleMainCalc(){
 }
 
 function toggleDopCalc(){
-    var surveyForm = document.getElementById("dobCalcContainer");
+    let surveyForm = document.getElementById("dobCalcContainer");
     if (surveyForm.style.height === "0px") {
         slideDown(surveyForm);
     } else {
@@ -430,7 +421,7 @@ function toggleDopCalc(){
 }
 
 function toggleItog(){
-    var surveyForm = document.getElementById("itogContainer");
+    let surveyForm = document.getElementById("itogContainer");
     if (surveyForm.style.height === "0px") {
         slideDown(surveyForm);
     } else {
@@ -439,7 +430,7 @@ function toggleItog(){
 }
 
 function toggleItogNacValue(){
-    var surveyForm = document.getElementById("itogNacValue");
+    let surveyForm = document.getElementById("itogNacValue");
     if (surveyForm.style.height === "0px") {
         slideDown(surveyForm);
     } else {
@@ -448,12 +439,12 @@ function toggleItogNacValue(){
 }
 
 function slideDown(element) {
-    var height = 0;
-    var maxHeight = element.scrollHeight;
-    var duration = 500;
-    var interval = 10;
+    let height = 0;
+    let maxHeight = element.scrollHeight;
+    let duration = 500;
+    let interval = 10;
 
-    var timer = setInterval(function () {
+    let timer = setInterval(function () {
         height += (maxHeight / (duration / interval));
         if (height >= maxHeight) {
             clearInterval(timer);
@@ -465,11 +456,11 @@ function slideDown(element) {
 }
 
 function slideUp(element) {
-    var height = element.scrollHeight;
-    var duration = 500;
-    var interval = 10;
+    let height = element.scrollHeight;
+    let duration = 500;
+    let interval = 10;
 
-    var timer = setInterval(function () {
+    let timer = setInterval(function () {
         height -= (element.scrollHeight / (duration / interval));
         if (height <= 0) {
             clearInterval(timer);
@@ -482,31 +473,27 @@ function slideUp(element) {
 }
 
 function toggleSidebar() {
-    var sidebar = document.getElementById('sidebar');
-    var burger = document.querySelector('.burger');
+    let sidebar = document.getElementById('sidebar');
+    let burger = document.querySelector('.burger');
     sidebar.classList.toggle('open');
     burger.classList.toggle('open');
 }
 
 function showModalAndAlertAccept(textAlert) {
-    const alertMessage = `<div class="alert alert-success" role="alert" style="padding: 10px; background-color: #28a745; color: #fff;
+    document.getElementById('alertContainer').innerHTML = `<div class="alert alert-success" role="alert" style="padding: 10px; background-color: #28a745; color: #fff;
                 font-size: 14px; font-weight: bold;">
                     ${textAlert}
                 </div>`;
-    document.getElementById('alertContainer').innerHTML = alertMessage;
-
     setTimeout(function() {
         document.getElementById('alertContainer').innerHTML = '';
     }, 2000);
 }
 
 function showModalAndAlertError(textAlert) {
-    const alertMessage = `<div class="alert alert-success" role="alert" style="padding: 10px; background-color: #b02e2e; color: #fff;
+    document.getElementById('alertContainer').innerHTML = `<div class="alert alert-success" role="alert" style="padding: 10px; background-color: #b02e2e; color: #fff;
                 font-size: 14px; font-weight: bold;">
                     ${textAlert}
                 </div>`;
-    document.getElementById('alertContainer').innerHTML = alertMessage;
-
     setTimeout(function() {
         document.getElementById('alertContainer').innerHTML = '';
     }, 2000);

@@ -4,8 +4,6 @@ import com.example.Beltamozh.model.Savesoperations;
 import com.example.Beltamozh.repository.SavesOperationsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -24,12 +22,15 @@ public class SavesOperationsService {
         return savesOperationsRepository.save(savesOperations);
     }
 
-    public BigDecimal calculateItogSS(Savesoperations savesOperations) {
-        BigDecimal nds = savesOperations.getSs().multiply(BigDecimal.valueOf(20.00)).divide(BigDecimal.valueOf(100.00));
-        BigDecimal tamPoshl = savesOperations.getSs().multiply(savesOperations.getTamposhl()).divide(BigDecimal.valueOf(100.00));
-        BigDecimal totalSS = savesOperations.getSs().add(nds).add(tamPoshl).add(savesOperations.getTransprashdogra().add(savesOperations.getTransprashposlegra()));
-        return totalSS;
+    public Double calculateItogSS(Savesoperations savesOperations) {
+        double ss = savesOperations.getSs();
+        double nds = ss * 20.00 / 100.00;
+        double tamPoshl = ss * savesOperations.getTamposhl() / 100.00;
+        double totalSS = ss + nds + tamPoshl + savesOperations.getTransprashdogra() +
+                savesOperations.getTransprashposlegra();
+        return Math.round(totalSS * 100.0) / 100.0;
     }
+
 
     public void deleteAllSavesOperations() {
         savesOperationsRepository.deleteAll();

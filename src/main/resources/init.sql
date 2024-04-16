@@ -5,15 +5,15 @@ CREATE TABLE products (
 );
 
 CREATE TABLE savesoperations(
-    id int NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    id SERIAL PRIMARY KEY,
     typeTam VARCHAR(255) NOT NULL,
-    tamposhl DECIMAL(5,2) NOT NULL,
-    ss DECIMAL(5,2) NOT NULL,
-    transprashdogra DECIMAL(5,2) NOT NULL,
-    transprashposlegra DECIMAL(5,2) NOT NULL,
-    weightprod DECIMAL(5,2) NOT NULL,
-    itogss DECIMAL(5,2) NOT NULL,
-    itogssperweight DECIMAL(5,2) NOT NULl
+    tamposhl DOUBLE PRECISION NOT NULL,
+    ss DOUBLE PRECISION NOT NULL,
+    transprashdogra DOUBLE PRECISION NOT NULL,
+    transprashposlegra DOUBLE PRECISION NOT NULL,
+    weightprod DOUBLE PRECISION NOT NULL,
+    itogss DOUBLE PRECISION NOT NULL,
+    itogssperweight DOUBLE PRECISION NOT NULL
 );
 
 INSERT INTO products (tamname, tamposhl) VALUES
