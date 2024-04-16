@@ -277,10 +277,8 @@ function loadTableFromExcel(event) {
 
 function appendAndSaveData(filteredTableData, fileName) {
     var tableBody = document.getElementById("modalTableBody");
-    // Очистка текущих данных
     tableBody.innerHTML = '';
 
-    // Вставка новых данных
     appendTableData(filteredTableData);
 
     var fileNamePast = fileName.split('.').slice(0, -1).join('.');
