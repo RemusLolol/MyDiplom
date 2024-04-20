@@ -184,10 +184,6 @@ function fillTable(data) {
     });
 }
 
-function openDocument() {
-    window.open('/document', '_blank');
-}
-
 function saveTableOnFile() {
     let table = document.getElementById("modalTableBody");
     let data = [];
@@ -377,7 +373,7 @@ function saveEditedTableName() {
         showModalAndAlertError("Введите новое название");
         return;
     }
-    document.getElementById("tableName").textContent = newNameInput.value;
+    document.getElementById("tableName").textContent = newNameInput.value;  
     document.getElementById("editNameContainer").style.display = "none";
     document.getElementById("tableName").style.display = "block";
 }

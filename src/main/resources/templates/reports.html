@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отчет</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+      body {
+        background-color: #343a40;
+        color: #ffffff;
+      }
+
+      form {
+        max-width: 700px;
+        margin: 50px auto;
+        background-color: #343a40;
+        border-radius: 10px;
+        padding: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .form-control {
+        font-size: 0.9em;
+        padding: 0.375rem 0.75rem;
+        max-width: 300px;
+      }
+
+      .form-control {
+        color: #ffffff;
+        background-color: #343a40;
+        border-color: #6c757d;
+      }
+
+      .form-group label {
+        color: #ffffff;
+      }
+
+      .btn-primary {
+        color: #ffffff;
+        background-color: #343a40;
+        border-color: #6c757d;
+      }
+
+      .btn-primary:hover {
+        color: #ffffff;
+        background-color: #212529;
+        border-color: #6c757d;
+      }
+
+      .form-control:focus {
+        color: #ffffff;
+        background-color: #343a40;
+        border-color: #6c757d;
+        box-shadow: none;
+      }
+
+      .btn-primary {
+        color: #ffffff;
+        background-color: #343a40;
+        border-color: #6c757d;
+      }
+
+      .btn-primary:hover {
+        color: #ffffff;
+        background-color: #212529;
+        border-color: #6c757d;
+      }
+
+      .burger {
+        position: fixed;
+        top: 16px;
+        left: 16px;
+        cursor: pointer;
+        z-index: 1000;
+        color: #ffffff;
+        transition: transform 0.3s ease-out;
+      }
+
+      .burger span {
+        display: block;
+        width: 32px;
+        height: 4px;
+        background-color: #ffffff;
+        margin-bottom: 4px;
+        transition: transform 0.3s ease-out;
+      }
+
+      .burger.open span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      .burger.open span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .burger.open span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        height: 100%;
+        background-color: #212529;
+        color: #ffffff;
+        transition: transform 0.3s ease-out;
+        transform: translateX(-100%);
+        overflow: hidden;
+        z-index: 999;
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .sidebar a {
+        display: block;
+        padding: 16px;
+        text-decoration: none;
+        color: #ffffff;
+        transition: background-color 0.3s ease-out;
+      }
+
+      .sidebar a:hover {
+        background-color: #343a40;
+      }
+
+      .burger.open .close {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        font-size: 1.5em;
+        color: #ffffff;
+        cursor: pointer;
+        display: none;
+        z-index: 1000;
+        transform: translate(-50%, -50%);
+      }
+
+      .burger.open .close::before,
+      .burger.open .close::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        background-color: #ffffff;
+        transition: transform 0.3s ease-out;
+      }
+
+      .burger.open .close::before {
+        transform: rotate(45deg);
+        top: -4px;
+      }
+
+      .burger.open .close::after {
+        transform: rotate(-45deg);
+        top: 4px;
+      }
+
+      .burger.open .close {
+        display: block;
+      }
+
+      .sidebar .nav {
+        margin-top: 64px;
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
+    <script src="/Scrypts/scryptForReports.js"></script>
+    <script src="/Scrypts/scryptForRedirected.js"></script>
+  </head>
+  <body>
+    <div class="burger" onclick="toggleSidebar()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="sidebar" id="sidebar">
+      <nav class="nav">
+        <a href="#" onclick="openCalculator()"><i class="fas fa-calculator"></i> Калькулятор</a>
+        <a href="#" onclick="openDocument()"><i class="fas fa-file-alt"></i> Документ</a>
+        <a href="#" style="color: #1e722c"><i class="fas fa-chart-bar"></i> Отчет</a>
+      </nav>
+    </div>
+
+    <div id="alertContainer" style="position: fixed; bottom: 20px; right: 20px; z-index: 1050;"></div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 center-text"
+             style="border-radius:10px; padding:10px; box-shadow:0 0 10px rgba(0, 0, 0, 0.2);">
+          <h2>Отчет</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <form>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Сортировка:</label>
+              <div class="col-sm-4">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="productTypeCheckbox">
+                  <label class="form-check-label" for="productTypeCheckbox">Тип товара</label>
+                </div>
+                <div class="productTypeSelectRow" style="display: none;">
+                  <select class="form-control" id="productTypeSelect">
+                    <option th:each="product:${productsList}" th:text="${product.tamname}">
+                  </select>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="additionalOptionsCheckbox">
+                  <label class="form-check-label" for="additionalOptionsCheckbox">Дополнительные опции</label>
+                </div>
+                <div class="additionalOptionsRadios" style="display: none;">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="additionalSortingRadio" id="additionalCostRadio">
+                    <label class="form-check-label" for="additionalCostRadio">Себестоимость</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="additionalSortingRadio" id="additionalWeightRadio">
+                    <label class="form-check-label" for="additionalWeightRadio">Вес товара</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="additionalSortingRadio"
+                           id="additionalTransportBeforeRadio">
+                    <label class="form-check-label" for="additionalTransportBeforeRadio">Транспорт до</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="additionalSortingRadio"
+                           id="additionalTransportAfterRadio">
+                    <label class="form-check-label" for="additionalTransportAfterRadio">Транспорт после</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="sortedRadio" style="display: none" class="form-group row">
+              <div class="col-sm-6 offset-sm-2">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="sortingDirectionRadio" id="ascendingRadio">
+                  <label class="form-check-label" for="ascendingRadio">По возрастанию</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="sortingDirectionRadio" id="descendingRadio">
+                  <label class="form-check-label" for="descendingRadio">По убыванию</label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-10 offset-sm-2">
+                <button type="submit" class="btn btn-primary">Создать отчет</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

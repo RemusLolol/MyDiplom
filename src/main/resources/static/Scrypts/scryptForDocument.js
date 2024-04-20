@@ -389,10 +389,6 @@ function download(blob, filename, mimetype) {
     }, 0);
 }
 
-function openCalculator() {
-    window.open('/calculator', '_blank');
-}
-
 function toggleSurvey() {
     let surveyForm = document.getElementById("surveyContainer");
     if (surveyForm.style.height === "0px") {
