@@ -18,6 +18,9 @@ document.addEventListener('DOMContentLoaded', function() {
         addRubles('inputDoGra');
     });
 
+    document.getElementById('inputPosleGra').addEventListener('blur', function() {
+        addRubles('inputPosleGra');
+    });
     document.getElementById('inputTamPoshl').addEventListener('focus', function() {
         removePercent('inputTamPoshl');
     });
@@ -118,7 +121,7 @@ function removeKg(elementId) {
     let input = document.getElementById(elementId);
     let value = input.value;
     if (value && value.endsWith('кг.')) {
-        input.value = value.slice(0, -3);
+        input.value = value.slice(0, -4);
     }
 }
 
@@ -153,8 +156,27 @@ function calculate() {
 
             if (ssValue === '' || weightValue === '' || tamPoshlValue === '' || transpRashDoGraValue === '' || transpRashPosleGraValue === '') {
                 showModalAndAlertError("Пожалуйста, заполните все поля");
+
+                addPercent('inputTamPoshl');
+                addRubles('inputSS');
+                addKg('inputWeight');
+                addRubles('inputDoGra');
+                addRubles('inputPosleGra');
+
                 return;
             }
+        }
+
+        if (isNaN(ssValue) || isNaN(weightValue) || isNaN(tamPoshlValue) || isNaN(transpRashDoGraValue) || isNaN(transpRashPosleGraValue)) {
+            showModalAndAlertError("Пожалуйста, введите только числовые значения во все поля");
+
+            addPercent('inputTamPoshl');
+            addRubles('inputSS');
+            addKg('inputWeight');
+            addRubles('inputDoGra');
+            addRubles('inputPosleGra');
+
+            return;
         }
 
         let formData = {
@@ -422,6 +444,17 @@ function appendAndSaveData(filteredTableData, fileName) {
 
     document.getElementById('tableName').textContent = fileName.split('.').slice(0, -1).join('.');
     let savesOperationsList = fillDataFromTable();
+
+    // Удаляем символы "р.", "кг.", "%" и "р./кг." из данных
+    savesOperationsList.forEach(item => {
+        item.ss = item.ss.replace(' р.', '');
+        item.transprashdogra = item.transprashdogra.replace(' р.', '');
+        item.transprashposlegra = item.transprashposlegra.replace(' р.', '');
+        item.weightprod = item.weightprod.replace(' кг', '');
+        item.tamposhl = item.tamposhl.replace(' %', '');
+        item.itogss = item.itogss.replace(' р.', '');
+        item.itogssperweight = item.itogssperweight.replace(' р./кг', '');
+    });
     fetch('/calculator/saveMultipleData', {
         method: 'POST',
         headers: {

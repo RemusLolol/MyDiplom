@@ -25,7 +25,133 @@ document.addEventListener('DOMContentLoaded', function () {
             fillNac();
         });
     })();
+
+    document.getElementById('OsnForRasch11').addEventListener('blur', function() {
+        addRubleSuffix('OsnForRasch11');
+    });
+    document.getElementById('OsnForRasch11').addEventListener('focus', function() {
+        removeRubleSuffix('OsnForRasch11');
+    });
+
+    document.getElementById('OsnForRasch11b').addEventListener('blur', function() {
+        addRubleSuffix('OsnForRasch11b');
+    });
+    document.getElementById('Dop13').addEventListener('focus', function() {
+        removeRubleSuffix('Dop13');
+    });
+
+    document.getElementById('Dop13').addEventListener('blur', function() {
+        addRubleSuffix('Dop13');
+    });
+    document.getElementById('Dop13').addEventListener('focus', function() {
+        removeRubleSuffix('Dop13');
+    });
+
+    document.getElementById('Dop13b').addEventListener('blur', function() {
+        addRubleSuffix('Dop13b');
+    });
+    document.getElementById('Dop13b').addEventListener('focus', function() {
+        removeRubleSuffix('Dop13b');
+    });
+
+    document.getElementById('Dop14a').addEventListener('blur', function() {
+        addRubleSuffix('Dop14a');
+    });
+    document.getElementById('Dop14a').addEventListener('focus', function() {
+        removeRubleSuffix('Dop14a');
+    });
+
+    document.getElementById('Dop14b').addEventListener('blur', function() {
+        addRubleSuffix('Dop14b');
+    });
+    document.getElementById('Dop14b').addEventListener('focus', function() {
+        removeRubleSuffix('Dop14b');
+    });
+
+    document.getElementById('Dop14v').addEventListener('blur', function() {
+        addRubleSuffix('Dop14v');
+    });
+    document.getElementById('Dop14v').addEventListener('focus', function() {
+        removeRubleSuffix('Dop14v');
+    });
+
+    document.getElementById('Dop14g').addEventListener('blur', function() {
+        addRubleSuffix('Dop14g');
+    });
+    document.getElementById('Dop14g').addEventListener('focus', function() {
+        removeRubleSuffix('Dop14g');
+    });
+
+    document.getElementById('Dop15').addEventListener('blur', function() {
+        addRubleSuffix('Dop15');
+    });
+    document.getElementById('Dop15').addEventListener('focus', function() {
+        removeRubleSuffix('Dop15');
+    });
+
+    document.getElementById('Dop16').addEventListener('blur', function() {
+        addRubleSuffix('Dop16');
+    });
+    document.getElementById('Dop16').addEventListener('focus', function() {
+        removeRubleSuffix('Dop16');
+    });
+
+    document.getElementById('Dop17').addEventListener('blur', function() {
+        addRubleSuffix('Dop17');
+    });
+    document.getElementById('Dop17').addEventListener('focus', function() {
+        removeRubleSuffix('Dop17');
+    });
+
+    document.getElementById('Dop18').addEventListener('blur', function() {
+        addRubleSuffix('Dop18');
+    });
+    document.getElementById('Dop18').addEventListener('focus', function() {
+        removeRubleSuffix('Dop18');
+    });
+
+    document.getElementById('Dop19').addEventListener('blur', function() {
+        addRubleSuffix('Dop19');
+    });
+    document.getElementById('Dop19').addEventListener('focus', function() {
+        removeRubleSuffix('Dop19');
+    });
+
+    document.getElementById('Vch21').addEventListener('blur', function() {
+        addRubleSuffix('Vch21');
+    });
+    document.getElementById('Vch21').addEventListener('focus', function() {
+        removeRubleSuffix('Vch21');
+    });
+
+    document.getElementById('Vch22').addEventListener('blur', function() {
+        addRubleSuffix('Vch22');
+    });
+    document.getElementById('Vch22').addEventListener('focus', function() {
+        removeRubleSuffix('Vch22');
+    });
+
+    document.getElementById('Vch23').addEventListener('blur', function() {
+        addRubleSuffix('Vch23');
+    });
+    document.getElementById('Vch23').addEventListener('focus', function() {
+        removeRubleSuffix('Vch23');
+    });
 });
+
+function addRubleSuffix(inputId) {
+    const inputElement = document.getElementById(inputId);
+    if (inputElement.value !== "") {
+        inputElement.value += " p.";
+    }
+}
+
+function removeRubleSuffix(inputId) {
+    const inputElement = document.getElementById(inputId);
+    if (inputElement.value.endsWith(" p.")) {
+        inputElement.value = inputElement.value.slice(0, -3);
+    }
+}
 
 function fillNac(){
     let nac = rateForSelectedCurrency * parseFloat(document.getElementById("OsnForRasch11").value).toFixed(2);
@@ -51,7 +177,7 @@ function fillMainCalc(){
     } else {
         result = (OsnForRasch11Value * rateForSelectedCurrency + parseFloat(OsnForRasch11bValue.toFixed(2))).toFixed(2);
     }
-    document.getElementById("itogOsn").innerText = "12) Итого по разделам \"а\" и \"б\" графы 11 в национальной валюте: " + result;
+    document.getElementById("itogOsn").innerText = "12) Итого по разделам \"а\" и \"б\" графы 11 в национальной валюте: " + result + " p.";
 }
 
 function fillDopCalc() {
@@ -70,7 +196,7 @@ function fillDopCalc() {
     const total = Dop13Value + Dop13bValue + Dop14aValue + Dop14bValue +
         Dop14vValue + Dop14gValue + Dop15Value + Dop16Value + Dop17Value + Dop18Value + Dop19Value;
 
-    document.getElementById("itogoDop").innerText = "20) Итого по графам 13 - 19 в национальной валюте: " + total.toFixed(2);
+    document.getElementById("itogoDop").innerText = "20) Итого по графам 13 - 19 в национальной валюте: " + total.toFixed(2) + " p.";
 }
 
 function fillItogNacValues(){
@@ -80,7 +206,7 @@ function fillItogNacValues(){
 
     const total = Vch21 + Vch22 + Vch23;
 
-    document.getElementById("itogoVch").innerText = "24) Итого по графам 21 - 23 в национальной валюте: " + total.toFixed(2);
+    document.getElementById("itogoVch").innerText = "24) Итого по графам 21 - 23 в национальной валюте: " + total.toFixed(2) + " p.";
 }
 
 function rashetVivod() {
@@ -108,7 +234,7 @@ function rashetVivod() {
 
     const totalNac = itogOsnValue + itogoDopValue - itogoVchValue;
 
-    document.getElementById("itogNac").innerText = "В НАЦИОНАЛЬНОЙ ВАЛЮТЕ: " + totalNac.toFixed(2);
+    document.getElementById("itogNac").innerText = "В НАЦИОНАЛЬНОЙ ВАЛЮТЕ: " + totalNac.toFixed(2) + " p.";
     getUsdTotal(totalNac);
     showModalAndAlertAccept('Итог посчитан');
 }
@@ -210,7 +336,7 @@ function fillOsnRasch(secondPage, fontSizeRasch, formattedDate){
     secondPage.drawText(extractNumberFromString(document.getElementById('labelPeresch').textContent).toString(), {x:350, y:725, size: fontSizeRasch});
     secondPage.drawText(formattedDate, {x:200, y: 695, size: fontSizeRasch});
     secondPage.drawText(document.getElementById("OsnForRasch11b").value, {x:350, y: 695, size: fontSizeRasch});
-    secondPage.drawText(extractNumberFromString(document.getElementById("itogOsn").textContent), {x:350, y: 682, size:fontSizeRasch});
+    secondPage.drawText(extractNumberFromString(document.getElementById("itogOsn").textContent)  + " p.", {x:350, y: 682, size:fontSizeRasch});
 }
 
 function fillDopRasch(secondPage, fontSizeRasch){
@@ -228,7 +354,7 @@ function fillDopRasch(secondPage, fontSizeRasch){
     secondPage.drawText(document.getElementById("Dop17").value, {x:350, y:365, size:fontSizeRasch});
     secondPage.drawText(document.getElementById("Dop18").value, {x:350, y:325, size:fontSizeRasch});
     secondPage.drawText(document.getElementById("Dop19").value, {x:350, y:308, size:fontSizeRasch});
-    secondPage.drawText(itogoDopValue.toString(), {x:350, y:295, size:fontSizeRasch});
+    secondPage.drawText(itogoDopValue.toString()  + " p.", {x:350, y:295, size:fontSizeRasch});
 }
 
 function fillVchNacValue(secondPage, fontSizeRasch){
@@ -238,7 +364,7 @@ function fillVchNacValue(secondPage, fontSizeRasch){
     secondPage.drawText(document.getElementById("Vch21").value, {x:350, y:260, size:fontSizeRasch});
     secondPage.drawText(document.getElementById("Vch22").value, {x:350, y:230, size:fontSizeRasch});
     secondPage.drawText(document.getElementById("Vch23").value, {x:350, y:205, size:fontSizeRasch});
-    secondPage.drawText(itogoVchValue.toString(), {x:350, y:190, size:fontSizeRasch});
+    secondPage.drawText(itogoVchValue.toString()  + " p.", {x:350, y:190, size:fontSizeRasch});
 }
 
 function fillItogs(secondPage, fontSizeRasch){
@@ -249,8 +375,8 @@ function fillItogs(secondPage, fontSizeRasch){
     const itogNacValue = parseFloat(itogNac.match(/:\s*([0-9.]+)/)[1]);
     const itogUSDValue = parseFloat(itogUSD.match(/:\s*([0-9.]+)/)[1]);
 
-    secondPage.drawText(itogNacValue.toString(), {x:350, y:170, size:fontSizeRasch});
-    secondPage.drawText(itogUSDValue.toString(), {x:350, y:160, size:fontSizeRasch});
+    secondPage.drawText(itogNacValue.toString()  + " p.", {x:350, y:170, size:fontSizeRasch});
+    secondPage.drawText(itogUSDValue.toString()  + " $", {x:350, y:160, size:fontSizeRasch});
     secondPage.drawText(matchDate[1].toString(), {x:200, y:160, size:fontSizeRasch})
 }
 
@@ -369,7 +495,7 @@ function getUsdTotal(itogNac){
         .then(data => {
             data.forEach(currency => {
                 if (currency.Cur_Abbreviation === 'USD') {
-                    document.getElementById("itogUSA").innerText = "В ДОЛЛАРАХ США (курс пересчета: "  + formattedDate(currency.Date) + "): "  + itogNac * parseFloat(currency.Cur_OfficialRate).toFixed(2);
+                    document.getElementById("itogUSA").innerText = "В ДОЛЛАРАХ США (курс пересчета: "  + formattedDate(currency.Date) + "): "  + itogNac * parseFloat(currency.Cur_OfficialRate).toFixed(2) + " $";
                 }
             });
         })

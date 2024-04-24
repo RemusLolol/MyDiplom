@@ -11,7 +11,25 @@
                 background-color: #343a40;
                 color: #ffffff;
             }
-
+            .form-control {
+                font-size: 0.9em;
+                padding: 0.375rem 0.75rem;
+                max-width: 300px;
+            }
+            .form-control {
+                color: #ffffff;
+                background-color: #343a40;
+                border-color: #6c757d;
+            }
+            .form-group label {
+                color: #ffffff;
+            }
+            .form-control:focus {
+                color: #ffffff;
+                background-color: #343a40;
+                border-color: #6c757d;
+                box-shadow: none;
+            }
             .burger {
                 position: fixed;
                 top: 16px;
@@ -21,7 +39,6 @@
                 color: #ffffff;
                 transition: transform 0.3s ease-out;
             }
-
             .burger span {
                 display: block;
                 width: 32px;
@@ -30,19 +47,15 @@
                 margin-bottom: 4px;
                 transition: transform 0.3s ease-out;
             }
-
             .burger.open span:nth-child(1) {
                 transform: rotate(45deg) translate(5px, 5px);
             }
-
             .burger.open span:nth-child(2) {
                 opacity: 0;
             }
-
             .burger.open span:nth-child(3) {
                 transform: rotate(-45deg) translate(5px, -5px);
             }
-
             .sidebar {
                 position: fixed;
                 top: 0;
@@ -56,11 +69,9 @@
                 overflow: hidden;
                 z-index: 999;
             }
-
             .sidebar.open {
                 transform: translateX(0);
             }
-
             .sidebar a {
                 display: block;
                 padding: 16px;
@@ -68,17 +79,14 @@
                 color: #ffffff;
                 transition: background-color 0.3s ease-out;
             }
-
             .sidebar a:hover {
                 background-color: #343a40;
             }
-
             .sidebar .nav {
                 margin-top: 64px;
                 display: flex;
                 flex-direction: column;
             }
-
             .form-check-inline {
                 display: inline-block;
                 margin-right: 10px;
@@ -252,12 +260,12 @@
                 <p class="h6">11(а) Цена, фактически уплаченная или подлежащая уплате за ввозимые товары в ВАЛЮТЕ СЧЕТА</p>
                 <div class="form-group">
                     <label class="w-100">
-                        <input id="OsnForRasch11" onchange="fillMainCalc()" type="number" placeholder="Введите цену" class="w-25">
+                        <input id="OsnForRasch11" class="form-control w-25" onchange="fillMainCalc()" type="text" placeholder="Введите цену">
                     </label>
                 </div>
                 <div class="d-flex align-items-center">
-                    <label>Валюта счета:</label>
-                    <select class="form-select form-select-sm" aria-label=".form-select-sm" id="currencySelector"></select>
+                    <label>Валюта счета:</label>&nbsp;
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm" id="currencySelector"  style="background-color: #343a40; color: #ffffff"></select>
                 </div>
                 <label id="labelPeresch" class="control-label">В НАЦИОНАЛЬНОЙ ВАЛЮТЕ </label>
             </div>
@@ -265,7 +273,7 @@
                 <p id="labelPerechb" class="h6">(б) Косвенные платежи (условия или обязательства) в НАЦИОНАЛЬНОЙ ВАЛЮТЕ (курс пересчета)</p>
                 <div class="form-group">
                     <label class="w-100">
-                        <input onchange="fillMainCalc()" id="OsnForRasch11b" type="number" placeholder="Введите" class="w-25">
+                        <input onchange="fillMainCalc()" id="OsnForRasch11b" type="text" placeholder="Введите" class="form-control w-25">
                     </label>
                 </div>
             </div>
@@ -282,9 +290,10 @@
         <form id="dobCalcContainer" role="form" class="form-horizontal col-sm-12" style="height: 0; overflow: hidden;">
             <div class="question my-3">
                 <p class="h6">13) Расходы, осуществленные покупателем на:</p>
+                <p class="h6">(а) вознаграждения посреднику (агенту), брокеру, за исключением вознаграждений за закупку товаров :</p>
                 <div class="form-group">
                     <label class="w-100">
-                        <input onchange="fillDopCalc()" id="Dop13" type="number" placeholder="Введите" class="w-25">
+                        <input onchange="fillDopCalc()" id="Dop13" type="text" placeholder="Введите" class="form-control w-25">
                     </label>
                 </div>
             </div>
@@ -292,7 +301,7 @@
                 <p class="h6">(б) Тару и упаковку, в том числе стоимость упаковочных материалов и работ по упаковке:</p>
                 <div class="form-group">
                     <label class="w-100">
-                        <input onchange="fillDopCalc()" id="Dop13b" type="number" placeholder="Введите" class="w-25">
+                        <input onchange="fillDopCalc()" id="Dop13b" type="text" placeholder="Введите" class="form-control w-25">
                     </label>
                 </div>
             </div>
@@ -301,7 +310,7 @@
                 <p class="h6">(а) Сырье, материалы, детали, полуфабрикаты и иные товары, из которых произведены (состоят) ввозимые товары:</p>
                 <div class="form-group">
                     <label class="w-100">
-                        <input onchange="fillDopCalc()" id="Dop14a" type="number" placeholder="Введите" class="w-25">
+                        <input onchange="fillDopCalc()" id="Dop14a" type="text" placeholder="Введите" class="form-control w-25">
                     </label>
                 </div>
             </div>
@@ -309,7 +318,7 @@
                 <p class="h6">(б) Инструменты, штампы, формы и иные подобные товары, использованные при производстве ввозимых товаров:</p>
                 <div class="form-group">
                     <label class="w-100">
-                        <input onchange="fillDopCalc()" id="Dop14b" type="number" placeholder="Введите" class="w-25">
+                        <input onchange="fillDopCalc()" id="Dop14b" type="text" placeholder="Введите" class="form-control w-25">
                     </label>
                 </div>
             </div>
@@ -317,7 +326,7 @@
                 <p class="h6">(в) Материалы, израсходованные при производстве ввозимых товаров:</p>
                 <div class="form-group">
                     <label class="w-100">
-                        <input onchange="fillDopCalc()" id="Dop14v" type="number" placeholder="Введите" class="w-25">
+                        <input onchange="fillDopCalc()" id="Dop14v" type="text" placeholder="Введите" class="form-control w-25">
                     </label>
                 </div>
             </div>
@@ -325,7 +334,7 @@
                 <p class="h6">(г) Проектирование, разработка, инженерная, конструкторская работа, художественное оформление...</p>
                 <div class="form-group">
                     <label class="w-100">
-                        <input onchange="fillDopCalc()" id="Dop14g" type="number" placeholder="Введите" class="w-25">
+                        <input onchange="fillDopCalc()" id="Dop14g" type="text" placeholder="Введите" class="form-control w-25">
                     </label>
                 </div>
             </div>
@@ -333,7 +342,7 @@
                 <p class="h6">15) Лицензионные и иные подобные платежи за использование объектов интеллектуальной собственности:</p>
                 <div class="form-group">
                     <label class="w-100">
-                        <input onchange="fillDopCalc()" id="Dop15" type="number" placeholder="Введите" class="w-25">
+                        <input onchange="fillDopCalc()" id="Dop15" type="text" placeholder="Введите" class="form-control w-25">
                     </label>
                 </div>
             </div>
@@ -341,7 +350,7 @@
                 <p class="h6">16) Часть дохода (выручки), полученного в результате последующей продажи...</p>
                 <div class="form-group">
                     <label class="w-100">
-                        <input onchange="fillDopCalc()" id="Dop16" type="number" placeholder="Введите" class="w-25">
+                        <input onchange="fillDopCalc()" id="Dop16" type="text" placeholder="Введите" class="form-control w-25">
                     </label>
                 </div>
             </div>
@@ -349,7 +358,7 @@
                 <p class="h6">17) Расходы на перевозку (транспортировку) ввозимых товаров до:</p>
                 <div class="form-group">
                     <label class="w-100">
-                        <input onchange="fillDopCalc()" id="Dop17" type="number" placeholder="Введите" class="w-25">
+                        <input onchange="fillDopCalc()" id="Dop17" type="text" placeholder="Введите" class="form-control w-25">
                     </label>
                 </div>
             </div>
@@ -357,7 +366,7 @@
                 <p class="h6">18) Лицензионные и иные подобные платежи за использование объектов интеллектуальной собственности:</p>
                 <div class="form-group">
                     <label class="w-100">
-                        <input onchange="fillDopCalc()" id="Dop18" type="number" placeholder="Введите" class="w-25">
+                        <input onchange="fillDopCalc()" id="Dop18" type="text" placeholder="Введите" class="form-control w-25">
                     </label>
                 </div>
             </div>
@@ -365,7 +374,7 @@
                 <p class="h6">19) Расходы на страхование в связи с операциями, указанными в графах 17 и 18:</p>
                 <div class="form-group">
                     <label class="w-100">
-                        <input onchange="fillDopCalc()" id="Dop19" type="number" placeholder="Введите" class="w-25">
+                        <input onchange="fillDopCalc()" id="Dop19" type="text" placeholder="Введите" class="form-control w-25">
                     </label>
                 </div>
             </div>
@@ -386,7 +395,7 @@
                     производимые после ввоза товаров на таможенную территорию Евразийского экономического союза:</p>
                 <div class="form-group">
                     <label class="w-100">
-                        <input onchange="fillItogNacValues()" id="Vch21" type="number" placeholder="Введите" class="w-25">
+                        <input onchange="fillItogNacValues()" id="Vch21" type="text" placeholder="Введите" class="form-control w-25">
                     </label>
                 </div>
             </div>
@@ -394,7 +403,7 @@
                 <p class="h6">22) Расходы на перевозку (транспортировку) ввозимых товаров по таможенной территории Евразийского экономического союза:</p>
                 <div class="form-group">
                     <label class="w-100">
-                        <input onchange="fillItogNacValues()" id="Vch22" type="number" placeholder="Введите" class="w-25">
+                        <input onchange="fillItogNacValues()" id="Vch22" type="text" placeholder="Введите" class="form-control w-25">
                     </label>
                 </div>
             </div>
@@ -403,7 +412,7 @@
                     экономического союза или продажей товаров на такой таможенной территории:</p>
                 <div class="form-group">
                     <label class="w-100">
-                        <input onchange="fillItogNacValues()" id="Vch23" type="number" placeholder="Введите" class="w-25">
+                        <input onchange="fillItogNacValues()" id="Vch23" type="text" placeholder="Введите" class="form-control w-25">
                     </label>
                 </div>
             </div>
