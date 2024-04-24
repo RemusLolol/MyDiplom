@@ -1,14 +1,51 @@
-window.onload = function() {
+document.addEventListener('DOMContentLoaded', function() {
     getTamPoshl()
     document.getElementById('floatingSelect').dispatchEvent(new Event('change'));
-};
 
-document.addEventListener('DOMContentLoaded', function() {
-    getTamPoshl();
+    document.getElementById('inputTamPoshl').addEventListener('blur', function() {
+        addPercent('inputTamPoshl');
+    });
+
+    document.getElementById('inputSS').addEventListener('blur', function() {
+        addRubles('inputSS');
+    });
+
+    document.getElementById('inputWeight').addEventListener('blur', function() {
+        addKg('inputWeight');
+    });
+
+    document.getElementById('inputDoGra').addEventListener('blur', function() {
+        addRubles('inputDoGra');
+    });
+
+    document.getElementById('inputTamPoshl').addEventListener('focus', function() {
+        removePercent('inputTamPoshl');
+    });
+
+    document.getElementById('inputSS').addEventListener('focus', function() {
+        removeRubles('inputSS');
+    });
+
+    document.getElementById('inputSS').addEventListener('focus', function() {
+        removeRubles('inputSS');
+    });
+
+    document.getElementById('inputWeight').addEventListener('focus', function() {
+        removeKg('inputWeight');
+    });
+
+    document.getElementById('inputDoGra').addEventListener('focus', function() {
+        removeRubles('inputDoGra');
+    });
+
+    document.getElementById('inputPosleGra').addEventListener('focus', function() {
+        removeRubles('inputPosleGra');
+    });
 });
 
 function readTamPoshl() {
-    document.getElementById('inputTamPoshl').readOnly = !inputTam.readOnly;
+    let inputTam = document.getElementById('inputTamPoshl');
+    inputTam.readOnly = !inputTam.readOnly;
     let locker = document.getElementById('locker');
     if (inputTam.readOnly) {
         locker.classList.remove('fa-unlock');
@@ -36,7 +73,7 @@ function getTamPoshl(){
         fetch(`/calculator/getTamposhl?tamname=${selectedTamname}`)
             .then(response => response.text())
             .then(data => {
-                inputTamPoshl.value = data;
+                inputTamPoshl.value = data + ' %';
             })
             .catch(error => {
                 console.error('Error fetching tamposhl: ', error);
@@ -44,8 +81,63 @@ function getTamPoshl(){
     });
 }
 
+function addRubles(elementId) {
+    let input = document.getElementById(elementId);
+    let value = input.value;
+    value = value.replace(' р.', '');
+    if (value && !value.endsWith('р.')) {
+        input.value = value + ' р.';
+    }
+}
+
+function addPercent(elementId) {
+    let input = document.getElementById(elementId);
+    let value = input.value;
+    if (value && !value.endsWith('%')) {
+        input.value = value + ' %';
+    }
+}
+
+function addKg(elementId) {
+    let input = document.getElementById(elementId);
+    let value = input.value;
+    if (value && !value.endsWith('кг.')) {
+        input.value = value + ' кг.';
+    }
+}
+
+function removeRubles(elementId) {
+    let input = document.getElementById(elementId);
+    let value = input.value;
+    if (value && value.endsWith('р.')) {
+        input.value = value.slice(0, -3);
+    }
+}
+
+function removeKg(elementId) {
+    let input = document.getElementById(elementId);
+    let value = input.value;
+    if (value && value.endsWith('кг.')) {
+        input.value = value.slice(0, -3);
+    }
+}
+
+function removePercent(elementId) {
+    let input = document.getElementById(elementId);
+    let value = input.value;
+    if (value && value.endsWith('%')) {
+        input.value = value.slice(0, -2);
+    }
+}
+
 function calculate() {
     try {
+        removePercent('inputTamPoshl');
+        removeRubles('inputSS');
+        removeKg('inputWeight');
+        removeRubles('inputDoGra');
+        removeRubles('inputPosleGra');
+
         let ssValue = document.getElementById('inputSS').value;
         let weightValue = document.getElementById('inputWeight').value;
         let tamPoshlValue = document.getElementById('inputTamPoshl').value;
@@ -72,6 +164,12 @@ function calculate() {
             transprashdogra: transpRashDoGraValue,
             transprashposlegravalue: transpRashPosleGraValue
         };
+
+        addPercent('inputTamPoshl');
+        addRubles('inputSS');
+        addKg('inputWeight');
+        addRubles('inputDoGra');
+        addRubles('inputPosleGra');
 
         fetch('/calculator/submitForm', {
             method: 'POST',
@@ -109,6 +207,12 @@ function calculate() {
 }
 
 function saveData() {
+    removePercent('inputTamPoshl');
+    removeRubles('inputSS');
+    removeKg('inputWeight');
+    removeRubles('inputDoGra');
+    removeRubles('inputPosleGra');
+
     let selectedType = document.getElementById('floatingSelect').value;
     let textBoxTamPoshlValue = parseFloat(document.getElementById('inputTamPoshl').value).toFixed(2);
     let textBoxSS = parseFloat(document.getElementById('inputSS').value).toFixed(2);
@@ -128,6 +232,13 @@ function saveData() {
         itogss: resultValue,
         itogssperweight: resultPerWeightValue
     };
+
+    addPercent('inputTamPoshl');
+    addRubles('inputSS');
+    addKg('inputWeight');
+    addRubles('inputDoGra');
+    addRubles('inputPosleGra');
+
     console.log(formData);
     fetch('/calculator/saveData', {
         method: 'POST',
@@ -170,15 +281,27 @@ function fillTable(data) {
     let tbody = $('table tbody');
 
     data.forEach(item => {
+        let ssWithRubles = item.ss + ' р.';
+        let transprashdograWithRubles = item.transprashdogra + ' р.';
+        let transprashposlegraWithRubles = item.transprashposlegra + ' р.';
+        let itogssWithRubles = item.itogss + ' р.';
+
+        // Добавляем "%" к таможенной пошлине
+        let tamposhlWithPercent = item.tamposhl + ' %';
+
+        // Добавляем "кг" к весу товара и итоговой сумме за кг
+        let weightprodWithKg = item.weightprod + ' кг';
+        let itogssperweightWithKg = item.itogssperweight + ' р./кг';
+
         let row = `<tr>
                        <td>${item.typetam}</td>
-                       <td>${item.tamposhl}</td>
-                       <td>${item.ss}</td>
-                       <td>${item.transprashdogra}</td>
-                       <td>${item.transprashposlegra}</td>
-                       <td>${item.weightprod}</td>
-                       <td>${item.itogss}</td>
-                       <td>${item.itogssperweight}</td>
+                       <td>${tamposhlWithPercent}</td>
+                       <td>${ssWithRubles}</td>
+                       <td>${transprashdograWithRubles}</td>
+                       <td>${transprashposlegraWithRubles}</td>
+                       <td>${weightprodWithKg}</td>
+                       <td>${itogssWithRubles}</td>
+                       <td>${itogssperweightWithKg}</td>
                    </tr>`;
         tbody.append(row);
     });
