@@ -38,3 +38,50 @@ INSERT INTO products (tamname, tamposhl) VALUES
     ('XIX. Оружие и боеприпасы; их части и принадлежности', 15.00),
     ('XX. Разные промышленные товары', 0.00),
     ('XXI. Произведения искусства, предметы коллекционирования и антиквариат', 0.00);
+
+CREATE OR REPLACE FUNCTION calculate_itogssperweight()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.weightprod <> 0 THEN
+        NEW.itogssperweight := NEW.itogss / NEW.weightprod;
+    ELSE
+        NEW.itogssperweight := NULL;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER update_itogssperweight
+BEFORE INSERT OR UPDATE ON savesoperations
+FOR EACH ROW
+EXECUTE FUNCTION calculate_itogssperweight();
+
+CREATE OR REPLACE FUNCTION check_duplicate()
+RETURNS TRIGGER AS $$
+DECLARE
+    duplicate_count INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO duplicate_count
+    FROM savesoperations
+    WHERE typeTam = NEW.typeTam
+    AND tamposhl = NEW.tamposhl
+    AND ss = NEW.ss
+    AND transprashdogra = NEW.transprashdogra
+    AND transprashposlegra = NEW.transprashposlegra
+    AND weightprod = NEW.weightprod
+    AND itogss = NEW.itogss
+    AND itogssperweight = NEW.itogssperweight
+    AND id <> NEW.id;
+    IF duplicate_count > 0 THEN
+        RAISE NOTICE 'Duplicate record found';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER prevent_duplicate
+BEFORE INSERT OR UPDATE ON savesoperations
+FOR EACH ROW
+EXECUTE FUNCTION check_duplicate();
+
+CREATE VIEW products_view AS
+SELECT id, tamname, tamposhl
+FROM products;
