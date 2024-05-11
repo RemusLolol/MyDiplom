@@ -330,32 +330,38 @@ function fillTable(data) {
 }
 
 function saveTableOnFile() {
-    let table = document.getElementById("modalTableBody");
-    let data = [];
+    fetch('/calculator/getAllSavesOperations')
+        .then(response => response.json())
+        .then(data => {
+            let excelData = [];
 
-    let headerRow1 = ["Введенные данные", "", "", "", "", "", "Результаты", ""];
-    let headerRow2 = ["Тип", "Таможенная пошлина", "C/c", "Транспортные расходы до границы", "Транспортные расходы после границы",
-        "Вес", "Полностью", "За единицу"];
-    data.push(headerRow1);
-    data.push(headerRow2);
+            let headerRow1 = ["Введенные данные", "", "", "", "", "", "Результаты", ""];
+            let headerRow2 = ["Тип", "Таможенная пошлина", "C/c", "Транспортные расходы до границы", "Транспортные расходы после границы",
+                "Вес", "Полностью", "За единицу"];
+            excelData.push(headerRow1);
+            excelData.push(headerRow2);
 
-    for (let i = 2; i < table.rows.length; i++) { // начинаем с третьей строки
-        let rowData = [];
-        for (let j = 0; j < table.rows[i].cells.length; j++) {
-            rowData.push(table.rows[i].cells[j].innerText);
-        }
-        data.push(rowData);
-    }
+            data.forEach(row => {
+                let rowData = [];
+                Object.values(row).forEach(value => {
+                    rowData.push(value.toString());
+                });
+                excelData.push(rowData);
+            });
 
-    let wb = XLSX.utils.book_new();
-    let ws = XLSX.utils.aoa_to_sheet(data);
+            let wb = XLSX.utils.book_new();
+            let ws = XLSX.utils.aoa_to_sheet(excelData);
 
-    ws['!merges'] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: 5 } }];
-    ws['!merges'].push({ s: { r: 0, c: 6 }, e: { r: 0, c: 7 } });
+            ws['!merges'] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: 5 } }];
+            ws['!merges'].push({ s: { r: 0, c: 6 }, e: { r: 0, c: 7 } });
 
-    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-    XLSX.writeFile(wb, document.getElementById('tableName').textContent+'.xlsx');
-    showModalAndAlertAccept("Локальная копия сохранена");
+            XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+            XLSX.writeFile(wb, 'file.xlsx');
+            showModalAndAlertAccept("Локальная копия сохранена");
+        })
+        .catch(error => {
+            console.error('Ошибка при получении данных:', error);
+        });
 }
 
 function toggleEditName() {

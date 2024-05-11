@@ -19,20 +19,17 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-freemarker'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-
-	// Зависимость для Spring Boot Starter Data JPA
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
 	implementation 'javax.persistence:javax.persistence-api:2.2'
 	implementation 'org.projectlombok:lombok:1.18.26'
 	implementation 'org.modelmapper:modelmapper:2.4.4'
-	runtimeOnly 'org.postgresql:postgresql'
 
-	//Зависимости для Lombock
 	implementation 'org.projectlombok:lombok:1.18.22'
 	annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
 	runtimeOnly 'org.postgresql:postgresql'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 tasks.named('test') {
