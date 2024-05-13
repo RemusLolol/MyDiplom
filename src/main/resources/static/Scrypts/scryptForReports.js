@@ -5,6 +5,9 @@ document.addEventListener("DOMContentLoaded", function() {
     let additionalOptionsRadios = document.querySelector(".additionalOptionsRadios");
     let sortingDirectionRadios = document.getElementById("sortedRadio");
 
+    const body = document.body;
+    body.classList.add('dark-theme');
+
     productTypeCheckbox.addEventListener("change", function() {
         if (this.checked) {
             productTypeSelectRow.style.display = "block";
@@ -44,11 +47,3 @@ document.addEventListener("DOMContentLoaded", function() {
         return false;
     }
 });
-
-
-function toggleSidebar() {
-    let sidebar = document.getElementById('sidebar');
-    let burger = document.querySelector('.burger');
-    sidebar.classList.toggle('open');
-    burger.classList.toggle('open');
-}

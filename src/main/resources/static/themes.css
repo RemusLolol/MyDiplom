@@ -1,0 +1,157 @@
+.theme-toggle {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    cursor: pointer; }
+.theme-toggle i {
+    font-size: 24px;
+    margin-right: 10px; }
+.hidden { display: none; }
+.dark-theme {
+    background-color: #343a40;
+    color: #ffffff; }
+.dark-theme .sidebar {
+    background-color: #212529;
+    color: #ffffff; }
+.dark-theme .burger span { background-color: #ffffff; }
+.dark-theme .form-check-input[type="checkbox"],
+.dark-theme .form-check-input[type="radio"] {
+    background-color: #343a40;
+    border-color: #6c757d; }
+.dark-theme .form-check-input[type="checkbox"]:checked,
+.dark-theme .form-check-input[type="radio"]:checked {
+    background-color: #6c757d;
+    border-color: #6c757d; }
+.dark-theme .form-check-input[type="checkbox"]:focus,
+.dark-theme .form-check-input[type="radio"]:focus { box-shadow: none; }
+.dark-theme .form-check-label { color: #ffffff; }
+.dark-theme form { background-color: #343a40; }
+.dark-theme .form-group label { color: #ffffff; }
+.dark-theme .btn-primary {
+    color: #ffffff;
+    background-color: #343a40;
+    border-color: #6c757d; }
+.dark-theme .btn-primary:hover { background-color: #212529; }
+.dark-theme .form-control {
+    color: #ffffff;
+    background-color: #343a40;
+    border-color: #6c757d; }
+.dark-theme .form-control::placeholder { color: #6c757d; }
+.dark-theme .custom-select {
+    color: #ffffff;
+    background-color: #343a40;
+    border-color: #6c757d; }
+.dark-theme .custom-select:hover { background-color: #343a40; }
+.dark-theme .btn {
+    color: #ffffff;
+    background-color: #343a40;
+    border-color: #6c757d; }
+.dark-theme .btn:hover { background-color: #212529; }
+.dark-theme .form-select {
+    background-color: #343a40 !important;
+    color: #ffffff !important; }
+.dark-theme .form-control:focus {
+    color: #343a40 !important;
+    background-color: #ffffff !important;}
+.dark-theme .form-control[readonly] {
+    color: #ffffff !important;
+    background-color: #343a40 !important; }
+.dark-theme .modal-content {
+    background-color: #343a40;
+    color: #ffffff; }
+.dark-theme .modal-header {
+    background-color: #343a40;
+    color: #ffffff; }
+.dark-theme .modal-footer {
+    background-color: #343a40;
+    color: #ffffff; }
+.dark-theme .label { color: #ffffff; }
+
+.dark-theme .modal-body table {
+    color: #ffffff;
+}
+
+.dark-theme .modal-body table th {
+    background-color: #212529;
+    color: #ffffff;
+}
+
+.dark-theme .modal-body table td {
+    background-color: #343a40;
+    color: #ffffff;
+}
+
+
+.light-theme {
+    background-color: #ffffff;
+    color: #000000; }
+.light-theme .sidebar {
+    background-color: #8b9192;
+    color: #000000; }
+.light-theme .burger span { background-color: #000000; }
+.light-theme .form-check-input[type="checkbox"],
+.light-theme .form-check-input[type="radio"] {
+    background-color: #ffffff;
+    border-color: #6c757d; }
+.light-theme .form-check-input[type="checkbox"]:checked,
+.light-theme .form-check-input[type="radio"]:checked {
+    background-color: #6c757d;
+    border-color: #6c757d; }
+.light-theme .form-check-input[type="checkbox"]:focus,
+.light-theme .form-check-input[type="radio"]:focus { box-shadow: none; }
+.light-theme .form-check-label { color: #000000; }
+.light-theme form { background-color: #ffffff; }
+.light-theme .form-group label { color: #000000; }
+.light-theme .btn-primary {
+    color: #ffffff;
+    background-color: #007cf9;
+    border-color: #6c757d; }
+.light-theme .btn-primary:hover { background-color: #0e69c3; }
+.light-theme .form-control {
+    color: #000000;
+    background-color: #ffffff;
+    border-color: #6c757d; }
+.light-theme .form-control::placeholder { color: #6c757d; }
+.light-theme .custom-select {
+    color: #000000;
+    background-color: #ffffff;
+    border-color: #6c757d; }
+.light-theme .custom-select:hover { background-color: #f8f9fa; }
+.light-theme .btn {
+    color: #ffffff;
+    background-color: #007cf9;
+    border-color: #6c757d; }
+.light-theme .btn:hover { background-color: #0e69c3; }
+.light-theme .form-select {
+    background-color: #ffffff !important;
+    color: #000000 !important;}
+.light-theme .form-control:focus {
+    color: #000000 !important;
+    background-color: #ffffff !important; }
+.light-theme .form-control[readonly] {
+    color: #000000 !important;
+    background-color: #ffffff !important; }
+.light-theme .modal-content {
+    background-color: #ffffff;
+    color: #000000; }
+.light-theme .modal-header {
+    background-color: #f8f9fa;
+    color: #000000; }
+.light-theme .modal-footer {
+    background-color: #f8f9fa;
+    color: #000000; }
+.light-theme .label { color: #000000; }
+
+.light-theme .modal-body table {
+    color: #000000;
+}
+
+.light-theme .modal-body table th {
+    background-color: #f8f9fa;
+    color: #000000;
+}
+
+.light-theme .modal-body table td {
+    background-color: #ffffff;
+    color: #000000;
+}

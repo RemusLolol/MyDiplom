@@ -594,13 +594,6 @@ function slideUp(element) {
     }, interval);
 }
 
-function toggleSidebar() {
-    let sidebar = document.getElementById('sidebar');
-    let burger = document.querySelector('.burger');
-    sidebar.classList.toggle('open');
-    burger.classList.toggle('open');
-}
-
 function showModalAndAlertAccept(textAlert) {
     document.getElementById('alertContainer').innerHTML = `<div class="alert alert-success" role="alert" style="padding: 10px; background-color: #28a745; color: #fff;
                 font-size: 14px; font-weight: bold;">

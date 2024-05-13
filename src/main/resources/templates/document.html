@@ -6,6 +6,7 @@
         <title>Заполнение документа</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <link rel="stylesheet" href="/themes.css">
         <style>
             body {
                 background-color: #343a40;
@@ -95,6 +96,7 @@
         <script src="https://unpkg.com/pdf-lib"></script>
         <script src="/Scrypts/scryptForDocument.js" defer></script>
         <script src="/Scrypts/scryptForRedirected.js"></script>
+        <script src="/Scrypts/switchThemesAndSidebars.js" defer></script>
     </head>
 
     <body>
@@ -112,6 +114,10 @@
             <a href="#" style="color: #1e722c"><i class="fas fa-file-alt"></i> Документ</a>
             <a href="#" onclick="openReport()"><i class="fas fa-chart-bar"></i> Отчет</a>
         </nav>
+        <div class="theme-toggle" onclick="toggleTheme()">
+            <i class="fas fa-moon"></i>
+            <i class="fas fa-sun hidden"></i>
+        </div>
     </div>
 
     <div class="container mt-4">

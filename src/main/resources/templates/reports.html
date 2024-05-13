@@ -171,8 +171,7 @@
         flex-direction: column;
       }
     </style>
-    <script src="/Scrypts/scryptForReports.js"></script>
-    <script src="/Scrypts/scryptForRedirected.js"></script>
+    <link rel="stylesheet" href="/themes.css">
   </head>
   <body>
     <div class="burger" onclick="toggleSidebar()">
@@ -185,11 +184,13 @@
         <a href="#" onclick="openCalculator()"><i class="fas fa-calculator"></i> Калькулятор</a>
         <a href="#" onclick="openDocument()"><i class="fas fa-file-alt"></i> Документ</a>
         <a href="#" style="color: #1e722c"><i class="fas fa-chart-bar"></i> Отчет</a>
-      </nav>
+      </nav>`
+      <div class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun hidden"></i>
+      </div>
     </div>
-
     <div id="alertContainer" style="position: fixed; bottom: 20px; right: 20px; z-index: 1050;"></div>
-
     <div class="container">
       <div class="row">
         <div class="col-sm-12 center-text"
@@ -259,5 +260,8 @@
         </div>
       </div>
     </div>
+    <script src="/Scrypts/scryptForReports.js"></script>
+    <script src="/Scrypts/scryptForRedirected.js"></script>
+    <script src="/Scrypts/switchThemesAndSidebars.js"></script>
   </body>
 </html>

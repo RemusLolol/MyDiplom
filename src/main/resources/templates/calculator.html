@@ -6,6 +6,7 @@
         <title>Калькулятор</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <link rel="stylesheet" href="/themes.css">
         <style>
             body {
                 background-color: #343a40;
@@ -119,21 +120,21 @@
                 display: flex;
                 flex-direction: column;
             }
-            #inputTamPoshl[readonly] {
-                background-color: #343a40;
-                cursor: not-allowed;
-            }
+            .form-control[readonly] {
+                color: #ffffff !important;
+                background-color: #343a40 !important; }
+
             .sidebar.open {
                 transform: translateX(0);
             }
-            @media (max-width: 576px) {
-                .center-text {
-                    text-align: center;
-                }
+            .modal-body table th{
+                background-color: #212529;
+                color: #ffffff;
             }
         </style>
         <script src="/Scrypts/scryptCalculator.js"></script>
         <script src="/Scrypts/scryptForRedirected.js"></script>
+        <script src="/Scrypts/switchThemesAndSidebars.js" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
@@ -152,6 +153,10 @@
                 <a href="#" onclick="openDocument()"><i class="fas fa-file-alt"></i> Документ</a>
                 <a href="#" onclick="openReport()"><i class="fas fa-chart-bar"></i> Отчет</a>
             </nav>
+            <div class="theme-toggle" onclick="toggleTheme()">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun hidden"></i>
+            </div>
         </div>
 
         <div id="alertContainer" style="position: fixed; bottom: 20px; right: 20px; z-index: 1050;"></div>
