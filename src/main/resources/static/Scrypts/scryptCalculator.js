@@ -335,10 +335,17 @@ function saveTableOnFile() {
             excelData.push(headerRow2);
 
             data.forEach(row => {
-                let rowData = [];
-                Object.values(row).forEach(value => {
-                    rowData.push(value.toString());
-                });
+                let rowData = [
+                    row.typetam.toString(),
+                    row.tamposhl.toString(),
+                    row.ss.toString(),
+                    row.transprashdogra.toString(),
+                    row.transprashposlegra.toString(),
+                    row.weightprod.toString(),
+                    row.itogss.toString(),
+                    row.itogssperweight.toString()
+                ];
+                console.log(rowData);
                 excelData.push(rowData);
             });
 

@@ -66,21 +66,13 @@
     background-color: #343a40;
     color: #ffffff; }
 .dark-theme .label { color: #ffffff; }
-
-.dark-theme .modal-body table {
-    color: #ffffff;
-}
-
+.dark-theme .modal-body table { color: #ffffff; }
 .dark-theme .modal-body table th {
     background-color: #212529;
-    color: #ffffff;
-}
-
+    color: #ffffff; }
 .dark-theme .modal-body table td {
     background-color: #343a40;
-    color: #ffffff;
-}
-
+    color: #ffffff; }
 
 .light-theme {
     background-color: #ffffff;
@@ -141,17 +133,10 @@
     background-color: #f8f9fa;
     color: #000000; }
 .light-theme .label { color: #000000; }
-
-.light-theme .modal-body table {
-    color: #000000;
-}
-
+.light-theme .modal-body table { color: #000000; }
 .light-theme .modal-body table th {
     background-color: #f8f9fa;
-    color: #000000;
-}
-
+    color: #000000; }
 .light-theme .modal-body table td {
     background-color: #ffffff;
-    color: #000000;
-}
+    color: #000000; }

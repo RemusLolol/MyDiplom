@@ -74,7 +74,6 @@ public class CalculatorController {
         return ResponseEntity.ok(savedData);
     }
 
-
     @GetMapping("/getAllSavesOperations")
     public ResponseEntity<List<Savesoperations>> getAllSavesOperations() {
         try {

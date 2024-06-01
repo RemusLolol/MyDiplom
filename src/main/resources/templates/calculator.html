@@ -131,6 +131,21 @@
                 background-color: #212529;
                 color: #ffffff;
             }
+            .btn-circle {
+                width: 40px;
+                height: 40px;
+                padding: 6px 0;
+                border-radius: 50%;
+                text-align: center;
+                font-size: 16px;
+                line-height: 1.42857;
+                background-color: #343a40;
+                border: 1px solid #6c757d;
+                color: #ffffff;
+            }
+            .btn-circle i {
+                vertical-align: middle;
+            }
         </style>
         <script src="/Scrypts/scryptCalculator.js"></script>
         <script src="/Scrypts/scryptForRedirected.js"></script>
@@ -165,6 +180,9 @@
             <div class="row">
                 <div class="col-sm-12 center-text" style="border-radius:10px; padding:10px; box-shadow:0 0 10px rgba(0, 0, 0, 0.2); ">
                     <h2>Калькулятор</h2>
+                    <button class="btn btn-circle" data-toggle="modal" data-target="#helpModal" style="position: absolute; top: 10px; right: 10px;">
+                        <i class="fas fa-question"></i>
+                    </button>
                 </div>
             </div>
             <div class="row">
@@ -174,8 +192,7 @@
                             <div class="col-sm-10">
                                 <label for="floatingSelect">Выберите тип</label>
                                 <select class="form-select" id="floatingSelect" aria-label="Floating label select example" style="position: relative; background-color: #343a40; color: #ffffff">
-                                    <option th:each="product:${productsList}" th:value="${product.tamname}" th:text="${product.tamname}">
-                                    </option>
+                                    <option th:each="product:${productsList}" th:value="${product.tamname}" th:text="${product.tamname}"></option>
                                 </select>
                             </div>
                         </div>
@@ -326,6 +343,30 @@
                                 <i class="fas fa-times"></i> Закрыть
                             </button>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="helpModalLabel">Справка</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>Калькулятор</h5>
+                        <p>Нужно заполнить все поля а после нажать рассчитать где можно далее сохранить операцию.</p>
+                        <h5>Таблица</h5>
+                        <p>Для входа в таблицу сохраненных операций нужно нажать "Таблица", в ней можно просмотреть все операции.</p>
+                        <p>Для того чтобы сделать локальную копию нужно нажать "Сделать локальную копию", также её можно переименовать для этого нужно нажать "Изменить название таблицы".</p>
+                        <p>Чтобы очистить таблицу, нужно нажать "Очистить таблицу".</p>
+                        <p> Также можно дополнить уже существующую таблицу, нужно нажать на кнопку "Загрузить", далее можно нажать на "Начать таблицу с начала?".</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                     </div>
                 </div>
             </div>

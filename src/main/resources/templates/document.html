@@ -92,6 +92,40 @@
                 display: inline-block;
                 margin-right: 10px;
             }
+            .btn-circle {
+                width: 40px;
+                height: 40px;
+                padding: 6px 0;
+                border-radius: 50%;
+                text-align: center;
+                font-size: 16px;
+                line-height: 1.42857;
+                background-color: #343a40;
+                border: 1px solid #6c757d;
+                color: #ffffff;
+            }
+            .btn-circle i {
+                vertical-align: middle;
+            }
+            .modal-content {
+                background-color: #343a40;
+                color: #ffffff;
+            }
+            .btn-circle {
+                width: 40px;
+                height: 40px;
+                padding: 6px 0;
+                border-radius: 50%;
+                text-align: center;
+                font-size: 16px;
+                line-height: 1.42857;
+                background-color: #343a40;
+                border: 1px solid #6c757d;
+                color: #ffffff;
+            }
+            .btn-circle i {
+                vertical-align: middle;
+            }
         </style>
         <script src="https://unpkg.com/pdf-lib"></script>
         <script src="/Scrypts/scryptForDocument.js" defer></script>
@@ -121,8 +155,12 @@
     </div>
 
     <div class="container mt-4">
-        <div style="border-radius:10px; padding:10px; box-shadow:0 0 10px rgba(0, 0, 0, 0.2); ">
+        <div class="col-sm-12 center-text" style="border-radius:10px; padding:10px; box-shadow:0 0 10px rgba(0, 0, 0, 0.2); ">
             <h2>Заполнение декларации таможенной стоимости</h2>
+            <button type="button" class="btn btn-circle" data-toggle="modal" data-target="#helpModal"
+                    style="position: absolute; top: 10px; right: 10px;">
+                <i class="fas fa-question"></i>
+            </button>
         </div>
     </div>
 
@@ -449,5 +487,36 @@
     <div class="container mt-4 mb-4 text-end">
         <button class="btn btn-secondary px-3" type="button" id="fillPDFButton" onclick="fillDTSDocument()">Сформировать дтс</button>
     </div>
+    <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="helpModalLabel">Справка</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h5>Блок Вопросов Да/Нет:</h5>
+                    <p>В данном блоке требуется ответить на вопросы "Да"/"Нет".</p>
+                    <h5>ОСНОВА ДЛЯ РАСЧЕТА:</h5>
+                    <p>В данном блоке требуется ввести числовые значения в поля, а также выбрать вылюту счета</p>
+                    <h5>ДОПОЛНИТЕЛЬНЫЕ НАЧИСЛЕНИЯ:</h5>
+                    <p>В данном блоке требуется ввести числовые значения в поля</p>
+                    <h5>ВЫЧЕТЫ в национальной валюте:</h5>
+                    <p>В данном блоке требуется ввести числовые значения в поля</p>
+                    <h5>ИТОГИ:</h5>
+                    <p>Для расчетов итогов требуется нажать на кнопку "рассчитать итоги".</p>
+                    <p>Затем нажать на кнопку "Сформировать дтс".</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </body>
 </html>

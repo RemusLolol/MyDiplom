@@ -11,7 +11,6 @@
         background-color: #343a40;
         color: #ffffff;
       }
-
       form {
         max-width: 700px;
         margin: 50px auto;
@@ -20,23 +19,19 @@
         padding: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
       }
-
       .form-control {
         font-size: 0.9em;
         padding: 0.375rem 0.75rem;
         max-width: 300px;
       }
-
       .form-control {
         color: #ffffff;
         background-color: #343a40;
         border-color: #6c757d;
       }
-
       .form-group label {
         color: #ffffff;
       }
-
       .btn-primary {
         color: #ffffff;
         background-color: #343a40;
@@ -48,26 +43,22 @@
         background-color: #212529;
         border-color: #6c757d;
       }
-
       .form-control:focus {
         color: #ffffff;
         background-color: #343a40;
         border-color: #6c757d;
         box-shadow: none;
       }
-
       .btn-primary {
         color: #ffffff;
         background-color: #343a40;
         border-color: #6c757d;
       }
-
       .btn-primary:hover {
         color: #ffffff;
         background-color: #212529;
         border-color: #6c757d;
       }
-
       .burger {
         position: fixed;
         top: 16px;
@@ -77,7 +68,6 @@
         color: #ffffff;
         transition: transform 0.3s ease-out;
       }
-
       .burger span {
         display: block;
         width: 32px;
@@ -86,11 +76,9 @@
         margin-bottom: 4px;
         transition: transform 0.3s ease-out;
       }
-
       .burger.open span:nth-child(1) {
         transform: rotate(45deg) translate(5px, 5px);
       }
-
       .burger.open span:nth-child(2) {
         opacity: 0;
       }
@@ -170,6 +158,25 @@
         display: flex;
         flex-direction: column;
       }
+      .btn-circle {
+        width: 40px;
+        height: 40px;
+        padding: 6px 0;
+        border-radius: 50%;
+        text-align: center;
+        font-size: 16px;
+        line-height: 1.42857;
+        background-color: #343a40;
+        border: 1px solid #6c757d;
+        color: #ffffff;
+      }
+      .btn-circle i {
+        vertical-align: middle;
+      }
+      .modal-content {
+        background-color: #343a40;
+        color: #ffffff;
+      }
     </style>
     <link rel="stylesheet" href="/themes.css">
   </head>
@@ -194,8 +201,11 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-12 center-text"
-             style="border-radius:10px; padding:10px; box-shadow:0 0 10px rgba(0, 0, 0, 0.2);">
+             style="  :10px; padding:10px; box-shadow:0 0 10px rgba(0, 0, 0, 0.2);">
           <h2>Отчет</h2>
+          <button type="button" class="btn btn-circle" data-toggle="modal" data-target="#helpModal" style="position: absolute; top: 10px; right: 10px;">
+            <i class="fas fa-question"></i>
+          </button>
         </div>
       </div>
       <div class="row">
@@ -205,16 +215,17 @@
               <label class="col-sm-2 col-form-label">Сортировка:</label>
               <div class="col-sm-4">
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="productTypeCheckbox">
+                  <input class="form-check-input" type="checkbox" id="productTypeCheckbox" onclick="toggleProductSelect()">
                   <label class="form-check-label" for="productTypeCheckbox">Тип товара</label>
                 </div>
                 <div class="productTypeSelectRow" style="display: none;">
-                  <select class="form-control" id="productTypeSelect">
-                    <option th:each="product:${productsList}" th:text="${product.tamname}">
+                  <select class="form-select" id="productSelect" aria-label="Выберите тип продукта"
+                          style="position: relative; width: 500px; background-color: #343a40; color: #ffffff">
+                    <option th:each="product:${productsList}" th:value="${product.tamname}" th:text="${product.tamname}"></option>
                   </select>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="additionalOptionsCheckbox">
+                  <input class="form-check-input" type="checkbox" id="additionalOptionsCheckbox" onclick="toggleAdditionalOptions()">
                   <label class="form-check-label" for="additionalOptionsCheckbox">Дополнительные опции</label>
                 </div>
                 <div class="additionalOptionsRadios" style="display: none;">
@@ -227,13 +238,11 @@
                     <label class="form-check-label" for="additionalWeightRadio">Вес товара</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="additionalSortingRadio"
-                           id="additionalTransportBeforeRadio">
+                    <input class="form-check-input" type="radio" name="additionalSortingRadio" id="additionalTransportBeforeRadio">
                     <label class="form-check-label" for="additionalTransportBeforeRadio">Транспорт до</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="additionalSortingRadio"
-                           id="additionalTransportAfterRadio">
+                    <input class="form-check-input" type="radio" name="additionalSortingRadio" id="additionalTransportAfterRadio">
                     <label class="form-check-label" for="additionalTransportAfterRadio">Транспорт после</label>
                   </div>
                 </div>
@@ -253,15 +262,40 @@
             </div>
             <div class="form-group row">
               <div class="col-sm-10 offset-sm-2">
-                <button type="submit" class="btn btn-primary">Создать отчет</button>
+                <button type="button" class="btn btn-primary" onclick="createReport()">Создать отчет</button>
               </div>
             </div>
           </form>
         </div>
       </div>
     </div>
+    <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="helpModalLabel">Справка</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Для формирования отчета можно не выбирать ничего, тогда в отчете будут все операции.</p>
+            <p>Для того чтобы в отчете были операции с определенным товаром, нужно выбрать "Тип товара".</p>
+            <p>Для формирования отчета по числовым значениям, нужно выбрать "Дополнительные опции", где можно выбрать опции с числовыми значениями и сформировать по возрастанию или по убыванию.</p>
+            <p>Можно выбрать две опции одновременно.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <script src="/Scrypts/scryptForReports.js"></script>
     <script src="/Scrypts/scryptForRedirected.js"></script>
     <script src="/Scrypts/switchThemesAndSidebars.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </body>
 </html>
