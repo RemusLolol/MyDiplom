@@ -73,6 +73,9 @@
 .dark-theme .modal-body table td {
     background-color: #343a40;
     color: #ffffff; }
+.dark-theme .btn-circle{
+    background-color: #343a40;
+    color: #ffffff; }
 
 .light-theme {
     background-color: #ffffff;
@@ -138,5 +141,8 @@
     background-color: #f8f9fa;
     color: #000000; }
 .light-theme .modal-body table td {
+    background-color: #ffffff;
+    color: #000000; }
+.lig-theme .btn-circle{
     background-color: #ffffff;
     color: #000000; }

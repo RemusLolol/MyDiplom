@@ -1,4 +1,4 @@
-let currentTheme = 'dark-theme';
+let currentTheme = 'light-theme';
 let themeElement = document.body;
 function toggleTheme() {
     currentTheme = (currentTheme === 'dark-theme') ? 'light-theme' : 'dark-theme';

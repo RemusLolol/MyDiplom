@@ -180,12 +180,6 @@ function calculate() {
             transprashposlegravalue: transpRashPosleGraValue
         };
 
-        addPercent('inputTamPoshl');
-        addRubles('inputSS');
-        addKg('inputWeight');
-        addRubles('inputDoGra');
-        addRubles('inputPosleGra');
-
         fetch('/calculator/submitForm', {
             method: 'POST',
             headers: {
@@ -208,10 +202,17 @@ function calculate() {
                 resultPerWeightLabel.innerText = resultPerWeight + " р.";
                 document.getElementById('resultNDS').innerText = resultNDS + " р.";
                 document.getElementById('resultTamPoshl').innerText = resultTamPoshl + " р.";
+                document.getElementById('transpRashItog').innerText = (Number(transpRashDoGraValue) + Number(transpRashPosleGraValue)).toFixed(2) + " p.";
 
                 $('#modalItog').modal('show');
 
                 showModalAndAlertAccept("Расчеты произведены успешно");
+                addPercent('inputTamPoshl');
+                addRubles('inputSS');
+                addKg('inputWeight');
+                addRubles('inputDoGra');
+                addRubles('inputPosleGra');
+
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -328,9 +329,9 @@ function saveTableOnFile() {
         .then(data => {
             let excelData = [];
 
-            let headerRow1 = ["Введенные данные", "", "", "", "", "", "Результаты", ""];
-            let headerRow2 = ["Тип", "Таможенная пошлина", "C/c", "Транспортные расходы до границы", "Транспортные расходы после границы",
-                "Вес", "Полностью", "За единицу"];
+            let headerRow1 = ["Введенные данные", "", "", "", "", "", "Результаты ()", ""];
+            let headerRow2 = ["Тип", "Таможенная пошлина (%)", "C/c (р.)", "Транспортные расходы до границы (р.)", "Транспортные расходы после границы (р.)",
+                "Вес (р.)", "Полностью (р.)", "За единицу (р./кг)"];
             excelData.push(headerRow1);
             excelData.push(headerRow2);
 

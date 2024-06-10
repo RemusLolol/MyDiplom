@@ -1,7 +1,7 @@
 CREATE TABLE products (
     id SERIAL PRIMARY KEY,
     tamname VARCHAR(255) NOT NULL,
-    tamposhl DECIMAL(5,2)
+    tamposhl DOUBLE PRECISION
 );
 
 CREATE TABLE savesoperations(
