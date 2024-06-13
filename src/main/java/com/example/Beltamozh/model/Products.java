@@ -14,5 +14,5 @@ public class Products {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String tamname;
-    private BigDecimal tamposhl;
+    private Double tamposhl;
 }

@@ -39,9 +39,9 @@ public class CalculatorController {
 
     @GetMapping("/getTamposhl")
     @ResponseBody
-    public BigDecimal getTamposhl(@RequestParam String tamname) {
-        BigDecimal tamposhl = productService.getTamposhlByTamname(tamname);
-        return tamposhl != null ? tamposhl : BigDecimal.ZERO;
+    public Double getTamposhl(@RequestParam String tamname) {
+        Double tamposhl = productService.getTamposhlByTamname(tamname);
+        return tamposhl != null ? tamposhl : 0.0;
     }
 
     @PostMapping(value = "/submitForm", params = "!_")

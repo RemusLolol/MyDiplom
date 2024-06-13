@@ -177,6 +177,11 @@
         background-color: #343a40;
         color: #ffffff;
       }
+      @media (max-width: 576px) {
+        #floatingSelect {
+          max-width: 300px;
+        }
+      }
     </style>
     <link rel="stylesheet" href="/themes.css">
   </head>
@@ -219,8 +224,8 @@
                   <label class="form-check-label" for="productTypeCheckbox">Тип товара</label>
                 </div>
                 <div class="productTypeSelectRow" style="display: none;">
-                  <select class="form-select" id="productSelect" aria-label="Выберите тип продукта"
-                          style="position: relative; width: 500px; background-color: #343a40; color: #ffffff">
+                  <select class="form-select" id="floatingSelect" aria-label="Floating label select example"
+                          style="position: relative; background-color: #343a40; color: #ffffff">
                     <option th:each="product:${productsList}" th:value="${product.tamname}" th:text="${product.tamname}"></option>
                   </select>
                 </div>

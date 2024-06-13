@@ -20,7 +20,7 @@ public class ProductServices {
         return productsRepository.findAll();
     }
 
-    public BigDecimal getTamposhlByTamname(String tamname) {
+    public Double getTamposhlByTamname(String tamname) {
         return productsRepository.findByTamname(tamname)
                 .map(Products::getTamposhl)
                 .orElse(null);

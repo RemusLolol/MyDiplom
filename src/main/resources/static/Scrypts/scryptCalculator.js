@@ -419,10 +419,11 @@ function loadTableFromExcel(event) {
             tableData.shift();
             tableData.shift();
 
-            let selectedProductType = document.getElementById('floatingSelect').value;
+            let selectElement = document.getElementById('floatingSelect');
+            let allProductTypes = Array.from(selectElement.options).map(option => option.value);
 
             let filteredTableData = tableData.filter(function(row) {
-                return row[0] === selectedProductType;
+                return allProductTypes.some(type => type === row[0]);
             });
 
             let invalidRecordsCount = tableData.length - filteredTableData.length;
