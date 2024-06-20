@@ -357,7 +357,7 @@ function saveTableOnFile() {
             ws['!merges'].push({ s: { r: 0, c: 6 }, e: { r: 0, c: 7 } });
 
             XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-            XLSX.writeFile(wb, 'file.xlsx');
+            XLSX.writeFile(wb, document.getElementById('tableName').innerText +'.xlsx');
             showModalAndAlertAccept("Локальная копия сохранена");
         })
         .catch(error => {
