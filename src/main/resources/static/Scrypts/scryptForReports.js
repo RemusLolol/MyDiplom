@@ -76,7 +76,7 @@ function createReport() {
             let filteredData = data;
 
             if (productTypeCheckbox.checked) {
-                const selectedProductType = document.getElementById('productSelect').value;
+                const selectedProductType = document.getElementById('floatingSelect').value;
                 if (selectedProductType) {
                     filteredData = filteredData.filter(row => row.typetam === selectedProductType);
                 }
